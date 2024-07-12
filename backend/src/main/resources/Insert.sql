@@ -1,4 +1,4 @@
-USE FULL;
+USE ECOMMERCE;
 
 INSERT INTO customers (email, password, first_name, last_name, address, country, city, phone) VALUES
 ('sofia@example.com', 'sofia123', 'Sofia', 'Calderon', '123 Main St', 'Mexico', 'Michoacan', '4491234567'),
