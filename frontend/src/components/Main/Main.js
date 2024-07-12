@@ -8,8 +8,8 @@ function Main() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/carrito" component={Cart} />
+          <Route path="/" element={Home} />
+          <Route path="/carrito" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </div>
