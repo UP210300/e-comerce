@@ -1,4 +1,4 @@
-USE FULL;
+USE ECOMMERCE;
 
 CREATE TABLE customers (
     id_customer INT AUTO_INCREMENT PRIMARY KEY,
