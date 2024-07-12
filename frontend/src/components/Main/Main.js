@@ -8,7 +8,7 @@ function Main() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={Home} />
+          <Route path="/" element={<Home />} />
           <Route path="/carrito" element={<Cart />} />
         </Routes>
       </BrowserRouter>
