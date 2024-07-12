@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
+import Tailwind from 'primereact/passthrough/tailwind';
+import { PrimeReactProvider } from "primereact/api";
+import './index.css';
 import './styles/tailwind.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <PrimeReactProvider value={{ unstyled: false, pt: Tailwind }}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  </PrimeReactProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
