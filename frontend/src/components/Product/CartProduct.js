@@ -23,7 +23,7 @@ export default function BasicDemo() {
                     </div>
                     <div className="col-span-1 flex items-end justify-end">
                         <div>
-                            <InputNumber className="w-[50px]" showButtons />
+                            <InputNumber className="w-[10px]" showButtons />
                         </div>
                     </div>
                 </div>
