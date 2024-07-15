@@ -5,12 +5,12 @@ export default function BasicDemo() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const products = [
-    { id: 1, name: 'Imagen 1', src: require('../assets/default-image.jpg') },
-    { id: 2, name: 'Imagen 2', src: require('../assets/default-image.jpg') },
-    { id: 3, name: 'Imagen 3', src: require('../assets/default-image.jpg') },
-    { id: 4, name: 'Imagen 4', src: require('../assets/default-image.jpg') },
-    { id: 5, name: 'Imagen 5', src: require('../assets/default-image.jpg') },
-    { id: 6, name: 'Imagen 6', src: require('../assets/default-image.jpg') },
+    { id: 1, name: 'Imagen 1', src: require('../Assets/default-image.jpg') },
+    { id: 2, name: 'Imagen 2', src: require('../Assets/default-image.jpg') },
+    { id: 3, name: 'Imagen 3', src: require('../Assets/default-image.jpg') },
+    { id: 4, name: 'Imagen 4', src: require('../Assets/default-image.jpg') },
+    { id: 5, name: 'Imagen 5', src: require('../Assets/default-image.jpg') },
+    { id: 6, name: 'Imagen 6', src: require('../Assets/default-image.jpg') },
   ];
 
   const responsiveOptions = [
