@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Cart() {
+function Login() {
   return (
     <div>
-      Carrito
+      Iniciar sesión
     </div>
   );
 }
 
-export default Cart;
+export default Login;
