@@ -7,17 +7,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "categories")
+public class Category {
     @Id
-    @Column(name = "id_product")
+    @Column(name = "id_category")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idProduct;
+    private Integer idCategory;
 
     @NotEmpty
     @Column(name = "name", nullable = false, length = 100)
@@ -25,12 +24,4 @@ public class Product {
 
     @Column(name = "description", length = 255)
     private String description;
-
-    @NotNull
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private Double price;
-
-    @NotNull
-    @Column(name = "stock", nullable = false)
-    private Integer stock;
 }
