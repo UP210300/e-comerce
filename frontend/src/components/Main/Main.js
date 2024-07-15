@@ -5,6 +5,7 @@ import Cart from '../Cart/Cart';
 import ProductDetail from '../Product/ProductDetail';
 import CartProduct from '../Product/CartProduct';
 import OrderSumary from '../Cart/OrderSumary';
+import PaymentMethods from '../Cart/PaymentMethods';
 
 function Main() {
   return (
@@ -16,6 +17,7 @@ function Main() {
           <Route path="/detalle-de-producto" element={<ProductDetail />} />
           <Route path="/card-producto" element={<CartProduct />} />
           <Route path="/order-summary" element={<OrderSumary />} />
+          <Route path="/payment-methods" element={<PaymentMethods />} />
         </Routes>
       </BrowserRouter>
     </div>
