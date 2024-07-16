@@ -27,8 +27,8 @@ public class Product {
     private String description;
 
     @NotNull
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private Double price;
+    @Column(name = "price", nullable = false, precision = 10)
+    private Float price;
 
     @NotNull
     @Column(name = "stock", nullable = false)
