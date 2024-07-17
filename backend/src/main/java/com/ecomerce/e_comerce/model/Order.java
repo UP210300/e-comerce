@@ -29,7 +29,7 @@ public class Order {
     private Customer customer;
 
     @NotNull
-    @Column(name = "amount", nullable = false, precision = 10, scale = 2)
+    @Column(name = "amount", nullable = false, precision = 10)
     private Double amount;
 
     @NotEmpty

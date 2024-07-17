@@ -30,7 +30,7 @@ public class OrderDetail {
     private Product product;
 
     @NotNull
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "price", nullable = false, precision = 10)
     private Double price;
 
     @NotNull
