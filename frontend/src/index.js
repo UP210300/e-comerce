@@ -13,6 +13,9 @@ import Cart from './components/Cart/Cart';
 import ProductDetail from './components/Product/ProductDetail';
 import Login from './components/Login/Login';
 import ErrorPage from './components/Error/ErrorPage';
+import Register from './components/Login/Register';
+import ProtectedRoute from './components/Login/ProtectedRoute';
+import UserProfile from './components/UserProfile/UserProfile';
 
 
 const router = createBrowserRouter([
@@ -26,20 +29,40 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/detalle-de-producto",
+        element: <ProductDetail />,
+      },
+      {
         path: "/carrito",
         element: <Cart />,
       },
       {
-        path: "/detalle-de-producto",
-        element: <ProductDetail />,
+        path: "/pagar",
+        element: <ProtectedRoute />, // Utiliza ProtectedRoute para la ruta de pago
+        children: [
+          {
+            path: "/pagar",
+            element: <Cart />, // Esta es la ruta protegida que muestra el carrito (pago)
+          }
+        ]
+      },
+      {
+        path: "/perfil",
+        element: <ProtectedRoute />, // Utiliza ProtectedRoute para la ruta de pago
+        children: [
+          {
+            path: "/perfil",
+            element: <UserProfile />, // Esta es la ruta protegida que muestra el carrito (pago)
+          }
+        ]
       },
       {
         path: "/iniciar-sesion",
         element: <Login />,
       },
       {
-        path: "/pagar",
-        element: <  Cart />,
+        path: "/registrarme",
+        element: <Register />,
       },
     ],
   },
