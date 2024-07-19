@@ -19,6 +19,11 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
+    @GetMapping("/allOrdered")
+    public List<Category> getAllCategoriesOrderedByName() {
+        return categoryService.findAllOrderedByName();
+    }
+
     @GetMapping("/{id}")
     public Category getCategoryById(@PathVariable Integer id) {
         return categoryService.findById(id);

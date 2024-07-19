@@ -17,6 +17,11 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    public List<Category> findAllOrderedByName() {
+        return categoryRepository.findAllByOrderByNameAsc();
+    }
+
+
     public Category findById(Integer id) {
         return categoryRepository.findById(id).orElse(null);
     }
