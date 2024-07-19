@@ -34,7 +34,7 @@ public class User {
     @NotEmpty
     private String last_name;
 
-    @NotEmpty
-    private String role;
+    @Column(nullable = false)
+    private String role = "customer";
  
 }
