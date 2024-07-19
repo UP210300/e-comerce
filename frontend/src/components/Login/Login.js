@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Ruta de destino previa o por defecto '/perfil'
+  const from = location.state?.from?.pathname || '/perfil';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +24,11 @@ const Login = () => {
           password
         }
       });
-
-      // Assuming the response contains a token
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
+      console.log('data:' + response.data.value)
       setError('');
-      // Redirect to the payment view
-      navigate('/pagar');
+      navigate(from, { replace: true });
     } catch (error) {
       setError('Credenciales inválidas');
     }
