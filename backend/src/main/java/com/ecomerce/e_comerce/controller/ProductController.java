@@ -1,4 +1,5 @@
 package com.ecomerce.e_comerce.controller;
+
 import com.ecomerce.e_comerce.model.Product;
 import com.ecomerce.e_comerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productService.deleteById(id);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public List<Product> getProductsByCategoryId(@PathVariable Integer categoryId) {
+        return productService.findProductsByCategoryId(categoryId);
     }
 }
