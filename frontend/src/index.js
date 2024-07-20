@@ -13,6 +13,9 @@ import Cart from './components/Cart/Cart';
 import ProductDetail from './components/Product/ProductDetail';
 import Login from './components/Login/Login';
 import ErrorPage from './components/Error/ErrorPage';
+import Register from './components/Login/Register';
+import ProtectedRoute from './components/Login/ProtectedRoute';
+import UserProfile from './components/UserProfile/UserProfile';
 
 
 const router = createBrowserRouter([
@@ -21,29 +24,25 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/carrito",
-        element: <Cart />,
-      },
-      {
-        path: "/detalle-de-producto",
-        element: <ProductDetail />,
-      },
-      {
-        path: "/iniciar-sesion",
-        element: <Login />,
-      },
+      { path: "/", element: <Home /> },
+      { path: "/detalle-de-producto", element: <ProductDetail /> },
+      { path: "/carrito", element: <Cart /> },
+      { path: "/iniciar-sesion", element: <Login /> },
+      { path: "/registrarme", element: <Register /> },
       {
         path: "/pagar",
-        element: <  Cart />,
+        element: <ProtectedRoute />, // Protecting this route
+        children: [{ path: "", element: <Cart /> }],
+      },
+      {
+        path: "/perfil",
+        element: <ProtectedRoute />, // Protecting this route
+        children: [{ path: "", element: <UserProfile /> }],
       },
     ],
   },
 ]);
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
