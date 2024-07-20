@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/auth")
 public class UserController {
@@ -28,9 +31,14 @@ public class UserController {
                     // Generar el token JWT usando el ID del usuario autenticado
                     String token = JwtUtil.generateToken(user.getUserId());
                     // Retornar el token en formato JSON
-                    return ResponseEntity.ok("{\"token\":\"" + token + "\"}");
+                    return ResponseEntity.ok("{\"token\":\"" + token + "\", \"userId\":\"" + user.getUserId() + "\"}");
                 })
-                .orElseGet(() -> ResponseEntity.status(401).body("Invalid credentials"));
+                .orElseGet(() -> ResponseEntity.status(401).body("{\"message\": \"Invalid credentials\"}"));
+    }
+  
+    @GetMapping({ "/getUser/{id}" })
+    public ResponseEntity<Optional<User>> getCliente(@PathVariable Long id) {
+      return ResponseEntity.ok(userService.getUser(id));
     }
 }
 

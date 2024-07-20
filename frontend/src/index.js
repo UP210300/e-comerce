@@ -24,49 +24,25 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/detalle-de-producto",
-        element: <ProductDetail />,
-      },
-      {
-        path: "/carrito",
-        element: <Cart />,
-      },
+      { path: "/", element: <Home /> },
+      { path: "/detalle-de-producto", element: <ProductDetail /> },
+      { path: "/carrito", element: <Cart /> },
+      { path: "/iniciar-sesion", element: <Login /> },
+      { path: "/registrarme", element: <Register /> },
       {
         path: "/pagar",
-        element: <ProtectedRoute />, // Utiliza ProtectedRoute para la ruta de pago
-        children: [
-          {
-            path: "/pagar",
-            element: <Cart />, // Esta es la ruta protegida que muestra el carrito (pago)
-          }
-        ]
+        element: <ProtectedRoute />, // Protecting this route
+        children: [{ path: "", element: <Cart /> }],
       },
       {
         path: "/perfil",
-        element: <ProtectedRoute />, // Utiliza ProtectedRoute para la ruta de pago
-        children: [
-          {
-            path: "/perfil",
-            element: <UserProfile />, // Esta es la ruta protegida que muestra el carrito (pago)
-          }
-        ]
-      },
-      {
-        path: "/iniciar-sesion",
-        element: <Login />,
-      },
-      {
-        path: "/registrarme",
-        element: <Register />,
+        element: <ProtectedRoute />, // Protecting this route
+        children: [{ path: "", element: <UserProfile /> }],
       },
     ],
   },
 ]);
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

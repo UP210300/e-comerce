@@ -1,5 +1,6 @@
 package com.ecomerce.e_comerce.service;
 
+//import com.ecomerce.e_comerce.exception.ExcepcionRecursoNoEncontrado;
 import com.ecomerce.e_comerce.model.User;
 import com.ecomerce.e_comerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ public class UserService {
     );
 
     public User registerUser(User user) {
-        // No codificamos la contraseña, la almacenamos tal cual
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("customer");
+        }
+
         return userRepository.save(user);
     }
 
@@ -27,10 +31,8 @@ public class UserService {
         Optional<User> userOptional;
 
         if (EMAIL_PATTERN.matcher(usernameOrEmail).matches()) {
-            // Es un correo electrónico
             userOptional = userRepository.findByEmail(usernameOrEmail);
         } else {
-            // Es un nombre de usuario
             userOptional = userRepository.findByUsername(usernameOrEmail);
         }
 
@@ -39,4 +41,9 @@ public class UserService {
         }
         return Optional.empty();
     }
+
+    public Optional<User> getUser(long id) {
+        return userRepository.findById(id);
+    }
+  
 }
