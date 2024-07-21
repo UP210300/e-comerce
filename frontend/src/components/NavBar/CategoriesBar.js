@@ -20,7 +20,7 @@ function NavBar() {
 
   return (
     <div>
-      <ul className="flex w-full flex-row items-center justify-around p-1">
+      <ul className="flex w-full flex-row items-center justify-around p-1 border border-b">
         <li>
           <Dropdown
             value={selectedCategory}

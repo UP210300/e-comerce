@@ -1,5 +1,6 @@
 package com.ecomerce.e_comerce.controller;
 
+import com.ecomerce.e_comerce.model.Product;
 import com.ecomerce.e_comerce.dto.ProductDTO;
 import com.ecomerce.e_comerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,10 @@ public class ProductController {
         productService.deleteById(id);
     }
 
+    @GetMapping("/category/{categoryId}")
+    public List<Product> getProductsByCategoryId(@PathVariable Integer categoryId) {
+        return productService.findProductsByCategoryId(categoryId);
+
     @GetMapping("/search")
     public List<ProductDTO> findProductsByName(@RequestParam String name) {
         return productService.findProductsByName(name);
@@ -57,5 +62,6 @@ public class ProductController {
     @GetMapping("/top-expensive")
     public List<Object[]> findTopNMostExpensiveProducts(@RequestParam Integer limit) {
         return productService.findTopNMostExpensiveProducts(limit);
+
     }
 }

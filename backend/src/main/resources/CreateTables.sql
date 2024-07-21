@@ -1,15 +1,23 @@
 USE ECOMMERCE;
 
-CREATE TABLE customers (
-    id_customer INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL,
+CREATE TABLE users (
+    id_user INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE customers (
+    id_customer INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
     address VARCHAR(255) NOT NULL,
     country VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) NOT NULL
+    phone VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
 CREATE TABLE categories (
