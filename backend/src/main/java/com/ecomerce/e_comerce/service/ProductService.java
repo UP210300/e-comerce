@@ -59,6 +59,10 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+
+    public List<Product> findProductsByCategoryId(Integer categoryId) {
+        return productRepository.findProductsByCategoryId(categoryId);
+
     public List<ProductDTO> findProductsByName(String name) {
         Collection<Product> products = productRepository.findProductsByName(name);
         return products.stream()
@@ -79,5 +83,6 @@ public class ProductService {
 
     public List<Object[]> findTopNMostExpensiveProducts(Integer limit) {
         return productRepository.findTopNMostExpensiveProducts(limit);
+
     }
 }
