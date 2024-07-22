@@ -1,8 +1,6 @@
--- Crear base de datos y usarla
 CREATE DATABASE IF NOT EXISTS ECOMMERCE;
 USE ECOMMERCE;
 
--- Crear tabla users
 CREATE TABLE users (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
@@ -13,14 +11,14 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL
 );
 
--- Crear tabla categories
+
 CREATE TABLE categories (
     id_category INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255)
 );
 
--- Crear tabla products
+
 CREATE TABLE products (
     id_product INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -31,7 +29,7 @@ CREATE TABLE products (
     FOREIGN KEY (id_category) REFERENCES categories(id_category) 
 );
 
--- Crear tabla customers
+
 CREATE TABLE customers (
     id_customer INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
@@ -42,7 +40,6 @@ CREATE TABLE customers (
     FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE SET NULL
 );
 
--- Crear tabla orders
 CREATE TABLE orders (
     id_order INT AUTO_INCREMENT PRIMARY KEY,
     id_customer INT NOT NULL,
@@ -53,7 +50,7 @@ CREATE TABLE orders (
     FOREIGN KEY (id_customer) REFERENCES customers(id_customer) ON DELETE CASCADE
 );
 
--- Crear tabla product_categories
+
 CREATE TABLE product_categories (
     id_product INT,
     id_category INT,
@@ -62,7 +59,7 @@ CREATE TABLE product_categories (
     FOREIGN KEY (id_category) REFERENCES categories(id_category) ON DELETE CASCADE
 );
 
--- Crear tabla order_details
+
 CREATE TABLE order_details (
     id_order INT,
     id_product INT,
