@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import CategoriesBar from './CategoriesBar';
+import ProductList from '../Product/ProductList'; // Importa el componente ProductList
 
 function NavBar() {
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [value, setValue] = useState([]);
+
   return (
     <div className="flex flex-col">
       <div className="flex w-full flex-row justify-around bg-slate-500 p-4 text-white">
@@ -16,8 +20,13 @@ function NavBar() {
             </Link>
           </button>
         </div>
-        <div className="text-slate-800">
-          <SearchBar />
+        <div className="static text-slate-800 w-1/2 lg:w-1/3">
+          <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} searchValue={setValue} />
+          {value && (
+            <div className="absolute z-20 bg-white">
+              <ProductList className="absolut" products={filteredProducts} />
+            </div>
+          )}
         </div>
         <div className="flex flex-row space-x-10">
           <div>

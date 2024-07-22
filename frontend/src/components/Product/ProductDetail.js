@@ -1,10 +1,27 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import { useCart } from '../context/CartContext';
 
 function ProductDetail() {
+  const { id } = useParams(); // Obtener el id del producto de la URL
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/products/${id}`)
+      .then(response => {
+        setProduct(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching product details:', error);
+      });
+  }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
+  }
   const { addToCart } = useCart();
   const product = { id: 1, name: "Producto", price: 100.00 }; 
   const [quantity, setQuantity] = useState(1);
@@ -28,8 +45,14 @@ function ProductDetail() {
         </div>
         <div className="space-y-10">
           <div className="space-y-5">
-            <h1 className="font-semibold text-4xl">Producto</h1>
+            <h1 className="font-semibold text-4xl">{product.name}</h1>
             <p className="text-xl">
+              {product.description}
+            </p>
+          </div>
+          <div className="text-xl space-y-5">
+            <p>${product.price.toFixed(2)}</p>
+            <InputNumber showButtons />
               Detalle de producto
             </p>
           </div>
