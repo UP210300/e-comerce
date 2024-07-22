@@ -8,7 +8,8 @@ import { useCart } from '../context/CartContext';
 function ProductDetail() {
   const { id } = useParams(); // Obtener el id del producto de la URL
   const [product, setProduct] = useState(null);
-
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     axios.get(`http://localhost:8080/api/products/${id}`)
       .then(response => {
@@ -22,9 +23,6 @@ function ProductDetail() {
   if (!product) {
     return <div>Loading...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
   }
-  const { addToCart } = useCart();
-  const product = { id: 1, name: "Producto", price: 100.00 }; 
-  const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity });
@@ -52,12 +50,8 @@ function ProductDetail() {
           </div>
           <div className="text-xl space-y-5">
             <p>${product.price.toFixed(2)}</p>
-            <InputNumber showButtons />
-              Detalle de producto
-            </p>
           </div>
           <div className="text-xl space-y-5">
-            <p>$100.00</p>
             <InputNumber value={quantity} onValueChange={(e) => setQuantity(e.value)} showButtons />
           </div>
           <div className="flex flex-col space-y-5">
