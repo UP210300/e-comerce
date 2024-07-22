@@ -7,18 +7,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import  jakarta.validation.constraints.NotEmpty;
-
 @Data
-public class CategoryDTO {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductDTO {
 
     @JsonIgnore
-    private Integer idCategory;
+    private Integer idProduct;
 
-    @NotEmpty
     @JsonProperty("name")
     private String name;
 
     @JsonProperty("description")
     private String description;
+
+    @JsonProperty("price")
+    private Float price;
+
+    @JsonProperty("stock")
+    private Integer stock;
 }
