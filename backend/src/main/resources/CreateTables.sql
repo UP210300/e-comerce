@@ -26,7 +26,9 @@ CREATE TABLE products (
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255),
     price DECIMAL(10, 2) NOT NULL,
-    stock INT NOT NULL
+    stock INT NOT NULL,
+    id_category INT, 
+    FOREIGN KEY (id_category) REFERENCES categories(id_category) 
 );
 
 -- Crear tabla customers
