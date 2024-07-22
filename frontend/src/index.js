@@ -16,6 +16,7 @@ import ErrorPage from './components/Error/ErrorPage';
 import Register from './components/Login/Register';
 import ProtectedRoute from './components/Login/ProtectedRoute';
 import UserProfile from './components/UserProfile/UserProfile';
+import { CartProvider } from './components/context/CartContext';
 
 
 const router = createBrowserRouter([
@@ -47,9 +48,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <PrimeReactProvider value={{ unstyled: false, pt: Tailwind }}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <CartProvider>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+    </CartProvider>
   </PrimeReactProvider>
 );
 
