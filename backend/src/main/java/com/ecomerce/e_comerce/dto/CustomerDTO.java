@@ -7,15 +7,8 @@ import lombok.Data;
 public class CustomerDTO {
 
     private Integer idCustomer;
-
-    @NotEmpty
-    private String email;
-
-     @NotEmpty
-    private String password;
-
-    @NotEmpty
-    private String fullName;
+    
+    private Integer user;
 
     @NotEmpty
     private String address;
@@ -28,5 +21,4 @@ public class CustomerDTO {
 
     @NotEmpty
     private String phone;
-
 }
