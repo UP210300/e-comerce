@@ -62,6 +62,7 @@ public class ProductService {
 
     public List<Product> findProductsByCategoryId(Integer categoryId) {
         return productRepository.findProductsByCategoryId(categoryId);
+    }
 
     public List<ProductDTO> findProductsByName(String name) {
         Collection<Product> products = productRepository.findProductsByName(name);
