@@ -1,11 +1,6 @@
 package com.ecomerce.e_comerce.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -18,17 +13,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCustomer;
 
-    @NotEmpty
-    @Column(name = "email", nullable = false, length = 100)
-    private String email;
-
-    @NotEmpty
-    @Column(name = "password", nullable = false, length = 100)
-    private String password;
-
-    @NotEmpty
-    @Column(name = "full_name", nullable = false, length = 100)
-    private String fullName;
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+    private User user;
 
     @NotEmpty
     @Column(name = "address", nullable = false, length = 255)
