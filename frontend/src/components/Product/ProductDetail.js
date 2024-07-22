@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 
 function ProductDetail() {
+  const { id } = useParams(); // Obtener el id del producto de la URL
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/products/${id}`)
+      .then(response => {
+        setProduct(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching product details:', error);
+      });
+  }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
+  }
+
   return (
     <div>
       <div className="grid md:grid-cols-2 space-y-10 md:space-y-0 md:space-x-10">
@@ -18,16 +37,13 @@ function ProductDetail() {
         </div>
         <div className="space-y-10">
           <div className="space-y-5">
-            <h1 className="font-semibold text-4xl">Producto</h1>
+            <h1 className="font-semibold text-4xl">{product.name}</h1>
             <p className="text-xl">
-              Detalle de producto 
-
-
-              
+              {product.description}
             </p>
           </div>
           <div className="text-xl space-y-5">
-            <p>$100.00</p>
+            <p>${product.price.toFixed(2)}</p>
             <InputNumber showButtons />
           </div>
           <div className="flex flex-col space-y-5" >

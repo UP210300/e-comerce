@@ -3,7 +3,7 @@ package com.ecomerce.e_comerce.mappers;
 import com.ecomerce.e_comerce.dto.ProductDTO;
 import com.ecomerce.e_comerce.model.Product;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+//import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.InjectionStrategy;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public interface ProductMapper {
   
-  @Mapping(target = "idProduct", ignore = true)
+  //@Mapping(target = "idProduct", ignore = true)
   ProductDTO toProductDTO(Product product);
 
   Product toProduct(ProductDTO productDTO);

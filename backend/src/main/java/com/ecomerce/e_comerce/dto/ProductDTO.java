@@ -1,6 +1,7 @@
+
 package com.ecomerce.e_comerce.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductDTO {
 
-    @JsonIgnore
+    @JsonProperty("id")
     private Integer idProduct;
 
     @JsonProperty("name")
