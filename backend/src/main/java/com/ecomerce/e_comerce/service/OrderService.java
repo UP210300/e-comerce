@@ -59,4 +59,25 @@ public class OrderService {
         }
         orderRepository.deleteById(id);
     }
+
+    public List<OrderDTO> findAllSortedByDate() {
+        List<Order> orders = orderRepository.findAllOrderedByDate();
+        return orders.stream()
+                .map(orderMapper::toOrderDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDTO> findAllSortedByCustomerId() {
+        List<Order> orders = orderRepository.findAllOrderedByCustomerId();
+        return orders.stream()
+                .map(orderMapper::toOrderDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDTO> findOrdersByCustomerId(Integer idCustomer) {
+        List<Order> orders = orderRepository.findByCustomerId(idCustomer);
+        return orders.stream()
+                .map(orderMapper::toOrderDTO)
+                .collect(Collectors.toList());
+    }
 }

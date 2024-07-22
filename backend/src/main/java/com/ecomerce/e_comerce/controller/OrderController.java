@@ -1,7 +1,6 @@
 package com.ecomerce.e_comerce.controller;
 
 import com.ecomerce.e_comerce.dto.OrderDTO;
-import com.ecomerce.e_comerce.model.Order;
 import com.ecomerce.e_comerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +37,20 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Integer id) {
         orderService.deleteById(id);
+    }
+
+    @GetMapping("/sorted-by-date")
+    public List<OrderDTO> getOrdersSortedByDate() {
+        return orderService.findAllSortedByDate();
+    }
+
+    @GetMapping("/sorted-by-customer-id")
+    public List<OrderDTO> getOrdersSortedByCustomerId() {
+        return orderService.findAllSortedByCustomerId();
+    }
+
+    @GetMapping("/by-customer/{idCustomer}")
+    public List<OrderDTO> getOrdersByCustomerId(@PathVariable Integer idCustomer) {
+        return orderService.findOrdersByCustomerId(idCustomer);
     }
 }

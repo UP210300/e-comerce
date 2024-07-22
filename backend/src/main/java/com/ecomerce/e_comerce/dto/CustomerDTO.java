@@ -8,7 +8,7 @@ public class CustomerDTO {
 
     private Integer idCustomer;
     
-    private Integer idUser;
+    private Integer user;
 
     @NotEmpty
     private String address;
