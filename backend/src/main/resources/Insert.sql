@@ -31,17 +31,17 @@ INSERT INTO orders (id_customer, amount, shipping_address, order_date, order_sta
 
 
 INSERT INTO product_categories (id_product, id_category) VALUES
-(6, 1), 
-(7, 2),  
-(8, 3),  
-(9, 3), 
-(10, 2)  
+(1, 2), 
+(2, 2),  
+(3, 2),  
+(4, 3), 
+(5, 1); 
 
 
 INSERT INTO order_details (id_order, id_product, price, quantity) VALUES
-(1, 6, 30.00, 1),
-(1, 7, 5.00, 1),   
-(2, 7, 5.00, 2), 
-(2, 8, 7.00, 1),   
-(3, 9, 600.00, 1),
-(3, 10, 200.00, 1);
+(1, 1, 30.00, 1),
+(1, 2, 5.00, 1),   
+(2, 2, 5.00, 2), 
+(2, 3, 7.00, 1),   
+(3, 4, 600.00, 1),
+(3, 5, 200.00, 1);
