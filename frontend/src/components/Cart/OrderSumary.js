@@ -9,6 +9,10 @@ export default function OrderSummary() {
   const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
   const totalPrice = cart.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
 
+  if (cart.length === 0) {
+    return null; // No renderizar nada si el carrito está vacío
+  }
+
   return (
     <div className="p-10">
       <div className="border-b border-black">

@@ -5,12 +5,15 @@ import { InputNumber } from 'primereact/inputnumber';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from '../context/CartContext'; 
+import { useRouteError, Link } from "react-router-dom";
 
 export default function CartProduct() {
   const { cart, removeFromCart, updateCartQuantity } = useCart();
 
   if (!cart || cart.length === 0) {
-    return <div>No items in cart</div>;
+    return <div className="flex flex-col items-center justify-center text-center"><p className="text-2xl font-bold mb-2 text-center">Sin productos en el carrito.</p><button className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-600 text-center">
+    <Link to="/">Regresar a la página principal</Link>
+  </button></div>;
   }
 
   return (
