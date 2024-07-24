@@ -1,5 +1,6 @@
 package com.ecomerce.e_comerce.controller;
 
+import com.ecomerce.e_comerce.dto.CategoryDTO;
 import com.ecomerce.e_comerce.model.Category;
 import com.ecomerce.e_comerce.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,29 +16,28 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public List<Category> getAllCategories() {
+    public List<CategoryDTO> getAllCategories() {
         return categoryService.findAll();
     }
 
     @GetMapping("/allOrdered")
-    public List<Category> getAllCategoriesOrderedByName() {
+    public List<CategoryDTO> getAllCategoriesOrderedByName() {
         return categoryService.findAllOrderedByName();
     }
 
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable Integer id) {
+    public CategoryDTO getCategoryById(@PathVariable Integer id) {
         return categoryService.findById(id);
     }
 
-    @PostMapping ("/addCategory")
-    public Category createCategory(@RequestBody Category category) {
-        return categoryService.save(category);
+    @PostMapping("/addCategory")
+    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.save(categoryDTO);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory(@PathVariable Integer id, @RequestBody Category category) {
-        category.setIdCategory(id);
-        return categoryService.save(category);
+    public CategoryDTO updateCategory(@PathVariable Integer id, @RequestBody CategoryDTO categoryDTO) {
+        return categoryService.update(id, categoryDTO);
     }
 
     @DeleteMapping("/{id}")
