@@ -6,6 +6,7 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
@@ -23,8 +24,16 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const toggleItemSelection = (productId) => {
+    setSelectedItems((prev) =>
+      prev.includes(productId)
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateCartQuantity }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateCartQuantity, selectedItems, toggleItemSelection }}>
       {children}
     </CartContext.Provider>
   );

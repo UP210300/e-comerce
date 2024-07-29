@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
 
 const menuItems = [
@@ -12,11 +12,24 @@ const menuItems = [
 
 function NavBar() {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = [
-    { name: 'Categoría 1', value: 1 },
-    { name: 'Categoría 2', value: 2 },
-    { name: 'Categoría 3', value: 3 },
-  ];
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('http://localhost:8585/api/categories');
+      const data = await response.json();
+      setCategories(data.map(category => ({
+        name: category.name,
+        value: category.id 
+      })));
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <div>
