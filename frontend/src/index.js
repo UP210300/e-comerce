@@ -19,6 +19,7 @@ import UserProfile from './components/UserProfile/UserProfile';
 import { CartProvider } from './components/context/CartContext';
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
