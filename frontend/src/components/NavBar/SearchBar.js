@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
 import axios from 'axios';
 
-export default function SearchBar({ onProductsFiltered,searchValue }) {
+export default function SearchBar({ onProductsFiltered, searchValue }) {
   const [value, setValue] = useState('');
   const [products, setProducts] = useState([]);
 
@@ -18,12 +18,12 @@ export default function SearchBar({ onProductsFiltered,searchValue }) {
   }, [onProductsFiltered]);
 
   useEffect(() => {
-    const filteredProducts = products.filter(product => 
+    const filteredProducts = products.filter(product =>
       product.name.toLowerCase().includes(value.toLowerCase())
     );
     onProductsFiltered(filteredProducts);
-    searchValue(value);
-  }, [value, products, onProductsFiltered]);
+    searchValue(value);  // Ensure this updates the search value correctly
+  }, [value, products, onProductsFiltered, searchValue]);
 
   return (
     <div>

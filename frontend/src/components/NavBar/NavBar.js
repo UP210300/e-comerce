@@ -6,7 +6,7 @@ import ProductList from '../Product/ProductList'; // Importa el componente Produ
 
 function NavBar() {
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [value, setValue] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <div className="flex flex-col">
@@ -20,11 +20,11 @@ function NavBar() {
             </Link>
           </button>
         </div>
-        <div className="static text-slate-800 w-1/2 lg:w-1/3">
-          <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} searchValue={setValue} />
-          {value && (
+        <div className="relative text-slate-800 w-1/2 lg:w-1/3">
+          <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} searchValue={setSearchValue} />
+          {searchValue && (
             <div className="absolute z-20 bg-white">
-              <ProductList className="absolut" products={filteredProducts} />
+              <ProductList className="absolute" products={filteredProducts} />
             </div>
           )}
         </div>

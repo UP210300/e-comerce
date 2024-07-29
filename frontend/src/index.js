@@ -17,6 +17,8 @@ import Register from './components/Login/Register';
 import ProtectedRoute from './components/Login/ProtectedRoute';
 import UserProfile from './components/UserProfile/UserProfile';
 import { CartProvider } from './components/context/CartContext';
+import { SearchProvider } from './components/context/SearchContext';
+
 
 
 const router = createBrowserRouter([
@@ -26,18 +28,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/detalle-de-producto:item.id", element: <ProductDetail /> },
+      { path: "/detalle-de-producto/:id", element: <ProductDetail /> },
       { path: "/carrito", element: <Cart /> },
       { path: "/iniciar-sesion", element: <Login /> },
       { path: "/registrarme", element: <Register /> },
       {
         path: "/pagar",
-        element: <ProtectedRoute />, // Protecting this route
+        element: <ProtectedRoute />,
         children: [{ path: "", element: <Cart /> }],
       },
       {
         path: "/perfil",
-        element: <ProtectedRoute />, // Protecting this route
+        element: <ProtectedRoute />, 
         children: [{ path: "", element: <UserProfile /> }],
       },
     ],
@@ -48,11 +50,13 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <PrimeReactProvider value={{ unstyled: false, pt: Tailwind }}>
-    <CartProvider>
-      <React.StrictMode>
-        <RouterProvider router={router} />
-      </React.StrictMode>
-    </CartProvider>
+    <React.StrictMode>
+      <SearchProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
+      </SearchProvider>
+    </React.StrictMode>
   </PrimeReactProvider>
 );
 
