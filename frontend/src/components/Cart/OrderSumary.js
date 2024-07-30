@@ -14,7 +14,7 @@ export default function OrderSummary() {
   const totalPrice = filteredCart.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
 
   if (cart.length === 0) {
-    return null; // No renderizar nada si el carrito está vacío
+    return null; 
   }
 
   return (

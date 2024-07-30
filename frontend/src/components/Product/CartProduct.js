@@ -33,18 +33,18 @@ export default function CartProduct() {
               onClick={() => removeFromCart(item.id)} 
             />
           </div>
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center ">
             <Checkbox 
               checked={isItemSelected(item.id)} 
               onChange={() => handleCheckboxChange(item)} 
               className="mr-4" 
             />
-            <img src={item.image} className="w-[20vw] h-[20vw] md:w-[9vw] md:h-[9vw]" alt="Imagen" />
+            <img src={require('../assets/default-image.jpg')} alt=""  className="md:w-1/6 m-6 flex-6"/>
             <div className="ml-4">
-              <p className="font-bold text-xl mb-1">{item.name}</p>
+              <p className="font-bold text-xl mb-1">{item.description} </p>
               <p>${item.price}</p>
             </div>
-            <div className="col-span-1 flex items-end justify-end">
+            <div className="col-span-2 flex items-end justify-end ">
               <div>
                 <InputNumber 
                   value={item.quantity} 

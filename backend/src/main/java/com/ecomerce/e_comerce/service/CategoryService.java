@@ -1,11 +1,15 @@
 package com.ecomerce.e_comerce.service;
 
+import com.ecomerce.e_comerce.dto.CategoryDTO;
+import com.ecomerce.e_comerce.exception.CategoryNotFoundException;
 import com.ecomerce.e_comerce.model.Category;
 import com.ecomerce.e_comerce.repository.CategoryRepository;
+import com.ecomerce.e_comerce.mappers.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -13,24 +17,50 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    @Autowired
+    private CategoryMapper categoryMapper;
+
+    public List<CategoryDTO> findAll() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream()
+                .map(categoryMapper::toCategoryDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Category> findAllOrderedByName() {
-        return categoryRepository.findAllByOrderByNameAsc();
+    public List<CategoryDTO> findAllOrderedByName() {
+        List<Category> categories = categoryRepository.findAllByOrderByNameAsc();
+        return categories.stream()
+                .map(categoryMapper::toCategoryDTO)
+                .collect(Collectors.toList());
     }
 
-
-    public Category findById(Integer id) {
-        return categoryRepository.findById(id).orElse(null);
+    public CategoryDTO findById(Integer id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
+        return categoryMapper.toCategoryDTO(category);
     }
 
-    public Category save(Category category) {
-        return categoryRepository.save(category);
+    public CategoryDTO save(CategoryDTO categoryDTO) {
+        Category category = categoryMapper.toCategory(categoryDTO);
+        Category savedCategory = categoryRepository.save(category);
+        return categoryMapper.toCategoryDTO(savedCategory);
+    }
+
+    public CategoryDTO update(Integer id, CategoryDTO categoryDTO) {
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
+
+        existingCategory.setName(categoryDTO.getName());
+        existingCategory.setDescription(categoryDTO.getDescription());
+
+        Category updatedCategory = categoryRepository.save(existingCategory);
+        return categoryMapper.toCategoryDTO(updatedCategory);
     }
 
     public void deleteById(Integer id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new CategoryNotFoundException("Category with ID " + id + " not found");
+        }
         categoryRepository.deleteById(id);
     }
 }

@@ -24,7 +24,7 @@ export default function BasicDemo() {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch('http://localhost:8585/api/categories');
+            const response = await fetch('http://localhost:8080/api/categories');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

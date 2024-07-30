@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
@@ -10,6 +10,8 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate(); // Para manejar la navegación
+
   useEffect(() => {
     axios.get(`http://localhost:8080/api/products/${id}`)
       .then(response => {
@@ -26,6 +28,11 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity });
+  };
+
+  const handleBuy = () => {
+    addToCart({ ...product, quantity });
+    navigate('/carrito'); // Redirige al carrito
   };
 
   return (
@@ -56,7 +63,7 @@ function ProductDetail() {
           </div>
           <div className="flex flex-col space-y-5">
             <Button label="Agregar al carrito" className="bg-slate-300 p-2" onClick={handleAddToCart} />
-            <Button label="Comprar" className="bg-slate-300 p-2" />
+            <Button label="Comprar" className="bg-slate-300 p-2" onClick={handleBuy} />
           </div>
         </div>
       </div>
