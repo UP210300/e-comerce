@@ -1,7 +1,7 @@
 import React from 'react'; 
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext'; 
+import { useCart } from '../../context/CartContext'; 
 
 export default function OrderSummary() {
   const { cart, selectedItems } = useCart();

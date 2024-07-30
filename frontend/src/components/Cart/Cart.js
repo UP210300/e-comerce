@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import CartProduct from '../Product/CartProduct';
-import OrderSumary from './OrderSumary'; // Asegúrate de que el nombre esté correctamente importado
+import OrderSumary from './OrderSumary'; 
 import PaymentMethod from './PaymentMethods';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 
 function Cart() {

@@ -1,33 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
 import axios from 'axios';
+import { useSearch } from '../../context/SearchContext';
+import { Button } from 'primereact/button';
+import { Link } from 'react-router-dom';
 
-export default function SearchBar({ onProductsFiltered, searchValue }) {
-  const [value, setValue] = useState('');
-  const [products, setProducts] = useState([]);
+export default function SearchBar() {
+  const { searchValue, updateSearchValue, updateProducts } = useSearch();
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/products')
       .then(response => {
-        setProducts(response.data);
-        onProductsFiltered(response.data);
+        updateProducts(response.data); 
       })
       .catch(error => {
         console.error('Error fetching products:', error);
       });
-  }, [onProductsFiltered]);
+  }, [updateProducts]);
 
-  useEffect(() => {
-    const filteredProducts = products.filter(product =>
-      product.name.toLowerCase().includes(value.toLowerCase())
-    );
-    onProductsFiltered(filteredProducts);
-    searchValue(value);  // Ensure this updates the search value correctly
-  }, [value, products, onProductsFiltered, searchValue]);
+  const handleSearchChange = (e) => {
+    updateSearchValue(e.target.value); 
+  };
 
   return (
-    <div>
-      <InputText value={value} onChange={(e) => setValue(e.target.value)} className="w-full" placeholder="Buscar..." />
+    <div className="flex flex-row space-x-2">
+      <InputText 
+        value={searchValue} 
+        onChange={handleSearchChange} 
+        className="w-4/5" placeholder="Buscar..." />
+      {searchValue && (
+        <Button 
+          className="bg-transparent border-transparent font-semibold hover:bg-slate-600">
+             <Link to="/buscar">
+             Buscar
+             </Link>
+        </Button>
+      )}
     </div>
   );
 }
