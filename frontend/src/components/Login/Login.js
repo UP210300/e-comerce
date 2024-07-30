@@ -3,6 +3,8 @@ import axios from 'axios';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -35,7 +37,18 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-10">
+    <div className="relative flex flex-col items-center justify-center space-y-10">
+      {/* Botón para regresar al menú principal */}
+      <div className="absolute top-4 right-4">
+        <Link to="/">
+          <Button 
+            label="Inicio" 
+            icon={<FontAwesomeIcon icon={faHome} className="mr-2" />} 
+            className="bg-slate-300 p-2 w-full"
+          />
+        </Link>
+      </div>
+
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="flex flex-col">
