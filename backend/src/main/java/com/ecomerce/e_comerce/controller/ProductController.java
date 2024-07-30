@@ -25,7 +25,7 @@ public class ProductController {
         return productService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping ("/addProduct")
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
         return productService.save(productDTO);
     }
@@ -60,9 +60,5 @@ public class ProductController {
         return productService.countProductsByCategory();
     }
 
-    @GetMapping("/top-expensive")
-    public List<Object[]> findTopNMostExpensiveProducts(@RequestParam Integer limit) {
-        return productService.findTopNMostExpensiveProducts(limit);
 
-    }
 }

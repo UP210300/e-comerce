@@ -24,7 +24,7 @@ public class OrderController {
         return orderService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping ("/addOrder")
     public OrderDTO createOrder(@RequestBody OrderDTO orderDTO) {
         return orderService.save(orderDTO);
     }

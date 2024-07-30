@@ -16,4 +16,10 @@ public class ProductCategoryId implements Serializable {
     @Column(name = "id_category")
     private Integer idCategory;
 
+    public ProductCategoryId() {}
+
+    public ProductCategoryId(Integer idProduct, Integer idCategory) {
+        this.idProduct = idProduct;
+        this.idCategory = idCategory;
+    }
 }

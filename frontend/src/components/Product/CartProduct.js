@@ -39,7 +39,7 @@ export default function CartProduct() {
               onChange={() => handleCheckboxChange(item)} 
               className="mr-4" 
             />
-            <img src={require('../assets/default-image.jpg')} alt=""  className="md:w-1/6 m-6 flex-6"/>
+            <img src='/assets/default-image.jpg' alt=""  className="md:w-1/6 m-6 flex-6"/>
             <div className="ml-4">
               <p className="font-bold text-xl mb-1">{item.description} </p>
               <p>${item.price}</p>

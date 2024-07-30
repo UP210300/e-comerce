@@ -32,7 +32,7 @@ export default function Product({ product }) {
         <div className="my-8">
             <Toast ref={toast} />
             <Link to={`/detalle-de-producto/${product.id}`} className="md:w-1/3 m-6 flex-6 no-underline" style={{ textDecoration: 'none' }} key={product.id}>
-                <Card footer={footer(product)} header={<img src={require('../assets/default-image.jpg')} alt="" className="w-full h-full object-cover"/>} className="w-full h-full object-cover">
+                <Card footer={footer(product)}  header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover"/>} className="w-full h-full object-cover">
                     <div className="flex flex-col">
                         <div className="flex flex-row justify-between">
                         <p>{product.description}</p>

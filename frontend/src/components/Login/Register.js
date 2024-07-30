@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,9 +31,9 @@ const Register = () => {
         role
       });
 
-      setSuccess('User registered successfully');
+      setSuccess('Usuario registrado exitosamente');
       setError('');
-      // Clear form fields
+      // Limpiar campos del formulario
       setUsername('');
       setEmail('');
       setPassword('');
@@ -40,16 +42,27 @@ const Register = () => {
       setRole('');
       navigate("/pagar");
     } catch (error) {
-      setError('Registration failed');
+      setError('El registro falló');
       setSuccess('');
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-10">
+    <div className="relative flex flex-col items-center justify-center space-y-10">
+      {/* Botón para regresar al menú principal */}
+      <div className="absolute top-4 right-4">
+        <Link to="/">
+          <Button 
+            label="Inicio" 
+            icon={<FontAwesomeIcon icon={faHome} className="mr-2" />} 
+            className="bg-slate-300 p-2"
+          />
+        </Link>
+      </div>
+
       <h2>Registrarme</h2>
-      <form onSubmit={handleSubmit}className="space-y-5">
-      <div className="grid grid-cols-2 gap-x-2">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="grid grid-cols-2 gap-x-2">
           <div className="flex flex-col">
             <label>Nombre</label>
             <InputText
@@ -88,9 +101,9 @@ const Register = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label>Correo</label>
+          <label>Rol</label>
           <InputText
-            type="role"
+            type="text"
             value={role}
             onChange={(e) => setRole(e.target.value)}
             required
@@ -107,7 +120,7 @@ const Register = () => {
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {success && <p style={{ color: 'green' }}>{success}</p>}
-        <Button label="Registrarme" type="submit"className="bg-slate-300 p-2 w-full" />
+        <Button label="Registrarme" type="submit" className="bg-slate-300 p-2 w-full" />
       </form>
       <div className="flex flex-row space-x-1">
         <p>Ya tengo una cuenta.</p> 
