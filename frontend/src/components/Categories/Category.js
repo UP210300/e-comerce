@@ -53,7 +53,7 @@ export default function BasicDemo() {
                         key={category.idCategory} 
                         header={
                             <div style={headerStyle}>
-                                <img src={require('../assets/default-image.jpg')} alt={category.name} />
+                                <img src='/assets/default-image.jpg' alt={category.name} />
                             </div>
                         } 
                         style={cardStyle}

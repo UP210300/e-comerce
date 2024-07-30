@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel } from 'primereact/carousel';
+import axios from 'axios';
+
+const DEFAULT_IMAGE_URL = '/assets/default-image.jpg';
 
 export default function BasicDemo() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [products, setProducts] = useState([]);
 
-  const products = [
-    { id: 1, name: 'Imagen 1', src: require('../assets/default-image.jpg') },
-    { id: 2, name: 'Imagen 2', src: require('../assets/default-image.jpg') },
-    { id: 3, name: 'Imagen 3', src: require('../assets/default-image.jpg') },
-    { id: 4, name: 'Imagen 4', src: require('../assets/default-image.jpg') },
-    { id: 5, name: 'Imagen 5', src: require('../assets/default-image.jpg') },
-    { id: 6, name: 'Imagen 6', src: require('../assets/default-image.jpg') },
-  ];
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/products')
+      .then(response => {
+        console.log('Productos obtenidos:', response.data);
+        setProducts(response.data);
+      })
+      .catch(error => {
+        console.error('Error al buscar productos:', error);
+      });
+  }, []);
 
   const responsiveOptions = [
     { breakpoint: '1400px', numVisible: 2, numScroll: 1 },
@@ -20,34 +25,19 @@ export default function BasicDemo() {
     { breakpoint: '575px', numVisible: 1, numScroll: 1 },
   ];
 
-  const totalPages = products.length;
+  const productTemplate = (product) => {
+    const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
 
-  const onPageChange = (e) => {
-    setCurrentPage(e.page);
-  };
+    console.log('Imagen URL:', imageUrl );
 
-  const productTemplate = (product) => (
-    <div className="border border-gray-200 rounded m-2 p-3 text-center relative">
-      <div className="relative w-full h-96 overflow-hidden">
-        <img src={product.src} alt={product.name} className="w-full h-full object-cover" />
-        <div className="absolute bottom-0 w-full  text-white text-lg py-2">
-          {product.name}
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderIndicators = () => {
     return (
-      <div className="flex justify-center mt-4">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <div
-            key={index}
-            className={`mx-1 w-3 h-3 rounded-full border-2 border-black ${currentPage === index ? 'bg-gray-800' : 'bg-white'}`}
-            style={{ cursor: 'pointer' }}
-            onClick={() => setCurrentPage(index)}
-          />
-        ))}
+      <div key={product.id} className="border border-gray-200 rounded m-2 p-3 text-center relative">
+        <div className="relative w-full h-96 overflow-hidden">
+          <img src={imageUrl} alt={product.name} className="w-full h-full object-cover" />
+          <div className="absolute bottom-0 w-full text-black text-lg py-2">
+            {product.name}
+          </div>
+        </div>
       </div>
     );
   };
@@ -60,9 +50,7 @@ export default function BasicDemo() {
         numScroll={3}
         responsiveOptions={responsiveOptions}
         itemTemplate={productTemplate}
-        onPageChange={onPageChange}
       />
-      {renderIndicators()}
     </div>
   );
 }

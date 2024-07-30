@@ -60,9 +60,5 @@ public class ProductController {
         return productService.countProductsByCategory();
     }
 
-    @GetMapping("/top-expensive")
-    public List<Object[]> findTopNMostExpensiveProducts(@RequestParam Integer limit) {
-        return productService.findTopNMostExpensiveProducts(limit);
 
-    }
 }
