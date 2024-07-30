@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Carousel } from 'primereact/carousel';
 import axios from 'axios';
 
-
 const DEFAULT_IMAGE_URL = '/assets/default-image.jpg';
 
 export default function BasicDemo() {
@@ -11,6 +10,7 @@ export default function BasicDemo() {
   useEffect(() => {
     axios.get('http://localhost:8080/api/products')
       .then(response => {
+        console.log('Productos obtenidos:', response.data);
         setProducts(response.data);
       })
       .catch(error => {
@@ -26,14 +26,15 @@ export default function BasicDemo() {
   ];
 
   const productTemplate = (product) => {
+    const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
 
-    const imageUrl = product.images && product.images.length > 0 ? product.images[0] : DEFAULT_IMAGE_URL;
+    console.log('Imagen URL:', imageUrl );
 
     return (
-      <div className="border border-gray-200 rounded m-2 p-3 text-center relative">
+      <div key={product.id} className="border border-gray-200 rounded m-2 p-3 text-center relative">
         <div className="relative w-full h-96 overflow-hidden">
           <img src={imageUrl} alt={product.name} className="w-full h-full object-cover" />
-          <div className="absolute bottom-0 w-full text-white text-lg py-2">
+          <div className="absolute bottom-0 w-full text-black text-lg py-2">
             {product.name}
           </div>
         </div>
@@ -44,7 +45,7 @@ export default function BasicDemo() {
   return (
     <div className="card">
       <Carousel
-        value={products}x
+        value={products}
         numVisible={3}
         numScroll={3}
         responsiveOptions={responsiveOptions}
