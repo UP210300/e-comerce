@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 
 function ProductDetail() {
   const { id } = useParams(); // Obtener el id del producto de la URL

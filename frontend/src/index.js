@@ -4,7 +4,6 @@ import reportWebVitals from './reportWebVitals';
 import Tailwind from 'primereact/passthrough/tailwind';
 import { PrimeReactProvider } from "primereact/api";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
 import './styles/tailwind.css';
 
 import App from './components/App/App';
@@ -16,10 +15,9 @@ import ErrorPage from './components/Error/ErrorPage';
 import Register from './components/Login/Register';
 import ProtectedRoute from './components/Login/ProtectedRoute';
 import UserProfile from './components/UserProfile/UserProfile';
-import { CartProvider } from './components/context/CartContext';
-import { SearchProvider } from './components/context/SearchContext';
-
-
+import RouteProductList from './components/Product/RouteProductList';
+import { CartProvider } from './context/CartContext';
+import { SearchProvider } from './context/SearchContext';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/carrito", element: <Cart /> },
       { path: "/iniciar-sesion", element: <Login /> },
       { path: "/registrarme", element: <Register /> },
+      { path: "/buscar", element: <RouteProductList/>},
       {
         path: "/pagar",
         element: <ProtectedRoute />,

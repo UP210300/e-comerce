@@ -4,7 +4,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { InputNumber } from 'primereact/inputnumber';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useCart } from '../context/CartContext'; 
+import { useCart } from '../../context/CartContext'; 
 import { useRouteError, Link } from "react-router-dom";
 
 export default function CartProduct() {
