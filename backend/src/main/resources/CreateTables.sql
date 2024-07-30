@@ -29,6 +29,12 @@ CREATE TABLE products (
     FOREIGN KEY (id_category) REFERENCES categories(id_category) 
 );
 
+CREATE TABLE product_images (
+    id_image INT AUTO_INCREMENT PRIMARY KEY,
+    image_url VARCHAR(255) NOT NULL,
+    id_product INT NOT NULL,
+    FOREIGN KEY (id_product) REFERENCES products(id_product)
+);
 
 CREATE TABLE customers (
     id_customer INT AUTO_INCREMENT PRIMARY KEY,

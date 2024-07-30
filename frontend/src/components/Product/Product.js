@@ -36,7 +36,7 @@ export default function AdvancedDemo() {
     );
 
     const cards = products.map((product) => (
-        <Card key={product.id} footer={footer(product)} header={<img src={require('../assets/default-image.jpg')} alt="" className="w-full h-full object-cover" />} className="md:w-1/4 m-2 flex-1">
+        <Card key={product.id} footer={footer(product)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="md:w-1/4 m-2 flex-1">
             <p>{product.description}</p>
             <p>Precio: ${product.price}</p>
             <p>Stock: {product.stock}</p>

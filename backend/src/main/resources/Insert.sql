@@ -45,3 +45,7 @@ INSERT INTO order_details (id_order, id_product, price, quantity) VALUES
 (2, 3, 7.00, 1),   
 (3, 4, 600.00, 1),
 (3, 5, 200.00, 1);
+
+INSERT INTO product_images (image_url, id_product) VALUES
+('/assets/lapiz.png', 2);
+
