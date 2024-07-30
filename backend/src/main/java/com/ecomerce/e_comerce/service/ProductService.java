@@ -7,6 +7,7 @@ import com.ecomerce.e_comerce.repository.ProductRepository;
 import com.ecomerce.e_comerce.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +48,7 @@ public class ProductService {
         existingProduct.setDescription(productDTO.getDescription());
         existingProduct.setPrice(productDTO.getPrice());
         existingProduct.setStock(productDTO.getStock());
+        existingProduct.setImages(productMapper.productImageDTOListToProductImageList(productDTO.getImages()));
 
         Product updatedProduct = productRepository.save(existingProduct);
         return productMapper.toProductDTO(updatedProduct);
@@ -58,7 +60,6 @@ public class ProductService {
         }
         productRepository.deleteById(id);
     }
-
 
     public List<Product> findProductsByCategoryId(Integer categoryId) {
         return productRepository.findProductsByCategoryId(categoryId);
@@ -80,10 +81,5 @@ public class ProductService {
 
     public List<Object[]> countProductsByCategory() {
         return productRepository.countProductsByCategory();
-    }
-
-    public List<Object[]> findTopNMostExpensiveProducts(Integer limit) {
-        return productRepository.findTopNMostExpensiveProducts(limit);
-
     }
 }
