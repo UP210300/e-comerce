@@ -3,6 +3,7 @@ import { useLocation, Outlet } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import CheckoutBar from '../NavBar/CheckoutBar';
 
+
 function App() {
   const location = useLocation();
   const isCheckoutPage = location.pathname === '/pagar';

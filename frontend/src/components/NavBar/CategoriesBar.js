@@ -4,9 +4,11 @@ import { Dropdown } from 'primereact/dropdown';
 const menuItems = [
   {
     name: 'Ofertas',
+    path: '/ofertas'
   },
   {
     name: 'Mis compras',
+    path: '/compras'
   },
 ];
 
@@ -46,7 +48,7 @@ function NavBar() {
         </li>
         {menuItems.map((item) => (
           <li key={item.name}>
-            <a href={item.name}>{item.name}</a>
+            <a href={item.path}>{item.name}</a>
           </li>
         ))}
       </ul>
