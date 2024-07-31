@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +10,7 @@ import { formatCurrency } from '../../formatter/CurrencyFormatter';
 export default function Product({ product }) {
     const { addToCart } = useCart();
     const toast = useRef(null);
+    const [isHovered, setIsHovered] = useState(false);
 
     const handleAddToCart = (event, product) => {
         event.stopPropagation();
@@ -22,7 +23,7 @@ export default function Product({ product }) {
         <div className="flex justify-end items-center">
             <FontAwesomeIcon
                 icon={faShoppingCart}
-                className="text-gray-500 hover:text-blue-500 cursor-pointer"
+                className="text-3xl text-gray-500 hover:text-blue-500 cursor-pointer"
                 onClick={(event) => handleAddToCart(event, product)}
             />
         </div>
@@ -31,16 +32,22 @@ export default function Product({ product }) {
     return (
         <div className="my-8">
             <Toast ref={toast} />
-            <Link to={`/detalle-de-producto/${product.id}`} className="md:w-1/3 m-6 flex-6 no-underline" style={{ textDecoration: 'none' }} key={product.id}>
-                <Card footer={footer(product)}  header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover"/>} className="w-full h-full object-cover">
-                    <div className="flex flex-col">
-                        <div className="flex flex-row justify-between">
-                        <p>{product.description}</p>
-                            <p>{formatCurrency(product.price)}</p> 
+            <div
+                className={`transition duration-300 ${isHovered ? 'shadow-lg transform scale-105' : ''}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <Link to={`/detalle-de-producto/${product.id}`} style={{ textDecoration: 'none' }} key={product.id}>
+                    <Card footer={footer(product)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="w-full h-full object-cover">
+                        <div className="flex flex-col">
+                            <div className="flex flex-row justify-between">
+                                <p>{product.description}</p>
+                                <p>{formatCurrency(product.price)}</p> 
+                            </div>
                         </div>
-                    </div>
-                </Card>
-            </Link>
+                    </Card>
+                </Link>
+            </div>
         </div>
     );
 }

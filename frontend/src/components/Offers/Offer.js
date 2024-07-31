@@ -11,12 +11,13 @@ export default function Offers() {
     const [offers, setOffers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [hoveredOfferId, setHoveredOfferId] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:8080/api/products')
             .then(response => response.json())
             .then(data => {
-                setOffers(data); // Asignar los productos directamente a offers
+                setOffers(data); 
                 setLoading(false);
             })
             .catch(error => {
@@ -40,7 +41,7 @@ export default function Offers() {
         <div className="flex justify-end items-center">
             <FontAwesomeIcon
                 icon={faShoppingCart}
-                className="text-gray-500 hover:text-blue-500 cursor-pointer"
+                className="text-3xl text-gray-500 hover:text-blue-500 cursor-pointer"
                 onClick={(event) => handleAddToCart(event, offer)}
             />
         </div>
@@ -54,16 +55,23 @@ export default function Offers() {
             <Toast ref={toast} />
             <div className="grid grid-cols-4 gap-10">
                 {offers.map(offer => (
-                    <Link to={`/detalle-de-producto/${offer.id}`}  key={offer.id}>
-                        <Card footer={footer(offer)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="w-full h-full object-cover">
-                            <div className="flex flex-col">
-                                <div className="flex flex-row justify-between">
-                                    <p>{offer.description}</p>
-                                    <p>{formatCurrency(offer.price)}</p>  
+                    <div
+                        key={offer.id}
+                        className={`transition duration-300 ${hoveredOfferId === offer.id ? 'shadow-lg transform scale-105' : ''}`}
+                        onMouseEnter={() => setHoveredOfferId(offer.id)}
+                        onMouseLeave={() => setHoveredOfferId(null)}
+                    >
+                        <Link to={`/detalle-de-producto/${offer.id}`} style={{ textDecoration: 'none' }}>
+                            <Card footer={footer(offer)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="w-full h-full object-cover">
+                                <div className="flex flex-col">
+                                    <div className="flex flex-row justify-between">
+                                        <p>{offer.description}</p>
+                                        <p>{formatCurrency(offer.price)}</p>  
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
-                    </Link>
+                            </Card>
+                        </Link>
+                    </div>
                 ))}
             </div>
         </div>
