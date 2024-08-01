@@ -18,14 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM products WHERE name LIKE CONCAT('%', :name, '%')", nativeQuery = true)
     Collection<Product> findProductsByName(@Param("name") String name);
-
-    @Query(value = "SELECT c.name AS category_name, COUNT(p.id_product) AS product_count " +
-                   "FROM products p " +
-                   "JOIN product_categories pc ON p.id_product = pc.id_product " +
-                   "JOIN categories c ON pc.id_category = c.id_category " +
-                   "GROUP BY c.name", nativeQuery = true)
-    List<Object[]> countProductsByCategory();
-
     
 }
 

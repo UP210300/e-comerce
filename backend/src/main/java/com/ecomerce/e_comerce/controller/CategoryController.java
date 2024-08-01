@@ -1,7 +1,6 @@
 package com.ecomerce.e_comerce.controller;
 
 import com.ecomerce.e_comerce.dto.CategoryDTO;
-import com.ecomerce.e_comerce.model.Category;
 import com.ecomerce.e_comerce.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
