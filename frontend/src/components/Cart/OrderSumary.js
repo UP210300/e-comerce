@@ -1,10 +1,12 @@
 import React from 'react'; 
 import { Button } from 'primereact/button';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext'; 
 
 export default function OrderSummary() {
   const { cart, selectedItems } = useCart();
+  const location = useLocation();
+  const isCheckoutPage = location.pathname === '/pagar';
 
   // Filtrar los productos seleccionados del carrito
   const filteredCart = selectedItems.length > 0 
@@ -28,9 +30,10 @@ export default function OrderSummary() {
           <p className="text-gray-500">No hay productos seleccionados.</p>
         )}
       </div>
+      {!isCheckoutPage && 
       <Link to="/pagar">
         <Button label="Comprar y pagar" className="bg-slate-300 w-full mt-4" />
-      </Link>
+      </Link>}
     </div>
   );
 }
