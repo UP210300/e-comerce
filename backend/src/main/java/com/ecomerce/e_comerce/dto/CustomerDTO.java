@@ -1,11 +1,14 @@
 package com.ecomerce.e_comerce.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
 public class CustomerDTO {
 
+    @JsonIgnore
     private Integer idCustomer;
     
     private Integer user;

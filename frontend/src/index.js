@@ -18,6 +18,8 @@ import UserProfile from './components/UserProfile/UserProfile';
 import RouteProductList from './components/Product/RouteProductList';
 import { CartProvider } from './context/CartContext';
 import { SearchProvider } from './context/SearchContext';
+import { PurchaseHistory } from './components/Orders';
+import { Offers } from './components/Offers';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,8 @@ const router = createBrowserRouter([
       { path: "/iniciar-sesion", element: <Login /> },
       { path: "/registrarme", element: <Register /> },
       { path: "/buscar/:query", element: <RouteProductList/>},
+      { path: "/compras", element: <PurchaseHistory/>},
+      { path: "/ofertas", element: <Offers/>},
       {
         path: "/pagar",
         element: <ProtectedRoute />,
