@@ -47,9 +47,24 @@ INSERT INTO order_details (id_order, id_product, price, quantity) VALUES
 (3, 5, 200.00, 1);
 
 INSERT INTO product_images (image_url, id_product) VALUES
-('assets/cuaderno.jpeg', 1),
-('assets/goma.jpeg', 3),
-('assets/Libro de Bocetos.jpeg', 5),
-('assets/Set de Pinturas Acrilicas.jpeg', 4),
-('assets/lapiz.png', 2);
+('assets/cuaderno-1.jpg', 1),
+('assets/cuaderno-2.jpg', 1),
+('assets/cuaderno-3.jpg', 1),
+
+('assets/lapiz-1.jpg', 2),
+('assets/lapiz-2.png', 2),
+('assets/lapiz-3.jpeg', 2),
+
+('assets/goma-1.jpg', 3),
+('assets/goma-2.jpg', 3),
+('assets/goma-3.jpg', 3),
+
+('assets/pintura-1.jpg', 4),
+('assets/pintura-2.jpg', 4),
+('assets/pintura-3.jpg', 4),
+
+('assets/libretaBocetos-1.jpeg', 5),
+('assets/libretaBocetos-2.jpeg', 5),
+('assets/libretaBocetos-3.jpeg', 5);
+
 

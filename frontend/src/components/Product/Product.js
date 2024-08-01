@@ -7,6 +7,8 @@ import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../../formatter/CurrencyFormatter';
 
+const DEFAULT_IMAGE_URL = '/assets/default-image.jpg';
+
 export default function Product({ product }) {
     const { addToCart } = useCart();
     const toast = useRef(null);
@@ -28,6 +30,8 @@ export default function Product({ product }) {
             />
         </div>
     );
+
+    const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
 
     return (
         <div className="my-8">
