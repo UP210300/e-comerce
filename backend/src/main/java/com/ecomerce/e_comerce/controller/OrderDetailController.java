@@ -40,4 +40,19 @@ public class OrderDetailController {
     public List<OrderDetailDTO> getAllOrderDetails() {
         return orderDetailService.findAll();
     }
+
+    @GetMapping("/order/{idOrder}")
+    public List<OrderDetailDTO> getOrderDetailsByOrderId(@PathVariable Integer idOrder) {
+        return orderDetailService.findByOrderId(idOrder);
+    }
+
+    @GetMapping("/product/{idProduct}")
+    public List<OrderDetailDTO> getOrderDetailsByProductId(@PathVariable Integer idProduct) {
+        return orderDetailService.findByProductId(idProduct);
+    }
+
+    @GetMapping("/priceDesc")
+    public List<OrderDetailDTO> getAllOrderDetailsOrderedByPriceDesc() {
+        return orderDetailService.findAllOrderedByPriceDesc();
+    }
 }
