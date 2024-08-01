@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
+import ProductList from '../Product/ProductList'; 
+import Home from '../Home/Home'; 
 
 const menuItems = [
   {
@@ -43,7 +45,7 @@ function NavBar() {
             options={categories}
             optionLabel="name"
             placeholder="Categorias"
-            className="md:w-14rem w-full"
+            className="md:w-60 w-full h-12" 
           />
         </li>
         {menuItems.map((item) => (
@@ -52,6 +54,12 @@ function NavBar() {
           </li>
         ))}
       </ul>
+
+      {selectedCategory ? (
+        <ProductList selectedCategory={selectedCategory} />
+      ) : (
+        <Home /> 
+      )}
     </div>
   );
 }

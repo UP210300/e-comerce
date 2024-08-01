@@ -28,10 +28,12 @@ export default function OrderSummary() {
           <p className="text-gray-500">No hay productos seleccionados.</p>
         )}
       </div>
-      {!isCheckoutPage && 
-      <Link to="/pagar">
-        <Button label="Comprar y pagar" className="bg-primary-500 h-12 w-full mt-4" />
-      </Link>
+      {!isCheckoutPage && (
+        <Link to="/pagar">
+          <Button label="Comprar y pagar" className="bg-primary-500 h-12 w-full mt-4" />
+        </Link>
+      )}
     </div>
   );
 }
+
