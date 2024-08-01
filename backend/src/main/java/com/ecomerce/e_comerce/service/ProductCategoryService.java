@@ -57,6 +57,7 @@ public class ProductCategoryService {
         ProductCategory existingProductCategory = productCategoryRepository.findById(id)
                 .orElseThrow(() -> new ProductCategoryNotFoundException("ProductCategory with Product ID " + idProduct + " and Category ID " + idCategory + " not found"));
 
+        // Perform updates as needed, e.g., if there are fields to update, set them here
 
         ProductCategory updatedProductCategory = productCategoryRepository.save(existingProductCategory);
         return productCategoryMapper.toProductCategoryDTO(updatedProductCategory);
@@ -72,6 +73,27 @@ public class ProductCategoryService {
 
     public List<ProductCategoryDTO> findAll() {
         List<ProductCategory> productCategories = productCategoryRepository.findAll();
+        return productCategories.stream()
+                .map(productCategoryMapper::toProductCategoryDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductCategoryDTO> findByProductId(Integer productId) {
+        List<ProductCategory> productCategories = productCategoryRepository.findByProductId(productId);
+        return productCategories.stream()
+                .map(productCategoryMapper::toProductCategoryDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductCategoryDTO> findByCategoryId(Integer categoryId) {
+        List<ProductCategory> productCategories = productCategoryRepository.findByCategoryId(categoryId);
+        return productCategories.stream()
+                .map(productCategoryMapper::toProductCategoryDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductCategoryDTO> findAllOrderedByCategoryId() {
+        List<ProductCategory> productCategories = productCategoryRepository.findAllOrderedByCategoryId();
         return productCategories.stream()
                 .map(productCategoryMapper::toProductCategoryDTO)
                 .collect(Collectors.toList());

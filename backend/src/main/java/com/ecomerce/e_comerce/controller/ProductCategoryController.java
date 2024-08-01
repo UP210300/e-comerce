@@ -40,4 +40,19 @@ public class ProductCategoryController {
     public List<ProductCategoryDTO> getAllProductCategories() {
         return productCategoryService.findAll();
     }
+
+    @GetMapping("/product/{productId}")
+    public List<ProductCategoryDTO> getProductCategoriesByProductId(@PathVariable Integer productId) {
+        return productCategoryService.findByProductId(productId);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public List<ProductCategoryDTO> getProductCategoriesByCategoryId(@PathVariable Integer categoryId) {
+        return productCategoryService.findByCategoryId(categoryId);
+    }
+
+    @GetMapping("/orderedByCategoryId")
+    public List<ProductCategoryDTO> getProductCategoriesOrderedByCategoryId() {
+        return productCategoryService.findAllOrderedByCategoryId();
+    }
 }

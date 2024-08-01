@@ -24,7 +24,7 @@ public class CustomerController {
         return customerService.findById(id);
     }
 
-    @PostMapping ("/addCustomer")
+    @PostMapping("/addCustomer")
     public CustomerDTO createCustomer(@RequestBody CustomerDTO customerDTO) {
         return customerService.save(customerDTO);
     }
@@ -37,5 +37,20 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Integer id) {
         customerService.deleteById(id);
+    }
+
+    @GetMapping("/orderedByLastName")
+    public List<CustomerDTO> getAllCustomersOrderedByLastName() {
+        return customerService.findAllOrderedByLastName();
+    }
+
+    @GetMapping("/city/{city}")
+    public List<CustomerDTO> getCustomersByCity(@PathVariable String city) {
+        return customerService.findByCity(city);
+    }
+
+    @GetMapping("/country/{country}")
+    public List<CustomerDTO> getCustomersByCountry(@PathVariable String country) {
+        return customerService.findByCountry(country);
     }
 }
