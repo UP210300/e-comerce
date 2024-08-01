@@ -11,6 +11,7 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [mainImage, setMainImage] = useState('');
   const navigate = useNavigate(); // Para manejar la navegación
   const toast = useRef(null); // Crear una referencia para el Toast
 
@@ -18,6 +19,9 @@ function ProductDetail() {
     axios.get(`http://localhost:8080/api/products/${id}`)
       .then(response => {
         setProduct(response.data);
+        if (response.data.images.length > 0) {
+          setMainImage(response.data.images[0].imageUrl); // Establece la primera imagen como principal por defecto
+        }
       })
       .catch(error => {
         console.error('Error fetching product details:', error);
@@ -38,18 +42,32 @@ function ProductDetail() {
     navigate('/carrito'); 
   };
 
+  const handleThumbnailMouseEnter = (imageUrl) => {
+    setMainImage(imageUrl); // Cambia la imagen principal al pasar el cursor sobre una miniatura
+  };
+
   return (
     <div>
       <Toast ref={toast} /> {/* Incluir el componente Toast */}
       <div className="grid md:grid-cols-2 space-y-10 md:space-y-0 md:space-x-10">
         <div className="grid grid-cols-3 gap-y-8 md:gap-y-4">
           <div className="col-span-3 flex flex-row lg:grid lg:col-span-1 justify-items-center items-center place-content-between">
-            <img src='/assets/default-image.jpg' alt="" className="w-[20vw] h-[20vw] md:w-[9vw] md:h-[9vw]"></img>
-            <img src='/assets/default-image.jpg' alt="" className="w-[20vw] h-[20vw] md:w-[9vw] md:h-[9vw]"></img>
-            <img src='/assets/default-image.jpg' alt="" className="w-[20vw] h-[20vw] md:w-[9vw] md:h-[9vw]"></img> 
+            {product.images && product.images.map((image, index) => (
+              <img 
+                key={index}
+                src={`/${image.imageUrl}`} 
+                alt={`Imagen ${index + 1}`}
+                className="w-[20vw] h-[20vw] md:w-[9vw] md:h-[9vw] cursor-pointer"
+                onMouseEnter={() => handleThumbnailMouseEnter(image.imageUrl)} // Cambia la imagen principal al pasar el cursor
+              />
+            ))}
           </div>
           <div className="grid justify-items-center col-span-3 lg:col-span-2">
-            <img src='/assets/default-image.jpg' alt="" className="w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] lg:w-[30vw] lg:h-[30vw]"></img> 
+            <img 
+              src={`/${mainImage}`} 
+              alt="Imagen Principal" 
+              className="w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] lg:w-[30vw] lg:h-[30vw]"
+            />
           </div>
         </div>
         <div className="space-y-10">
