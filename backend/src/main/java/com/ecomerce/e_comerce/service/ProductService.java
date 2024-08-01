@@ -78,8 +78,4 @@ public class ProductService {
                        .map(productMapper::toProductDTO)
                        .collect(Collectors.toList());
     }
-
-    public List<Object[]> countProductsByCategory() {
-        return productRepository.countProductsByCategory();
-    }
 }
