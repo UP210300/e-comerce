@@ -10,7 +10,7 @@ INSERT INTO users (username, email, password, first_name, last_name, role) VALUE
 INSERT INTO customers (id_user, address, country, city, phone) VALUES
 (1, '123 Calle Principal', 'México', 'Michoacán', '4491234567'),
 (2, '456 Calle Olmo', 'México', 'Zacatecas', '4492345678'),
-(3, '789 Calle Arce', 'México', 'Aguascalientes', '4493456789')
+(3, '789 Calle Arce', 'México', 'Aguascalientes', '4493456789'),
 (7, '320 Calle Fuente de los Cibeles', 'México', 'Aguascalientes', '4493667185');
 
 INSERT INTO categories (name, description) VALUES
@@ -42,9 +42,21 @@ INSERT INTO products (name, description, price, stock, id_category) VALUES
 
 
 INSERT INTO orders (id_customer, amount, shipping_address, order_date, order_status) VALUES
-(1, 35.00, '123 Calle Principal, Michoacán, México', '2024-07-01', 'Enviado'),
-(2, 12.00, '456 Calle Olmo, Zacatecas, México', '2024-07-02', 'Enviado'),
-(3, 607.00, '789 Calle Arce, Aguascalientes, México', '2024-07-03', 'Enviado');
+(1, 100.00, '123 Calle Principal, Michoacán, México', '2024-07-05', 'Pendiente'),
+(2, 45.50, '456 Calle Olmo, Zacatecas, México', '2024-07-06', 'Enviado'),
+(3, 320.00, '789 Calle Arce, Aguascalientes, México', '2024-07-07', 'Cancelado'),
+(1, 250.00, '123 Calle Principal, Michoacán, México', '2024-07-08', 'Entregado'),
+(2, 150.00, '456 Calle Olmo, Zacatecas, México', '2024-07-09', 'Pendiente'),
+(3, 75.00, '789 Calle Arce, Aguascalientes, México', '2024-07-10', 'Enviado'),
+(1, 60.00, '123 Calle Principal, Michoacán, México', '2024-07-11', 'Entregado'),
+(2, 89.99, '456 Calle Olmo, Zacatecas, México', '2024-07-12', 'Enviado'),
+(3, 210.75, '789 Calle Arce, Aguascalientes, México', '2024-07-13', 'Pendiente'),
+(1, 35.50, '123 Calle Principal, Michoacán, México', '2024-07-14', 'Cancelado'),
+(2, 78.20, '456 Calle Olmo, Zacatecas, México', '2024-07-15', 'Enviado'),
+(3, 415.30, '789 Calle Arce, Aguascalientes, México', '2024-07-16', 'Entregado'),
+(1, 90.00, '123 Calle Principal, Michoacán, México', '2024-07-17', 'Enviado'),
+(2, 120.00, '456 Calle Olmo, Zacatecas, México', '2024-07-18', 'Pendiente'),
+(3, 300.50, '789 Calle Arce, Aguascalientes, México', '2024-07-19', 'Entregado');
 
 
 INSERT INTO product_categories (id_product, id_category) VALUES
@@ -61,7 +73,22 @@ INSERT INTO order_details (id_order, id_product, price, quantity) VALUES
 (2, 2, 5.00, 2), 
 (2, 3, 7.00, 1),   
 (3, 4, 600.00, 1),
-(3, 5, 200.00, 1);
+(3, 5, 200.00, 1),
+(4, 1, 30.00, 3),
+(4, 9, 25.00, 1),
+(5, 5, 200.00, 4),
+(5, 1, 30.00, 1),
+(6, 9, 25.00, 5),
+(6, 10, 120.00, 1),
+(7, 11, 15.00, 1),
+(8, 12, 1200.00, 1),
+(9, 13, 100.00, 1),
+(10, 14, 50.00, 1),
+(11, 15, 200.00, 3),
+(12, 4, 600.00, 1),
+(13, 3, 7.00, 10),
+(14, 2, 5.00, 10),
+(15, 1, 30.00, 3);
 
 INSERT INTO product_images (image_url, id_product) VALUES
 ('assets/cuaderno.jpeg', 1),
