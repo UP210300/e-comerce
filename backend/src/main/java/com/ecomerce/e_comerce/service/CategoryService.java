@@ -28,15 +28,17 @@ public class CategoryService {
     }
 
     public List<CategoryDTO> findAllOrderedByName() {
-        List<Category> categories = categoryRepository.findAllByOrderByNameAsc();
+        List<Category> categories = categoryRepository.findAllOrderedByName();
         return categories.stream()
                 .map(categoryMapper::toCategoryDTO)
                 .collect(Collectors.toList());
     }
 
     public CategoryDTO findById(Integer id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
+        Category category = categoryRepository.findByIdCategory(id);
+        if (category == null) {
+            throw new CategoryNotFoundException("Category with ID " + id + " not found");
+        }
         return categoryMapper.toCategoryDTO(category);
     }
 
@@ -47,8 +49,10 @@ public class CategoryService {
     }
 
     public CategoryDTO update(Integer id, CategoryDTO categoryDTO) {
-        Category existingCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
+        Category existingCategory = categoryRepository.findByIdCategory(id);
+        if (existingCategory == null) {
+            throw new CategoryNotFoundException("Category with ID " + id + " not found");
+        }
 
         existingCategory.setName(categoryDTO.getName());
         existingCategory.setDescription(categoryDTO.getDescription());
@@ -58,7 +62,7 @@ public class CategoryService {
     }
 
     public void deleteById(Integer id) {
-        if (!categoryRepository.existsById(id)) {
+        if (categoryRepository.findByIdCategory(id) == null) {
             throw new CategoryNotFoundException("Category with ID " + id + " not found");
         }
         categoryRepository.deleteById(id);

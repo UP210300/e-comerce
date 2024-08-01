@@ -1,22 +1,16 @@
 package com.ecomerce.e_comerce.service;
 
-import com.ecomerce.e_comerce.dto.UserDTO;
-import com.ecomerce.e_comerce.exception.UserAlreadyExistsException;
-import com.ecomerce.e_comerce.exception.UserNotFoundException;
-import com.ecomerce.e_comerce.exception.InvalidPasswordException;
-import com.ecomerce.e_comerce.exception.InvalidInputException;
 import com.ecomerce.e_comerce.model.User;
 import com.ecomerce.e_comerce.repository.UserRepository;
-import com.ecomerce.e_comerce.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service
 public class UserService {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -25,51 +19,43 @@ public class UserService {
             Pattern.CASE_INSENSITIVE
     );
 
-    // Método que lanza una excepción si el usuario no se encuentra
-    public UserDTO getUser(long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id " + id));
-        return UserMapper.toDTO(user);
-    }
-
-    // Método que devuelve un Optional
-    public Optional<UserDTO> getUserOptional(long id) {
-        return userRepository.findById(id)
-                .map(UserMapper::toDTO);
-    }
-
-    public UserDTO registerUser(UserDTO userDTO) {
-        if (!EMAIL_PATTERN.matcher(userDTO.getEmail()).matches()) {
-            throw new InvalidInputException("Invalid email format: " + userDTO.getEmail());
+    public User registerUser(User user) {
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("customer");
         }
 
-        if (userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException("Email already exists: " + userDTO.getEmail());
-        }
-
-        if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
-            throw new UserAlreadyExistsException("Username already exists: " + userDTO.getUsername());
-        }
-
-        User user = UserMapper.toEntity(userDTO);
-        // Handle password hashing here if needed
-        User savedUser = userRepository.save(user);
-        return UserMapper.toDTO(savedUser);
+        return userRepository.save(user);
     }
 
-    public Optional<UserDTO> loginUser(String usernameOrEmail, String password) {
-        Optional<User> userOptional = EMAIL_PATTERN.matcher(usernameOrEmail).matches()
-                ? userRepository.findByEmail(usernameOrEmail)
-                : userRepository.findByUsername(usernameOrEmail);
+    public Optional<User> loginUser(String usernameOrEmail, String password) {
+        Optional<User> userOptional;
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (!password.equals(user.getPassword())) {
-                throw new InvalidPasswordException("Incorrect password for user " + usernameOrEmail);
-            }
-            return Optional.of(UserMapper.toDTO(user));
+        if (EMAIL_PATTERN.matcher(usernameOrEmail).matches()) {
+            userOptional = userRepository.findByEmail(usernameOrEmail);
         } else {
-            throw new UserNotFoundException("User not found with username or email: " + usernameOrEmail);
+            userOptional = userRepository.findByUsername(usernameOrEmail);
         }
+
+        if (userOptional.isPresent() && password.equals(userOptional.get().getPassword())) {
+            return userOptional;
+        }
+        return Optional.empty();
+    }
+
+    public Optional<User> getUser(long id) {
+        return userRepository.findById(id);
+    }
+
+    public List<User> getUsersByRole(String role) {
+        return userRepository.findByRole(role);
+    }
+
+    public List<User> getAllUsersOrderedByLastName() {
+        return userRepository.findAllOrderedByLastName();
+    }
+
+    public List<User> getUsersByFirstName(String firstName) {
+        return userRepository.findByFirstName(firstName);
     }
 }
+

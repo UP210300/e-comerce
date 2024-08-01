@@ -10,7 +10,6 @@ export default function BasicDemo() {
   useEffect(() => {
     axios.get('http://localhost:8080/api/products')
       .then(response => {
-        console.log('Productos obtenidos:', response.data);
         setProducts(response.data);
       })
       .catch(error => {
@@ -27,8 +26,6 @@ export default function BasicDemo() {
 
   const productTemplate = (product) => {
     const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
-
-    console.log('Imagen URL:', imageUrl );
 
     return (
       <div key={product.id} className="border border-gray-200 rounded m-2 p-3 text-center relative">
