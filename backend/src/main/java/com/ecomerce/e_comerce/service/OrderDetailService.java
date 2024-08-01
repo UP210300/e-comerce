@@ -78,4 +78,25 @@ public class OrderDetailService {
                 .map(orderDetailMapper::toOrderDetailDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<OrderDetailDTO> findByOrderId(Integer orderId) {
+        List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(orderId);
+        return orderDetails.stream()
+                .map(orderDetailMapper::toOrderDetailDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDetailDTO> findByProductId(Integer productId) {
+        List<OrderDetail> orderDetails = orderDetailRepository.findByProductId(productId);
+        return orderDetails.stream()
+                .map(orderDetailMapper::toOrderDetailDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDetailDTO> findAllOrderedByPriceDesc() {
+        List<OrderDetail> orderDetails = orderDetailRepository.findAllOrderedByPriceDesc();
+        return orderDetails.stream()
+                .map(orderDetailMapper::toOrderDetailDTO)
+                .collect(Collectors.toList());
+    }
 }

@@ -1,5 +1,5 @@
+// User.java
 package com.ecomerce.e_comerce.model;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,10 +12,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table (name = "users")
+@Table(name = "users")
 public class User {
     @Id
-    @Column(name="id_user")
+    @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -24,17 +24,18 @@ public class User {
 
     @NotEmpty
     private String email;
-    
+
     @NotEmpty
     private String password;
 
     @NotEmpty
-    private String first_name;
+    @Column(name = "first_name") // Mapeo a la columna first_name en la base de datos
+    private String firstName;
 
     @NotEmpty
-    private String last_name;
+    @Column(name = "last_name") // Mapeo a la columna last_name en la base de datos
+    private String lastName;
 
     @Column(nullable = false)
     private String role = "customer";
- 
 }

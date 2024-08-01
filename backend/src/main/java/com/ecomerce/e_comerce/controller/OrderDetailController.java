@@ -2,7 +2,6 @@ package com.ecomerce.e_comerce.controller;
 
 import com.ecomerce.e_comerce.dto.OrderDetailDTO;
 import com.ecomerce.e_comerce.service.OrderDetailService;
-import com.ecomerce.e_comerce.exception.OrderDetailNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +39,20 @@ public class OrderDetailController {
     @GetMapping
     public List<OrderDetailDTO> getAllOrderDetails() {
         return orderDetailService.findAll();
+    }
+
+    @GetMapping("/order/{idOrder}")
+    public List<OrderDetailDTO> getOrderDetailsByOrderId(@PathVariable Integer idOrder) {
+        return orderDetailService.findByOrderId(idOrder);
+    }
+
+    @GetMapping("/product/{idProduct}")
+    public List<OrderDetailDTO> getOrderDetailsByProductId(@PathVariable Integer idProduct) {
+        return orderDetailService.findByProductId(idProduct);
+    }
+
+    @GetMapping("/priceDesc")
+    public List<OrderDetailDTO> getAllOrderDetailsOrderedByPriceDesc() {
+        return orderDetailService.findAllOrderedByPriceDesc();
     }
 }
