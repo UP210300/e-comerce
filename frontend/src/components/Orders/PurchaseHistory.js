@@ -2,7 +2,6 @@ import React from 'react';
 import { OrderList } from 'primereact/orderlist';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
 import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css'; 
 
 const PurchaseHistory = () => {
     const orderDetails = [
