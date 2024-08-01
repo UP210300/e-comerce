@@ -11,13 +11,11 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL
 );
 
-
 CREATE TABLE categories (
     id_category INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255)
 );
-
 
 CREATE TABLE products (
     id_product INT AUTO_INCREMENT PRIMARY KEY,
