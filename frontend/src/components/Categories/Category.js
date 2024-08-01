@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from 'react'; 
+import React from 'react';
 import { Card } from 'primereact/card';
 
-// Función para obtener la URL de la imagen basada en el nombre de la categoría
-const getCategoryImage = (categoryName) => {
-    const imageName = categoryName.replace(/\s+/g, '').toLowerCase(); // Elimina espacios y convierte a minúsculas
-    const imageMap = {
-        'arte': '/assets/Arte.png',
-        'escuela': '/assets/Escuela.jpg',
-        'oficina': '/assets/Oficina.jpg'
-    };
-    return imageMap[imageName] || '/assets/default-image.jpg'; // Usa una imagen por defecto si no hay coincidencia
-};
-
-export default function BasicDemo() {
-    const [categories, setCategories] = useState([]);
-    const [error, setError] = useState(null);
-
+const Category = ({ category }) => {
     const headerStyle = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '0' 
+        padding: '0'
     };
 
     const cardTitleStyle = {
@@ -29,52 +15,29 @@ export default function BasicDemo() {
     };
 
     const cardStyle = {
-        width: '30%', 
-        margin: '10px' 
+        width: '100%', 
+        margin: '10px'
     };
 
-    const fetchCategories = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/api/categories');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setCategories(data);
-        } catch (error) {
-            console.error('Error fetching categories:', error);
-            setError(error);
-        }
-    };
-
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
-    if (error) {
-        return <div>Error fetching categories: {error.message}</div>;
-    }
+    const imageUrl = '/assets/default-image.jpg'; 
+    const categoryName = category?.name || 'Nombre desconocido';
+    const categoryDescription = category?.description || 'Descripción no disponible';
 
     return (
-        <div>
-            <hr style={{ border: '0', height: '2px', background: '#ccc', margin: '20px 0' }} />
-            <div className="card-container" style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-                {categories.map(category => (
-                    <Card 
-                        key={category.idCategory} 
-                        header={
-                            <div style={headerStyle}>
-                                <img src={getCategoryImage(category.name)} alt={category.name} />
-                            </div>
-                        } 
-                        style={cardStyle}
-                    >
-                        <div style={cardTitleStyle}>
-                            <h1 style={{ margin: '0' }}>{category.name}</h1> 
-                        </div>
-                    </Card>
-                ))}
+        <Card
+            header={
+                <div style={headerStyle}>
+                    <img src={imageUrl} alt={categoryName} />
+                </div>
+            }
+            style={cardStyle}
+        >
+            <div style={cardTitleStyle}>
+                <h1 style={{ margin: '0' }}>{categoryName}</h1>
+                <p>{categoryDescription}</p>
             </div>
-        </div>
+        </Card>
     );
-}
+};
+
+export default Category;

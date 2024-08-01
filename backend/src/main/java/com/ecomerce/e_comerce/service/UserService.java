@@ -2,6 +2,7 @@ package com.ecomerce.e_comerce.service;
 
 import com.ecomerce.e_comerce.model.User;
 import com.ecomerce.e_comerce.repository.UserRepository;
+import com.ecomerce.e_comerce.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -23,7 +25,6 @@ public class UserService {
         if (user.getRole() == null || user.getRole().isEmpty()) {
             user.setRole("customer");
         }
-
         return userRepository.save(user);
     }
 
@@ -57,5 +58,26 @@ public class UserService {
     public List<User> getUsersByFirstName(String firstName) {
         return userRepository.findByFirstName(firstName);
     }
-}
 
+    public User updateUser(Long id, User userDetails) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id " + id));
+        
+        if (userDetails.getUsername() != null) user.setUsername(userDetails.getUsername());
+        if (userDetails.getEmail() != null) user.setEmail(userDetails.getEmail());
+        if (userDetails.getFirstName() != null) user.setFirstName(userDetails.getFirstName());
+        if (userDetails.getLastName() != null) user.setLastName(userDetails.getLastName());
+        if (userDetails.getRole() != null) user.setRole(userDetails.getRole());
+        if (userDetails.getPassword() != null) user.setPassword(userDetails.getPassword()); // Asegúrate de manejar la actualización de la contraseña de manera segura
+
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new UserNotFoundException("User not found with id " + id);
+        }
+    }
+}

@@ -9,19 +9,17 @@ export const CartProvider = ({ children }) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   const addToCart = (product) => {
-    const productId = product.id; // Guardamos el ID del producto en una variable
+    const productId = product.id; 
     setCart((prevCart) => {
       const existingProduct = prevCart.find(item => item.id === productId);
       
       if (existingProduct) {
-        // Si el producto ya existe en el carrito, actualiza la cantidad
         return prevCart.map((item) =>
           item.id === productId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
-        // Si el producto no existe en el carrito, agrégalo con cantidad inicial de 1
         setSelectedItems((prevSelected) => [...prevSelected, productId]);
         return [...prevCart, { ...product, quantity: 1 }];
       }
