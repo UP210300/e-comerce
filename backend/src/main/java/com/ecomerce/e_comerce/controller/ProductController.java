@@ -54,11 +54,4 @@ public class ProductController {
     public List<ProductDTO> findProductsInStockGreaterThan(@RequestParam Integer stock) {
         return productService.findProductsInStockGreaterThan(stock);
     }
-
-    @GetMapping("/category-count")
-    public List<Object[]> countProductsByCategory() {
-        return productService.countProductsByCategory();
-    }
-
-
 }

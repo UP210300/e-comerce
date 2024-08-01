@@ -7,6 +7,8 @@ import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../../formatter/CurrencyFormatter';
 
+const DEFAULT_IMAGE_URL = '/assets/default-image.jpg';
+
 export default function Product({ product }) {
     const { addToCart } = useCart();
     const toast = useRef(null);
@@ -28,33 +30,16 @@ export default function Product({ product }) {
         </div>
     );
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    const cards = products.map((product) => (
+    const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
 
-        <Link to={`/detalle-de-producto/${product.id}`} className="md:w-1/3 m-6 flex-6 no-underline" style={{ textDecoration: 'none' }} key={product.id}>
-            <Card footer={footer(product)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover"/>} className="w-full h-full object-cover">
-                <p>{product.description}</p>
-                <p>Precio: ${product.price}</p>
-            </Card>
-        </Link>
-    ));
-
-    const firstRow = cards.slice(0, 3);
-    const secondRow = cards.slice(3, 6);
-
->>>>>>> 10d065952f32b94c910c798763e9e22852bf3a9f
-=======
->>>>>>> d15e88255fdf8d23ab0917b867e1e9275d2f7e5d
     return (
         <div className="my-8">
             <Toast ref={toast} />
             <Link to={`/detalle-de-producto/${product.id}`} className="md:w-1/3 m-6 flex-6 no-underline" style={{ textDecoration: 'none' }} key={product.id}>
-                <Card footer={footer(product)}  header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover"/>} className="w-full h-full object-cover">
+                <Card footer={footer(product)} header={<img src={imageUrl} alt="" className="w-full h-full object-cover"/>} className="w-full h-full object-cover">
                     <div className="flex flex-col">
                         <div className="flex flex-row justify-between">
-                        <p>{product.description}</p>
+                            <p>{product.description}</p>
                             <p>{formatCurrency(product.price)}</p> 
                         </div>
                     </div>
