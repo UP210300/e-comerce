@@ -31,7 +31,7 @@ export default function BasicDemo() {
       <div key={product.id} className="border border-gray-200 rounded m-2 p-3 text-center relative">
         <div className="relative w-full h-96 overflow-hidden">
           <img src={imageUrl} alt={product.name} className="w-full h-full object-cover" />
-          <div className="absolute bottom-0 w-full text-black text-lg py-2">
+          <div className="absolute bottom-0 w-full text-black text-xl font-bold py-2">
             {product.name}
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function BasicDemo() {
   };
 
   return (
-    <div className="card">
+    <div className="card mx-10">
       <Carousel
         value={products}
         numVisible={3}

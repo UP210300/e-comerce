@@ -7,6 +7,8 @@ import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../../formatter/CurrencyFormatter';
 
+const DEFAULT_IMAGE_URL = '/assets/default-image.jpg';
+
 export default function Offers() {
     const [offers, setOffers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -47,6 +49,10 @@ export default function Offers() {
         </div>
     );
 
+    const getImageUrl = (offer) => {
+        return offer.images && offer.images.length > 0 ? offer.images[0].imageUrl : DEFAULT_IMAGE_URL;
+    };
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error loading offers: {error.message}</p>;
 
@@ -62,7 +68,7 @@ export default function Offers() {
                         onMouseLeave={() => setHoveredOfferId(null)}
                     >
                         <Link to={`/detalle-de-producto/${offer.id}`} style={{ textDecoration: 'none' }}>
-                            <Card footer={footer(offer)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="w-full h-full object-cover">
+                            <Card footer={footer(offer)} header={<img src={getImageUrl(offer)} alt={offer.name} className="w-full h-full object-cover" />} className="w-full h-full object-cover">
                                 <div className="flex flex-col">
                                     <div className="flex flex-row justify-between">
                                         <p>{offer.description}</p>
