@@ -32,7 +32,6 @@ export default function CartProduct() {
   return (
     <div>
       {cart.map((item) => {
-        // Obtener la URL de la imagen del producto
         const imageUrl = item.images && item.images.length > 0 ? item.images[0].imageUrl : DEFAULT_IMAGE_URL;
         
         return (

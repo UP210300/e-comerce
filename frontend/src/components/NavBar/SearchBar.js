@@ -37,9 +37,7 @@ export default function SearchBar({ onProductsFiltered }) {
   };
 
   const handleSearchClick = () => {
-    // Navegar a la ruta de búsqueda con el valor actual
     navigate(`/buscar/${encodeURIComponent(searchValue)}`);
-    // Limpiar el campo de búsqueda
     updateSearchValue('');
   };
 

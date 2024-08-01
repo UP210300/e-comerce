@@ -10,11 +10,10 @@ const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // Nuevo estado para mostrar/ocultar contraseña
+  const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Ruta de destino previa o por defecto '/perfil'
   const from = location.state?.from?.pathname || '/perfil';
 
   const handleSubmit = async (e) => {

@@ -4,16 +4,15 @@ import ProductList from '../Product/ProductList';
 import axios from 'axios';
 
 const ProductListRoute = () => {
-  const { query } = useParams(); // Obtén el parámetro de búsqueda de la URL
+  const { query } = useParams(); 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    // Carga todos los productos cuando el componente se monta
     axios.get('http://localhost:8080/api/products')
       .then(response => {
         setProducts(response.data);
-        setFilteredProducts(response.data); // Inicialmente, muestra todos los productos
+        setFilteredProducts(response.data); 
       })
       .catch(error => {
         console.error('Error fetching products:', error);
@@ -21,14 +20,13 @@ const ProductListRoute = () => {
   }, []);
 
   useEffect(() => {
-    // Filtra los productos basados en el parámetro de búsqueda
     if (query) {
       const filtered = products.filter(product =>
         product.name.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts(products); // Si no hay consulta, muestra todos los productos
+      setFilteredProducts(products); 
     }
   }, [query, products]);
 
