@@ -20,7 +20,7 @@ function ProductDetail() {
       .then(response => {
         setProduct(response.data);
         if (response.data.images.length > 0) {
-          setMainImage(response.data.images[0].imageUrl); // Establece la primera imagen como principal por defecto
+          setMainImage(response.data.images[0].imageUrl); 
         }
       })
       .catch(error => {
