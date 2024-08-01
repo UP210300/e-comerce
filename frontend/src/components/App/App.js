@@ -13,7 +13,7 @@ function App() {
     <div>
       {!isCheckoutPage && !isLoginPage && !isRegisterPage && <NavBar />}
       {isCheckoutPage && <CheckoutBar />}
-      <div className="px-10 g:px-20 py-10">
+      <div className={isLoginPage ? '' : 'px-10 py-10'}>
         <Outlet /> 
       </div>
     </div>
