@@ -7,20 +7,20 @@ import { Toast } from 'primereact/toast';
 import { useCart } from '../../context/CartContext';
 
 function ProductDetail() {
-  const { id } = useParams(); // Obtener el id del producto de la URL
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState('');
-  const navigate = useNavigate(); // Para manejar la navegación
-  const toast = useRef(null); // Crear una referencia para el Toast
+  const navigate = useNavigate();
+  const toast = useRef(null); 
 
   useEffect(() => {
     axios.get(`http://localhost:8080/api/products/${id}`)
       .then(response => {
         setProduct(response.data);
         if (response.data.images.length > 0) {
-          setMainImage(response.data.images[0].imageUrl); // Establece la primera imagen como principal por defecto
+          setMainImage(response.data.images[0].imageUrl); 
         }
       })
       .catch(error => {
@@ -43,7 +43,7 @@ function ProductDetail() {
   };
 
   const handleThumbnailMouseEnter = (imageUrl) => {
-    setMainImage(imageUrl); // Cambia la imagen principal al pasar el cursor sobre una miniatura
+    setMainImage(imageUrl); 
   };
 
   return (
@@ -58,7 +58,7 @@ function ProductDetail() {
                 src={`/${image.imageUrl}`} 
                 alt={`Imagen ${index + 1}`}
                 className="w-[20vw] h-[20vw] md:w-[9vw] md:h-[9vw] cursor-pointer"
-                onMouseEnter={() => handleThumbnailMouseEnter(image.imageUrl)} // Cambia la imagen principal al pasar el cursor
+                onMouseEnter={() => handleThumbnailMouseEnter(image.imageUrl)} 
               />
             ))}
           </div>

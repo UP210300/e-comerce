@@ -6,12 +6,10 @@ import { useCart } from '../../context/CartContext';
 export default function OrderSummary() {
   const { cart, selectedItems } = useCart();
 
-  // Filtrar los productos seleccionados del carrito
   const filteredCart = selectedItems.length > 0 
     ? cart.filter(item => selectedItems.includes(item.id))
     : cart;
 
-  // Calcular el total de artículos y el total del precio
   const totalItems = filteredCart.reduce((total, item) => total + (item.quantity || 1), 0);
   const totalPrice = filteredCart.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
 

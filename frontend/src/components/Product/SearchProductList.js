@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { VirtualScroller } from 'primereact/virtualscroller';
-import { useSearch } from '../../context/SearchContext'; // Ajusta la ruta según la ubicación del archivo
+import { useSearch } from '../../context/SearchContext'; 
 
 export default function ProductList({ products }) {
   const { clearSearch } = useSearch();
