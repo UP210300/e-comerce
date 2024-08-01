@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSearch } from '../../context/SearchContext';
@@ -6,7 +7,8 @@ import CategoriesBar from './CategoriesBar';
 import ProductList from '../Product/SearchProductList';
 
 function NavBar() {
-  const { searchValue, filteredProducts } = useSearch();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const { searchValue } = useSearch();
 
   return (
     <div className="flex flex-col">
@@ -21,7 +23,7 @@ function NavBar() {
           </button>
         </div>
         <div className="relative text-slate-800 w-1/2 lg:w-1/3">
-          <SearchBar className="w-full" />
+          <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} />
           {searchValue && (
             <div className="absolute z-20 bg-white">
               <ProductList className="absolute" products={filteredProducts} />
