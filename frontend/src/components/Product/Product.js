@@ -42,7 +42,7 @@ export default function Product({ product }) {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <Link to={`/detalle-de-producto/${product.id}`} style={{ textDecoration: 'none' }} key={product.id}>
-                    <Card footer={footer(product)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="w-full h-full object-cover">
+                    <Card footer={footer(product)} header={<img src={imageUrl} alt={product.name} className="w-full h-full object-cover" />} className="w-full h-full object-cover">
                         <div className="flex flex-col">
                             <div className="flex flex-row justify-between">
                                 <p>{product.description}</p>

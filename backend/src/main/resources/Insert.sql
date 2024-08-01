@@ -11,7 +11,7 @@ INSERT INTO customers (id_user, address, country, city, phone) VALUES
 (1, '123 Calle Principal', 'México', 'Michoacán', '4491234567'),
 (2, '456 Calle Olmo', 'México', 'Zacatecas', '4492345678'),
 (3, '789 Calle Arce', 'México', 'Aguascalientes', '4493456789'),
-(7, '320 Calle Fuente de los Cibeles', 'México', 'Aguascalientes', '4493667185');
+(4, '320 Calle Fuente de los Cibeles', 'México', 'Aguascalientes', '4493667185');
 
 INSERT INTO categories (name, description) VALUES
 ('Oficina', 'Herramientas para el trabajo de oficina'),
@@ -19,25 +19,25 @@ INSERT INTO categories (name, description) VALUES
 ('Arte', 'Materiales para artistas y trabajos creativos');
 
 INSERT INTO products (name, description, price, stock, id_category) VALUES
-('Cuaderno', 'Cuaderno rayado', 30, 150, 1),
+('Cuaderno', 'Cuaderno rayado', 30, 150, 2),
 ('Lápiz', 'Lápiz número 2', 5, 300, 2),
-('Goma', 'Goma de miga de pan', 7, 250, 3),
+('Goma', 'Goma de miga de pan', 7, 250, 2),
 ('Set de Pinturas Acrílicas', 'Set de 12 pinturas acrílicas', 600, 100, 3),
-('Libro de Bocetos', 'Libro de bocetos de tapa dura', 200, 75, 2),  
+('Libro de Bocetos', 'Libro de bocetos de tapa dura', 200, 75, 3),  
 ('Post-it', 'Notas adhesivas de colores', 25, 300, 1),
 ('Tinta para Impresora', 'Cartucho de tinta negra para impresora', 120, 80, 1),
-('Cinta Adhesiva', 'Cinta adhesiva transparente de 1.5 cm x 50 m', 15, 250, 3),
+('Cinta Adhesiva', 'Cinta adhesiva transparente de 1.5 cm x 50 m', 15, 250, 1),
 ('Proyector Portátil', 'Proyector portátil para presentaciones', 1200, 20, 3),
 ('Organizador de Escritorio', 'Organizador de escritorio en acrílico', 100, 150, 3),
 ('Calculadora Básica', 'Calculadora básica con funciones estándar', 50, 100, 2),
 ('Papel Fotográfico', 'Papel fotográfico brillante para impresoras', 200, 60, 1),
 ('Cúter', 'Cúter con hoja retráctil', 30, 90, 3),
-('Grapas para Grapadora', 'Paquete de 1000 grapas para grapadora', 20, 300, 3),
+('Grapas para Grapadora', 'Paquete de 1000 grapas para grapadora', 20, 300, 1),
 ('Estuche para Lápices', 'Estuche para lápices en lona', 25, 120, 2),
 ('Papel de Lija', 'Papel de lija de grano fino', 40, 75, 3),
 ('Bolígrafo de Gel', 'Bolígrafo de gel con tinta azul', 12, 180, 2),
 ('Marcador de Pizarra', 'Marcador para pizarra blanca', 18, 200, 2),
-('Pegamento en Barra', 'Pegamento en barra de 40 g', 10, 220, 3),
+('Pegamento en Barra', 'Pegamento en barra de 40 g', 10, 220, 2),
 ('Tarjeta de Felicitación', 'Tarjeta de felicitación con sobre', 5, 150, 1);
 
 
@@ -64,7 +64,22 @@ INSERT INTO product_categories (id_product, id_category) VALUES
 (2, 2),  
 (3, 2),  
 (4, 3), 
-(5, 1); 
+(5, 3); 
+(6, 1),  
+(7, 1),  
+(8, 1),  
+(9, 3),  
+(10, 3), 
+(11, 2), 
+(12, 1), 
+(13, 3), 
+(14, 1), 
+(15, 2), 
+(16, 3), 
+(17, 2), 
+(18, 2), 
+(19, 2), 
+(20, 1);
 
 
 INSERT INTO order_details (id_order, id_product, price, quantity) VALUES
@@ -109,6 +124,31 @@ INSERT INTO product_images (image_url, id_product) VALUES
 
 ('assets/libretaBocetos-1.jpeg', 5),
 ('assets/libretaBocetos-2.jpeg', 5),
-('assets/libretaBocetos-3.jpeg', 5);
+('assets/libretaBocetos-3.jpeg', 5),
+
+('assets/postIt-1.jpg', 6),
+('assets/postIt-2.jpg', 6),
+('assets/postIt-3.jpg', 6),
+
+('assets/tintaParaImpresora.jpg', 7),
+('assets/tintaParaImpresora.jpg', 7),
+('assets/tintaParaImpresora.jpg', 7),
+
+('assets/cintaAdhesiva-1.jpg', 8),
+('assets/cintaAdhesiva-2.jpg', 8),
+('assets/cintaAdhesiva-3.jpg', 8),
+
+('assets/proyectorPortatil-1.jpg', 9),
+('assets/proyectorPortatil-2.jpg', 9),
+('assets/proyectorPortatil-1.jpg', 9),
+
+
+('assets/organizadorDeEscritorio-1', 10),
+('assets/organizadorDeEscritorio-2', 10),
+('assets/organizadorDeEscritorio-3', 10),
+
+
+
+
 
 
