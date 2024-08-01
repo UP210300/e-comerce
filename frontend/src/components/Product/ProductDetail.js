@@ -34,7 +34,17 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity });
-    toast.current.show({ severity: 'success', summary: 'Producto Añadido', detail: `El producto ${product.name} ha sido añadido al carrito`, life: 3000 });
+    toast.current.show({
+      severity: 'success',
+      summary: 'Producto Añadido',
+      detail: `El producto ${product.name} ha sido añadido al carrito`,
+      life: 3000,
+      contentStyle: {
+        backgroundColor: '#cce5ff', 
+        borderColor: '#b8daff', 
+        color: '#004085', 
+      }
+    });
   };
 
   const handleBuy = () => {

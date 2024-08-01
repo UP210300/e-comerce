@@ -13,14 +13,14 @@ function NavBar() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between bg-primary-500 p-4 text-white px-10">
-        <div className="w-[120px]">
+        <div className="w-[120px] ml-[60px]">
           <button className="flex-shrink-0">
             <Link to="/">
               <img src='/assets/logo-white.png' alt="Logo" />
             </Link>
           </button>
         </div>
-        <div className="relative text-slate-800 w-1/2 lg:w-1/3">
+        <div className="relative text-slate-800 w-1/2 lg:w-1/3 ml-[160px]">
           <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} />
           {searchValue && (
             <div className="absolute z-20 bg-white">
@@ -28,7 +28,7 @@ function NavBar() {
             </div>
           )}
         </div>
-        <div className="flex flex-row space-x-5 items-center justify-end">
+        <div className="flex flex-row space-x-5 items-center justify-end mr-[40px]">
           <div>
             <button className="hover:bg-primary-400 rounded-full p-2">
               <Link to="/perfil">
