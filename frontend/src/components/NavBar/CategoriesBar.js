@@ -47,7 +47,7 @@ function NavBar() {
           />
         </li>
         {menuItems.map((item) => (
-          <li key={item.name}>
+          <li key={item.name} className="text-primary-500 font-semibold hover:text-primary-400">
             <a href={item.path}>{item.name}</a>
           </li>
         ))}

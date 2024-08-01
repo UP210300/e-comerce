@@ -11,7 +11,7 @@ const config = {
           200: '#c7d2fe',
           300: '#a5b4fc',
           400: '#818cf8',
-          500: '#1226ab', // Tu primary-500
+          500: '#1f389b', // Tu primary-500
           600: '#1e3a8a',
           700: '#1e40af',
           800: '#1e3a8a',
