@@ -84,8 +84,8 @@ function ProductDetail() {
             <InputNumber value={quantity} onValueChange={(e) => setQuantity(e.value)} showButtons />
           </div>
           <div className="flex flex-col space-y-5">
-            <Button label="Agregar al carrito" className="bg-slate-300 p-2" onClick={handleAddToCart} />
-            <Button label="Comprar" className="bg-slate-300 p-2" onClick={handleBuy} />
+            <Button label="Agregar al carrito" className="bg-primary-500 h-12" onClick={handleAddToCart} />
+            <Button label="Comprar" className="bg-primary-500 h-12" onClick={handleBuy} />
           </div>
         </div>
       </div>
