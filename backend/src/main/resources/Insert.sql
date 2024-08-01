@@ -64,7 +64,7 @@ INSERT INTO product_categories (id_product, id_category) VALUES
 (2, 2),  
 (3, 2),  
 (4, 3), 
-(5, 3); 
+(5, 3),
 (6, 1),  
 (7, 1),  
 (8, 1),  
@@ -130,9 +130,9 @@ INSERT INTO product_images (image_url, id_product) VALUES
 ('assets/postIt-2.jpg', 6),
 ('assets/postIt-3.jpg', 6),
 
-('assets/tintaParaImpresora.jpg', 7),
-('assets/tintaParaImpresora.jpg', 7),
-('assets/tintaParaImpresora.jpg', 7),
+('assets/tintaParaImpresora-1.jpg', 7),
+('assets/tintaParaImpresora-2.jpg', 7),
+('assets/tintaParaImpresora-3.jpg', 7),
 
 ('assets/cintaAdhesiva-1.jpg', 8),
 ('assets/cintaAdhesiva-2.jpg', 8),
@@ -140,12 +140,58 @@ INSERT INTO product_images (image_url, id_product) VALUES
 
 ('assets/proyectorPortatil-1.jpg', 9),
 ('assets/proyectorPortatil-2.jpg', 9),
-('assets/proyectorPortatil-1.jpg', 9),
+('assets/proyectorPortatil-3.jpg', 9),
+
+('assets/organizadorDeEscritorio-1.jpg', 10),
+('assets/organizadorDeEscritorio-2.jpg', 10),
+('assets/organizadorDeEscritorio-3.jpg', 10),
+
+('assets/calculadoraBasica-1.jpg', 11),
+('assets/calculadoraBasica-2.jpg', 11),
+('assets/calculadoraBasica-3.jpg', 11),
+
+('assets/papelFotografico-1.jpg', 12),
+('assets/papelFotografico-2.jpg', 12),
+('assets/papelFotografico-3.jpg', 12),
+
+('assets/cuter-1.jpg', 13),
+('assets/cuter-2.jpg', 13),
+('assets/cuter-3.jpg', 13),
+
+('assets/grapasParaGrapadora-1.jpg', 14),
+('assets/grapasParaGrapadora-2.jpg', 14),
+('assets/grapasParaGrapadora-3.jpg', 14),
+
+('assets/estucheParaLapices-1.jpg', 15),
+('assets/estucheParaLapices-2.jpg', 15),
+('assets/estucheParaLapices-3.jpg', 15),
+
+('assets/papelDeLija-1.jpg', 16),
+('assets/papelDeLija-2.jpg', 16),
+('assets/papelDeLija-3.jpg', 16),
+
+('assets/boligrafoDeGel-1.jpg', 17),
+('assets/boligrafoDeGel-2.jpg', 17),
+('assets/boligrafoDeGel-3.jpg', 17),
+
+('assets/marcadorDePizarra-1.jpg', 18),
+('assets/marcadorDePizarra-2.jpg', 18),
+('assets/marcadorDePizarra-3.jpg', 18),
+
+('assets/pegamentoEnBarra-1.jpg', 19),
+('assets/pegamentoEnBarra-2.jpg', 19),
+('assets/pegamentoEnBarra-3.jpg', 19),
+
+('assets/tarjetaDeFelicitacion-1.jpg', 20),
+('assets/tarjetaDeFelicitacion-2.jpg', 20),
+('assets/tarjetaDeFelicitacion-3.jpg', 20);
 
 
-('assets/organizadorDeEscritorio-1', 10),
-('assets/organizadorDeEscritorio-2', 10),
-('assets/organizadorDeEscritorio-3', 10),
+
+
+
+
+
 
 
 
