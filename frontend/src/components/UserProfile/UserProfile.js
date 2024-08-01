@@ -91,7 +91,7 @@ const UserProfile = () => {
                 </div>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <div className="flex justify-end">
-                    <Button label="Cerrar sesión" type="submit" className="bg-slate-300 p-2 w-1/3" />
+                    <Button label="Cerrar sesión" type="submit" className="bg-primary-500 p-2 w-1/3" />
                 </div>
             </form>
         </div>
