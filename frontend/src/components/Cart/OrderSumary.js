@@ -31,7 +31,7 @@ export default function OrderSummary() {
       {!isCheckoutPage && 
       <Link to="/pagar">
         <Button label="Comprar y pagar" className="bg-primary-500 h-12 w-full mt-4" />
-      </Link>
+      </Link>}
     </div>
   );
 }
