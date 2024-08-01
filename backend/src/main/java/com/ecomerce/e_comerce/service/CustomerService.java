@@ -59,13 +59,6 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public List<CustomerDTO> findAllOrderedByLastName() {
-        List<Customer> customers = customerRepository.findAllOrderedByLastName();
-        return customers.stream()
-                .map(customerMapper::toCustomerDTO)
-                .collect(Collectors.toList());
-    }
-
     public List<CustomerDTO> findByCity(String city) {
         List<Customer> customers = customerRepository.findByCity(city);
         return customers.stream()

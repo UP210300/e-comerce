@@ -15,11 +15,11 @@ const Category = ({ category }) => {
     };
 
     const cardStyle = {
-        width: '100%', // Ajusta según sea necesario para el diseño de la tarjeta
+        width: '100%', 
         margin: '10px'
     };
 
-    const imageUrl = '/assets/default-image.jpg'; // Ruta de imagen por defecto
+    const imageUrl = '/assets/default-image.jpg'; 
     const categoryName = category?.name || 'Nombre desconocido';
     const categoryDescription = category?.description || 'Descripción no disponible';
 

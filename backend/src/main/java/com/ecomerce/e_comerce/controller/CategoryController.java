@@ -19,11 +19,6 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
-    @GetMapping("/allOrdered")
-    public List<CategoryDTO> getAllCategoriesOrderedByName() {
-        return categoryService.findAllOrderedByName();
-    }
-
     @GetMapping("/{id}")
     public CategoryDTO getCategoryById(@PathVariable Integer id) {
         return categoryService.findById(id);

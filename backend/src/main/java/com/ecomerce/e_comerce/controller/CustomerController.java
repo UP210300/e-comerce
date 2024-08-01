@@ -39,11 +39,6 @@ public class CustomerController {
         customerService.deleteById(id);
     }
 
-    @GetMapping("/orderedByLastName")
-    public List<CustomerDTO> getAllCustomersOrderedByLastName() {
-        return customerService.findAllOrderedByLastName();
-    }
-
     @GetMapping("/city/{city}")
     public List<CustomerDTO> getCustomersByCity(@PathVariable String city) {
         return customerService.findByCity(city);

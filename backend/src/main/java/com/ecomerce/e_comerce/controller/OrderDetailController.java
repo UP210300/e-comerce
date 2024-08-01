@@ -51,8 +51,4 @@ public class OrderDetailController {
         return orderDetailService.findByProductId(idProduct);
     }
 
-    @GetMapping("/priceDesc")
-    public List<OrderDetailDTO> getAllOrderDetailsOrderedByPriceDesc() {
-        return orderDetailService.findAllOrderedByPriceDesc();
-    }
 }

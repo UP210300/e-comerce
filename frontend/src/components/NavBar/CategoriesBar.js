@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
-import ProductList from '../Product/ProductList'; 
-import Home from '../Home/Home'; 
+import { useNavigate } from 'react-router-dom';
 
 const menuItems = [
   {
@@ -17,6 +16,7 @@ const menuItems = [
 function NavBar() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
 
   const fetchCategories = async () => {
     try {
@@ -35,13 +35,22 @@ function NavBar() {
     fetchCategories();
   }, []);
 
+ /* const handleCategoryChange = (e) => {
+    setSelectedCategory(e.value);
+    navigate(`/category/${e.value}`);
+  };*/
+
+  const handleCategoryChange = (categoryId) => {
+    navigate(`/category/${categoryId}`);
+  };
+
   return (
     <div>
       <ul className="flex w-full flex-row items-center justify-around p-1 border border-b">
         <li>
           <Dropdown
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.value)}
+            onChange={handleCategoryChange}
             options={categories}
             optionLabel="name"
             placeholder="Categorias"
@@ -54,12 +63,6 @@ function NavBar() {
           </li>
         ))}
       </ul>
-
-      {selectedCategory ? (
-        <ProductList selectedCategory={selectedCategory} />
-      ) : (
-        <Home /> 
-      )}
     </div>
   );
 }

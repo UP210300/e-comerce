@@ -13,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -43,15 +44,21 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/orderedByLastName")
-    public ResponseEntity<List<User>> getAllUsersOrderedByLastName() {
-        List<User> users = userService.getAllUsersOrderedByLastName();
-        return ResponseEntity.ok(users);
-    }
-
     @GetMapping("/firstName/{firstName}")
     public ResponseEntity<List<User>> getUsersByFirstName(@PathVariable String firstName) {
         List<User> users = userService.getUsersByFirstName(firstName);
         return ResponseEntity.ok(users);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

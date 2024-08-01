@@ -18,9 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users WHERE role = ?1", nativeQuery = true)
     List<User> findByRole(String role);
 
-    @Query(value = "SELECT * FROM users ORDER BY last_name ASC", nativeQuery = true)
-    List<User> findAllOrderedByLastName();
-
     @Query(value = "SELECT * FROM users WHERE first_name = ?1", nativeQuery = true)
     List<User> findByFirstName(String firstName);
 }

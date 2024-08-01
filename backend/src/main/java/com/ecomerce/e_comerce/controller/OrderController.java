@@ -39,16 +39,6 @@ public class OrderController {
         orderService.deleteById(id);
     }
 
-    @GetMapping("/sorted-by-date")
-    public List<OrderDTO> getOrdersSortedByDate() {
-        return orderService.findAllSortedByDate();
-    }
-
-    @GetMapping("/sorted-by-customer-id")
-    public List<OrderDTO> getOrdersSortedByCustomerId() {
-        return orderService.findAllSortedByCustomerId();
-    }
-
     @GetMapping("/by-customer/{idCustomer}")
     public List<OrderDTO> getOrdersByCustomerId(@PathVariable Integer idCustomer) {
         return orderService.findOrdersByCustomerId(idCustomer);

@@ -51,8 +51,4 @@ public class ProductCategoryController {
         return productCategoryService.findByCategoryId(categoryId);
     }
 
-    @GetMapping("/orderedByCategoryId")
-    public List<ProductCategoryDTO> getProductCategoriesOrderedByCategoryId() {
-        return productCategoryService.findAllOrderedByCategoryId();
-    }
 }

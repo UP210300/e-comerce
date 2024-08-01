@@ -16,7 +16,4 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
 
     @Query(value = "SELECT * FROM product_categories WHERE id_category = ?1", nativeQuery = true)
     List<ProductCategory> findByCategoryId(Integer categoryId);
-
-    @Query(value = "SELECT * FROM product_categories ORDER BY id_category ASC", nativeQuery = true)
-    List<ProductCategory> findAllOrderedByCategoryId();
 }

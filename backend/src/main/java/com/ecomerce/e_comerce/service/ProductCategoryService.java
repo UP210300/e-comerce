@@ -91,11 +91,4 @@ public class ProductCategoryService {
                 .map(productCategoryMapper::toProductCategoryDTO)
                 .collect(Collectors.toList());
     }
-
-    public List<ProductCategoryDTO> findAllOrderedByCategoryId() {
-        List<ProductCategory> productCategories = productCategoryRepository.findAllOrderedByCategoryId();
-        return productCategories.stream()
-                .map(productCategoryMapper::toProductCategoryDTO)
-                .collect(Collectors.toList());
-    }
 }

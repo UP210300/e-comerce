@@ -92,11 +92,4 @@ public class OrderDetailService {
                 .map(orderDetailMapper::toOrderDetailDTO)
                 .collect(Collectors.toList());
     }
-
-    public List<OrderDetailDTO> findAllOrderedByPriceDesc() {
-        List<OrderDetail> orderDetails = orderDetailRepository.findAllOrderedByPriceDesc();
-        return orderDetails.stream()
-                .map(orderDetailMapper::toOrderDetailDTO)
-                .collect(Collectors.toList());
-    }
 }

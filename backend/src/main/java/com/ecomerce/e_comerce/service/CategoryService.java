@@ -27,13 +27,6 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public List<CategoryDTO> findAllOrderedByName() {
-        List<Category> categories = categoryRepository.findAllOrderedByName();
-        return categories.stream()
-                .map(categoryMapper::toCategoryDTO)
-                .collect(Collectors.toList());
-    }
-
     public CategoryDTO findById(Integer id) {
         Category category = categoryRepository.findByIdCategory(id);
         if (category == null) {
