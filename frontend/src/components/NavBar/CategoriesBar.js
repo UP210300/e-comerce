@@ -24,7 +24,7 @@ function NavBar() {
       const data = await response.json();
       setCategories(data.map(category => ({
         name: category.name,
-        value: category.id 
+        id: category.id
       })));
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -35,13 +35,10 @@ function NavBar() {
     fetchCategories();
   }, []);
 
- /* const handleCategoryChange = (e) => {
-    setSelectedCategory(e.value);
-    navigate(`/category/${e.value}`);
-  };*/
 
-  const handleCategoryChange = (categoryId) => {
-    navigate(`/category/${categoryId}`);
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.value);
+    navigate(`/categories/${e.value}`);
   };
 
   return (
@@ -53,8 +50,9 @@ function NavBar() {
             onChange={handleCategoryChange}
             options={categories}
             optionLabel="name"
-            placeholder="Categorias"
-            className="md:w-60 w-full h-12" 
+            optionValue="id"
+            placeholder="Categorías"
+            className="md:w-60 w-full h-12"
           />
         </li>
         {menuItems.map((item) => (

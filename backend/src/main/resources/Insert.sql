@@ -58,15 +58,6 @@ INSERT INTO orders (id_customer, amount, shipping_address, order_date, order_sta
 (2, 120.00, '456 Calle Olmo, Zacatecas, México', '2024-07-18', 'Pendiente'),
 (3, 300.50, '789 Calle Arce, Aguascalientes, México', '2024-07-19', 'Entregado');
 
-
-INSERT INTO product_categories (id_product, id_category) VALUES
-(1, 2), 
-(2, 2),  
-(3, 2),  
-(4, 3), 
-(5, 1); 
-
-
 INSERT INTO order_details (id_order, id_product, price, quantity) VALUES
 (1, 1, 30.00, 1),
 (1, 2, 5.00, 1),   

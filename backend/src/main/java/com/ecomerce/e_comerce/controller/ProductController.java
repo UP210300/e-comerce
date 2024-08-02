@@ -1,11 +1,11 @@
 package com.ecomerce.e_comerce.controller;
 
-import com.ecomerce.e_comerce.model.Product;
 import com.ecomerce.e_comerce.dto.ProductDTO;
+import com.ecomerce.e_comerce.exception.ProductNotFoundException;
 import com.ecomerce.e_comerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -21,28 +21,39 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getProductById(@PathVariable Integer id) {
-        return productService.findById(id);
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id) {
+        try {
+            ProductDTO productDTO = productService.findById(id);
+            return ResponseEntity.ok(productDTO);
+        } catch (ProductNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PostMapping ("/addProduct")
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
-        return productService.save(productDTO);
+    @PostMapping("/addProduct")
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        ProductDTO createdProduct = productService.save(productDTO);
+        return ResponseEntity.ok(createdProduct);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
-        return productService.update(id, productDTO);
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
+        try {
+            ProductDTO updatedProduct = productService.update(id, productDTO);
+            return ResponseEntity.ok(updatedProduct);
+        } catch (ProductNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Integer id) {
-        productService.deleteById(id);
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public List<Product> getProductsByCategoryId(@PathVariable Integer categoryId) {
-        return productService.findProductsByCategoryId(categoryId);
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) throws ProductNotFoundException{
+        try {
+            productService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException("Producto no encontrado con id " + id );
+        }
     }
 
     @GetMapping("/search")

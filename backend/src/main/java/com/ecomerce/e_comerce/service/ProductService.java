@@ -28,11 +28,12 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO findById(Integer id) {
+    public ProductDTO findById(Integer id) throws ProductNotFoundException {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
         return productMapper.toProductDTO(product);
     }
+    
 
     public ProductDTO save(ProductDTO productDTO) {
         Product product = productMapper.toProduct(productDTO);
@@ -40,29 +41,27 @@ public class ProductService {
         return productMapper.toProductDTO(savedProduct);
     }
 
-    public ProductDTO update(Integer id, ProductDTO productDTO) {
+    public ProductDTO update(Integer id, ProductDTO productDTO) throws ProductNotFoundException {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
-
+    
         existingProduct.setName(productDTO.getName());
         existingProduct.setDescription(productDTO.getDescription());
         existingProduct.setPrice(productDTO.getPrice());
         existingProduct.setStock(productDTO.getStock());
         existingProduct.setImages(productMapper.productImageDTOListToProductImageList(productDTO.getImages()));
-
+    
         Product updatedProduct = productRepository.save(existingProduct);
         return productMapper.toProductDTO(updatedProduct);
     }
+    
 
-    public void deleteById(Integer id) {
-        if (!productRepository.existsById(id)) {
+    public void deleteById(Integer id) throws ProductNotFoundException {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+        } else{
             throw new ProductNotFoundException("Product with ID " + id + " not found");
         }
-        productRepository.deleteById(id);
-    }
-
-    public List<Product> findProductsByCategoryId(Integer categoryId) {
-        return productRepository.findProductsByCategoryId(categoryId);
     }
 
     public List<ProductDTO> findProductsByName(String name) {
