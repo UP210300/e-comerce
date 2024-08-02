@@ -18,7 +18,17 @@ export default function Product({ product }) {
         event.stopPropagation();
         event.preventDefault();
         addToCart(product);
-        toast.current.show({ severity: 'success', summary: 'Producto Añadido', detail: `El producto ${product.name} ha sido añadido al carrito`, life: 3000 });
+        toast.current.show({
+            severity: 'success',
+            summary: 'Producto Añadido',
+            detail: `El producto ${product.name} ha sido añadido al carrito`,
+            life: 3000,
+            contentStyle: {
+                backgroundColor: '#cce5ff', 
+                borderColor: '#b8daff', 
+                color: '#004085', 
+            }
+        });
     };
 
     const footer = (product) => (
@@ -34,7 +44,7 @@ export default function Product({ product }) {
     const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
 
     return (
-        <div className="my-8">
+        <div className="my-8 mx-10">
             <Toast ref={toast} />
             <div
                 className={`transition duration-300 ${isHovered ? 'shadow-lg transform scale-105' : ''}`}
@@ -42,11 +52,11 @@ export default function Product({ product }) {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <Link to={`/detalle-de-producto/${product.id}`} style={{ textDecoration: 'none' }} key={product.id}>
-                    <Card footer={footer(product)} header={<img src='/assets/default-image.jpg' alt="" className="w-full h-full object-cover" />} className="w-full h-full object-cover">
+                    <Card footer={footer(product)} header={<img src={imageUrl} alt={product.name} className="w-full h-full object-cover" />} className="w-full h-full object-cover">
                         <div className="flex flex-col">
                             <div className="flex flex-row justify-between">
-                                <p>{product.description}</p>
-                                <p>{formatCurrency(product.price)}</p> 
+                                <p className="font-bold">{product.description}</p>
+                                <p className="font-bold">{formatCurrency(product.price)}</p> 
                             </div>
                         </div>
                     </Card>
