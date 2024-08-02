@@ -11,7 +11,7 @@ const UserProfile = () => {
         firstName: '',
         lastName: '',
     });
-    const [error] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,13 +26,12 @@ const UserProfile = () => {
                 setUser({
                     username: response.data.username,
                     email: response.data.email,
-                    firstName: response.data.first_name,
-                    lastName: response.data.last_name,
-                    currentPassword: '',
-                    newPassword: ''
+                    firstName: response.data.firstName || '',
+                    lastName: response.data.lastName || '',
                 });
             } catch (error) {
                 console.error('Error fetching user data', error);
+                setError('Error fetching user data');
             }
         };
 
@@ -48,6 +47,7 @@ const UserProfile = () => {
           navigate('/');
         } catch (error) {
           console.log('Error');
+          setError('Error logging out');
         }
       };
 
