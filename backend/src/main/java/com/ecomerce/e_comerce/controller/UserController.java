@@ -1,5 +1,6 @@
 package com.ecomerce.e_comerce.controller;
 
+import com.ecomerce.e_comerce.exception.UserNotFoundException;
 import com.ecomerce.e_comerce.model.User;
 import com.ecomerce.e_comerce.service.UserService;
 import com.ecomerce.e_comerce.util.JwtUtil;
@@ -34,8 +35,17 @@ public class UserController {
     }
 
     @GetMapping("/getUser/{id}")
-    public ResponseEntity<Optional<User>> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUser(id));
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        try {
+            Optional<User> user = userService.getUser(id);
+            if (user.isPresent()) {
+                return ResponseEntity.ok(user.get());
+            } else {
+                throw new UserNotFoundException("User not found with id " + id);
+            }
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        }
     }
 
     @GetMapping("/role/{role}")
@@ -44,21 +54,23 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/firstName/{firstName}")
-    public ResponseEntity<List<User>> getUsersByFirstName(@PathVariable String firstName) {
-        List<User> users = userService.getUsersByFirstName(firstName);
-        return ResponseEntity.ok(users);
-    }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
-        return ResponseEntity.ok(updatedUser);
+        try {
+            User updatedUser = userService.updateUser(id, user);
+            return ResponseEntity.ok(updatedUser);
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        }
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.noContent().build();
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).build();
+        }
     }
 }

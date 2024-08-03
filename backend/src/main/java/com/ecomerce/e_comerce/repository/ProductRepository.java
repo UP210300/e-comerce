@@ -9,9 +9,6 @@ import java.util.Collection;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query(value = "SELECT * FROM products WHERE stock > ?1", nativeQuery = true)
-    Collection<Product> findProductsInStockGreaterThan(Integer stock);
-
     @Query(value = "SELECT * FROM products WHERE name LIKE CONCAT('%', :name, '%')", nativeQuery = true)
     Collection<Product> findProductsByName(@Param("name") String name);
     

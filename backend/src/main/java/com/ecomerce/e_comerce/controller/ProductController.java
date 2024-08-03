@@ -21,12 +21,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id) {
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id)  throws ProductNotFoundException {
         try {
             ProductDTO productDTO = productService.findById(id);
             return ResponseEntity.ok(productDTO);
-        } catch (ProductNotFoundException e) {
-            return ResponseEntity.notFound().build();
+           } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException("Producto no encontrado con id " + id );
         }
     }
 
@@ -37,12 +37,21 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
+    public ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) throws ProductNotFoundException{
         try {
+            System.out.println("Received request to update product with ID: " + id);
             ProductDTO updatedProduct = productService.update(id, productDTO);
-            return ResponseEntity.ok(updatedProduct);
+            System.out.println("Product updated successfully: " + updatedProduct);
+            return updatedProduct;
         } catch (ProductNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            // Manejo de excepción específica
+            System.err.println("Product not found: " + e.getMessage());
+            throw e;  // o devuelve una respuesta adecuada
+        } catch (Exception e) {
+            // Manejo de cualquier otra excepción
+            System.err.println("Unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Ocurrió un error inesperado...", e);
         }
     }
 
@@ -54,15 +63,5 @@ public class ProductController {
         } catch (ProductNotFoundException e) {
             throw new ProductNotFoundException("Producto no encontrado con id " + id );
         }
-    }
-
-    @GetMapping("/search")
-    public List<ProductDTO> findProductsByName(@RequestParam String name) {
-        return productService.findProductsByName(name);
-    }
-
-    @GetMapping("/stock")
-    public List<ProductDTO> findProductsInStockGreaterThan(@RequestParam Integer stock) {
-        return productService.findProductsInStockGreaterThan(stock);
     }
 }

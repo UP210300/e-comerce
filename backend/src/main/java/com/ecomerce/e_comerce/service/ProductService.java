@@ -42,37 +42,40 @@ public class ProductService {
     }
 
     public ProductDTO update(Integer id, ProductDTO productDTO) throws ProductNotFoundException {
-        Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
-    
-        existingProduct.setName(productDTO.getName());
-        existingProduct.setDescription(productDTO.getDescription());
-        existingProduct.setPrice(productDTO.getPrice());
-        existingProduct.setStock(productDTO.getStock());
-        existingProduct.setImages(productMapper.productImageDTOListToProductImageList(productDTO.getImages()));
-    
-        Product updatedProduct = productRepository.save(existingProduct);
-        return productMapper.toProductDTO(updatedProduct);
+        try {
+            System.out.println("Updating product with ID: " + id);
+            Product existingProduct = productRepository.findById(id)
+                    .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
+
+            existingProduct.setName(productDTO.getName());
+            existingProduct.setDescription(productDTO.getDescription());
+            existingProduct.setPrice(productDTO.getPrice());
+            existingProduct.setStock(productDTO.getStock());
+            existingProduct.setImages(productMapper.productImageDTOListToProductImageList(productDTO.getImages()));
+
+            Product updatedProduct = productRepository.save(existingProduct);
+            System.out.println("Product updated successfully: " + updatedProduct);
+            return productMapper.toProductDTO(updatedProduct);
+        } catch (ProductNotFoundException e) {
+            System.err.println("Product not found: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.err.println("Unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Ocurrió un error inesperado...", e);
+        }
     }
     
 
     public void deleteById(Integer id) throws ProductNotFoundException {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-        } else{
+        if (!productRepository.existsById(id)) {
             throw new ProductNotFoundException("Product with ID " + id + " not found");
         }
+        productRepository.deleteById(id);
     }
 
     public List<ProductDTO> findProductsByName(String name) {
         Collection<Product> products = productRepository.findProductsByName(name);
-        return products.stream()
-                       .map(productMapper::toProductDTO)
-                       .collect(Collectors.toList());
-    }
-
-    public List<ProductDTO> findProductsInStockGreaterThan(Integer stock) {
-        Collection<Product> products = productRepository.findProductsInStockGreaterThan(stock);
         return products.stream()
                        .map(productMapper::toProductDTO)
                        .collect(Collectors.toList());

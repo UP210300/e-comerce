@@ -27,6 +27,11 @@ public interface ProductMapper {
 
   @Named("productImageListToProductImageDTOList")
   default List<ProductImageDTO> productImageListToProductImageDTOList(List<ProductImage> images) {
+    if (images == null) {
+      System.out.println("No images to map.");
+      return List.of();
+    }
+    System.out.println("Mapping images to image DTOs...");
     return images
         .stream()
         .map(this::toProductImageDTO)
@@ -35,6 +40,11 @@ public interface ProductMapper {
 
   @Named("productImageDTOListToProductImageList")
   default List<ProductImage> productImageDTOListToProductImageList(List<ProductImageDTO> imageDTOs) {
+    if (imageDTOs == null) {
+      System.out.println("No image DTOs to map.");
+      return List.of();
+    }
+    System.out.println("Mapping image DTOs to images...");
     return imageDTOs
         .stream()
         .map(this::toProductImage)
@@ -47,6 +57,11 @@ public interface ProductMapper {
 
   @Named("productsDTOList")
   default List<ProductDTO> toProductDtoList(List<Product> sourceList) {
+    if (sourceList == null) {
+      System.out.println("No products to map.");
+      return List.of();
+    }
+    System.out.println("Mapping products to product DTOs...");
     return sourceList
         .stream()
         .map(this::toProductDTO)

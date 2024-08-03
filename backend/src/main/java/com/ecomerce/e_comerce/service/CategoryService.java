@@ -27,11 +27,9 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public CategoryDTO findById(Integer id) {
-        Category category = categoryRepository.findByIdCategory(id);
-        if (category == null) {
-            throw new CategoryNotFoundException("Category with ID " + id + " not found");
-        }
+    public CategoryDTO findById(Integer id) throws CategoryNotFoundException{
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
         return categoryMapper.toCategoryDTO(category);
     }
 
@@ -41,11 +39,9 @@ public class CategoryService {
         return categoryMapper.toCategoryDTO(savedCategory);
     }
 
-    public CategoryDTO update(Integer id, CategoryDTO categoryDTO) {
-        Category existingCategory = categoryRepository.findByIdCategory(id);
-        if (existingCategory == null) {
-            throw new CategoryNotFoundException("Category with ID " + id + " not found");
-        }
+    public CategoryDTO update(Integer id, CategoryDTO categoryDTO) throws CategoryNotFoundException{
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
 
         existingCategory.setName(categoryDTO.getName());
         existingCategory.setDescription(categoryDTO.getDescription());
@@ -54,8 +50,8 @@ public class CategoryService {
         return categoryMapper.toCategoryDTO(updatedCategory);
     }
 
-    public void deleteById(Integer id) {
-        if (categoryRepository.findByIdCategory(id) == null) {
+    public void deleteById(Integer id) throws CategoryNotFoundException{
+        if (!categoryRepository.existsById(id)) {
             throw new CategoryNotFoundException("Category with ID " + id + " not found");
         }
         categoryRepository.deleteById(id);

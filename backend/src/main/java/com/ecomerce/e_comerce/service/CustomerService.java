@@ -27,7 +27,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public CustomerDTO findById(Integer id) {
+    public CustomerDTO findById(Integer id) throws CustomerNotFoundException{
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " not found"));
         return customerMapper.toCustomerDTO(customer);
@@ -39,7 +39,7 @@ public class CustomerService {
         return customerMapper.toCustomerDTO(savedCustomer);
     }
 
-    public CustomerDTO update(Integer id, CustomerDTO customerDTO) {
+    public CustomerDTO update(Integer id, CustomerDTO customerDTO) throws CustomerNotFoundException{
         Customer existingCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " not found"));
 
@@ -52,7 +52,7 @@ public class CustomerService {
         return customerMapper.toCustomerDTO(updatedCustomer);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id) throws CustomerNotFoundException{
         if (!customerRepository.existsById(id)) {
             throw new CustomerNotFoundException("Customer with ID " + id + " not found");
         }

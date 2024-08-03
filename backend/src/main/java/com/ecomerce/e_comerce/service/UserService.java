@@ -51,11 +51,7 @@ public class UserService {
         return userRepository.findByRole(role);
     }
 
-    public List<User> getUsersByFirstName(String firstName) {
-        return userRepository.findByFirstName(firstName);
-    }
-
-    public User updateUser(Long id, User userDetails) {
+    public User updateUser(Long id, User userDetails) throws UserNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id " + id));
         
@@ -69,7 +65,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id) throws UserNotFoundException {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
         } else {
