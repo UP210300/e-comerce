@@ -16,8 +16,8 @@ export default function OrderSummary() {
   const totalPrice = filteredCart.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
 
   return (
-    <div className="p-10">
-      <div className="border-b border-black">
+    <div className="md:p-10">
+      <div className="border-b border-gray-400">
         <p className="font-bold text-xl">Resumen del pedido</p>
         {selectedItems.length > 0 ? (
           <>

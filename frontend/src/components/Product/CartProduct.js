@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from '../../context/CartContext'; 
 import { Link } from "react-router-dom";
+import { formatCurrency } from '../../formatter/CurrencyFormatter';
 
 const DEFAULT_IMAGE_URL = '/assets/default-image.jpg';
 
@@ -35,31 +36,41 @@ export default function CartProduct() {
         const imageUrl = item.images && item.images.length > 0 ? item.images[0].imageUrl : DEFAULT_IMAGE_URL;
         
         return (
-          <Card key={item.id} className="relative mb-4">
-            <div className="absolute top-2 right-2">
-              <FontAwesomeIcon 
-                icon={faTrash} 
-                className="text-gray-500 hover:text-red-500 cursor-pointer" 
-                onClick={() => removeFromCart(item.id)} 
-              />
-            </div>
-            <div className="flex flex-row items-center">
-              <Checkbox 
-                checked={isItemSelected(item.id)} 
-                onChange={() => handleCheckboxChange(item)} 
-                className="mr-4" 
-              />
-              <img src={imageUrl} alt={item.name} className="md:w-1/6 m-6 flex-6" />
-              <div className="ml-4">
-                <p className="font-bold text-xl mb-1">{item.description}</p>
-                <p>${item.price}</p>
+          <Card key={item.id}>
+            <div>
+              <div className="flex justify-end">
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  className="text-gray-500 hover:text-red-500 cursor-pointer w-8"
+                  onClick={() => removeFromCart(item.id)}
+                />
               </div>
-              <div className="col-span-2 flex items-end justify-end">
+              <div className="flex flex-col lg:flex-row space-y-5">
+                <div className="flex justify-start lg:items-center lg:justify-center">
+                  <Checkbox
+                    checked={isItemSelected(item.id)}
+                    onChange={() => handleCheckboxChange(item)}
+                  />
+                </div>
+                <div className="flex flex-col lg:flex-row items-center">
+                  <div className="flex justify-center">
+                    <img src={imageUrl} alt={item.name} className="lg:w-2/3" />
+                  </div>
+                  <div className="flex flex-row lg:flex-col items-center lg:items-start justify-between lg:justify-start w-full py-2">
+                    <p className="font-bold text-xl">{item.description}</p>
+                    <p className="text-lg">{formatCurrency(item.price)}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end">
                 <div>
-                  <InputNumber 
-                    value={item.quantity} 
-                    showButtons 
-                    onValueChange={(e) => updateCartQuantity(item.id, e.value)} 
+                  <InputNumber
+                    value={item.quantity}
+                    onValueChange={(e) => updateCartQuantity(item.id, e.value)}
+                    className="!w-1/3"
+                    showButtons
+                    decrementButtonClassName="bg-primary-500 text-white"
+                    incrementButtonClassName="bg-primary-500 text-white"
                   />
                 </div>
               </div>
