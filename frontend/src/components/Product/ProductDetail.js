@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
@@ -59,6 +59,14 @@ function ProductDetail() {
   return (
     <div>
       <Toast ref={toast} /> {/* Incluir el componente Toast */}
+      <Link to="/">
+          <button className="flex flex-row items-center space-x-2 text-primary-500">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
+              <path fillRule="evenodd" d="M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10Z" clipRule="evenodd" />
+            </svg>
+            <p>Regresar al inicio</p>
+          </button>
+      </Link>
       <div className="grid md:grid-cols-2 space-y-10 md:space-y-0 md:space-x-10">
         <div className="grid grid-cols-3 gap-y-8 md:gap-y-4">
           <div className="col-span-3 flex flex-row lg:grid lg:col-span-1 justify-items-center items-center place-content-between">
