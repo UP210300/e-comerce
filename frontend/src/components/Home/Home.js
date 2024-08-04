@@ -115,7 +115,7 @@ function Home() {
                 </h1>
             </div>
             
-            {loadingProducts ? (
+            {!loadingProducts ? (
                 <div className="flex justify-center items-center h-screen">
                     <ProgressSpinner style={{ width: '100px', height: '100px' }} />
                 </div>

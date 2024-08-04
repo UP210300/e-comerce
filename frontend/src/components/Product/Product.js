@@ -44,7 +44,7 @@ export default function Product({ product }) {
     const imageUrl = product.images && product.images.length > 0 ? product.images[0].imageUrl : DEFAULT_IMAGE_URL;
 
     return (
-        <div className="my-8 mx-10">
+        <div className="h-full">
             <Toast ref={toast} />
             <div
                 className={`transition duration-300 ${isHovered ? 'shadow-lg transform scale-105' : ''}`}
