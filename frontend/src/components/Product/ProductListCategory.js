@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Product from './Product'; 
+import ReturnToHome from '../Home/ReturnToHome';
 
 export default function ProductListCategory() {
   const [products, setProducts] = useState([]);
@@ -30,7 +31,7 @@ export default function ProductListCategory() {
   if (products.length === 0) {
     return (
       <div>
-        <p>No hay productos disponibles en esta categoría.</p>
+        <ReturnToHome message='No hay productos disponibles en esta categoría.'/> 
       </div>
     );
   }
