@@ -37,7 +37,7 @@ const Category = ({ category }) => {
 
     return (
         <div
-            className={`my-8 ${isHovered ? 'transform scale-105' : ''} mx-10`}
+            className={`my-8 ${isHovered ? 'transform scale-105' : ''} mx-10 md:mx-0`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{ transition: 'transform 0.3s ease-in-out' }} 

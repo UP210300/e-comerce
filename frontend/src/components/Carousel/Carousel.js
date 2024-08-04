@@ -43,7 +43,7 @@ export default function BasicDemo() {
   };
 
   return (
-    <div className="card mx-10">
+    <div className="card lg:mx-10">
       <Carousel
         value={IMAGES}
         numVisible={3}
