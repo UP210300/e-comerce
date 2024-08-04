@@ -11,3 +11,16 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+.custom-dialog .p-dialog {
+  background: transparent;
+}
+
+.custom-dialog .p-dialog-header {
+  background: transparent;
+  border: none;
+}
+
+.custom-dialog .p-dialog-content {
+  background: transparent;
+}

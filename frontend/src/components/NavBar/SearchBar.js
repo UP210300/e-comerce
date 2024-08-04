@@ -51,7 +51,7 @@ export default function SearchBar({ onProductsFiltered }) {
       />
       {searchValue && (
         <Button 
-          className="bg-transparent border-transparent font-semibold hover:bg-slate-600"
+          className="bg-transparent border-transparent font-semibold"
           onClick={handleSearchClick}>
           Buscar
         </Button>)}
