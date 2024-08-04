@@ -1,6 +1,7 @@
 package com.ecomerce.e_comerce.service;
 
 import com.ecomerce.e_comerce.dto.OrderDetailDTO;
+import com.ecomerce.e_comerce.exception.CustomerNotFoundException;
 import com.ecomerce.e_comerce.exception.OrderDetailNotFoundException;
 import com.ecomerce.e_comerce.model.Order;
 import com.ecomerce.e_comerce.model.OrderDetail;
@@ -31,14 +32,14 @@ public class OrderDetailService {
     @Autowired
     private OrderDetailMapper orderDetailMapper;
 
-    public OrderDetailDTO findById(Integer idOrder, Integer idProduct) {
+    public OrderDetailDTO findById(Integer idOrder, Integer idProduct) throws OrderDetailNotFoundException{
         OrderDetailId id = new OrderDetailId(idOrder, idProduct);
         OrderDetail orderDetail = orderDetailRepository.findById(id)
                 .orElseThrow(() -> new OrderDetailNotFoundException("OrderDetail with ID " + idOrder + " and Product ID " + idProduct + " not found"));
         return orderDetailMapper.toOrderDetailDTO(orderDetail);
     }
 
-    public OrderDetailDTO save(OrderDetailDTO orderDetailDTO) {
+    public OrderDetailDTO save(OrderDetailDTO orderDetailDTO) throws OrderDetailNotFoundException{
         Order order = orderRepository.findById(orderDetailDTO.getIdOrder())
                 .orElseThrow(() -> new OrderDetailNotFoundException("Order with ID " + orderDetailDTO.getIdOrder() + " not found"));
         Product product = productRepository.findById(orderDetailDTO.getIdProduct())
@@ -52,7 +53,7 @@ public class OrderDetailService {
         return orderDetailMapper.toOrderDetailDTO(savedOrderDetail);
     }
 
-    public OrderDetailDTO update(Integer idOrder, Integer idProduct, OrderDetailDTO orderDetailDTO) {
+    public OrderDetailDTO update(Integer idOrder, Integer idProduct, OrderDetailDTO orderDetailDTO) throws OrderDetailNotFoundException{
         OrderDetailId id = new OrderDetailId(idOrder, idProduct);
         OrderDetail existingOrderDetail = orderDetailRepository.findById(id)
                 .orElseThrow(() -> new OrderDetailNotFoundException("OrderDetail with ID " + idOrder + " and Product ID " + idProduct + " not found"));
@@ -64,7 +65,7 @@ public class OrderDetailService {
         return orderDetailMapper.toOrderDetailDTO(updatedOrderDetail);
     }
 
-    public void deleteById(Integer idOrder, Integer idProduct) {
+    public void deleteById(Integer idOrder, Integer idProduct) throws OrderDetailNotFoundException{
         OrderDetailId id = new OrderDetailId(idOrder, idProduct);
         if (!orderDetailRepository.existsById(id)) {
             throw new OrderDetailNotFoundException("OrderDetail with ID " + idOrder + " and Product ID " + idProduct + " not found");
@@ -88,13 +89,6 @@ public class OrderDetailService {
 
     public List<OrderDetailDTO> findByProductId(Integer productId) {
         List<OrderDetail> orderDetails = orderDetailRepository.findByProductId(productId);
-        return orderDetails.stream()
-                .map(orderDetailMapper::toOrderDetailDTO)
-                .collect(Collectors.toList());
-    }
-
-    public List<OrderDetailDTO> findAllOrderedByPriceDesc() {
-        List<OrderDetail> orderDetails = orderDetailRepository.findAllOrderedByPriceDesc();
         return orderDetails.stream()
                 .map(orderDetailMapper::toOrderDetailDTO)
                 .collect(Collectors.toList());

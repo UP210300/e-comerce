@@ -10,14 +10,15 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query("SELECT p FROM Product p JOIN ProductCategory pc ON p.idProduct = pc.id.idProduct WHERE pc.id.idCategory = :categoryId")
-    List<Product> findProductsByCategoryId(@Param("categoryId") Integer categoryId);
-
-    @Query(value = "SELECT * FROM products WHERE stock > ?1", nativeQuery = true)
-    Collection<Product> findProductsInStockGreaterThan(Integer stock);
-
-    @Query(value = "SELECT * FROM products WHERE name LIKE CONCAT('%', :name, '%')", nativeQuery = true)
+    @Query(value = "SELECT p FROM Product p WHERE p.name LIKE %:name%")
     Collection<Product> findProductsByName(@Param("name") String name);
-    
-}
 
+    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId")
+    List<Product> findByCategoryId(@Param("categoryId") Integer categoryId);
+
+    @Query(value = "SELECT p FROM Product p JOIN OrderDetail od ON p.idProduct = od.product.idProduct GROUP BY p.idProduct ORDER BY SUM(od.quantity) DESC")
+    List<Product> findTopSellingProducts();
+
+    @Query(value = "SELECT p FROM Product p LEFT JOIN OrderDetail od ON p.idProduct = od.product.idProduct GROUP BY p.idProduct ORDER BY COALESCE(SUM(od.quantity), 0) ASC")
+    List<Product> findLeastSellingProducts();
+}
