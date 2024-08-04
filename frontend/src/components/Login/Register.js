@@ -14,22 +14,32 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Attempting to register user with data:", {
+      username,
+      email,
+      password,
+      first_name: firstName,
+      last_name: lastName,
+      role: 'customer',
+    });
+
     try {
       const response = await axios.post('http://localhost:8080/api/auth/register', {
         username,
         email,
         password,
-        first_name: firstName,
-        last_name: lastName,
-        role
+        firstName: firstName,
+        lastName: lastName,
+        role: 'customer',
       });
+
+      console.log("Registration successful:", response.data);
 
       setSuccess('Usuario registrado exitosamente');
       setError('');
@@ -39,9 +49,9 @@ const Register = () => {
       setPassword('');
       setFirstName('');
       setLastName('');
-      setRole('');
       navigate("/pagar");
     } catch (error) {
+      console.error("Registration failed:", error);
       setError('El registro falló');
       setSuccess('');
     }
@@ -99,15 +109,6 @@ const Register = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="flex flex-col">
-              <label>Rol</label>
-              <InputText
-                type="text"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
                 required
               />
             </div>

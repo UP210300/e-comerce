@@ -27,18 +27,22 @@ public interface ProductMapper {
 
   @Named("productImageListToProductImageDTOList")
   default List<ProductImageDTO> productImageListToProductImageDTOList(List<ProductImage> images) {
-    return images
-        .stream()
-        .map(this::toProductImageDTO)
-        .toList();
+    if (images == null || images.isEmpty()) {
+      return List.of();
+    }
+    return images.stream()
+                 .map(this::toProductImageDTO)
+                 .toList();
   }
 
   @Named("productImageDTOListToProductImageList")
   default List<ProductImage> productImageDTOListToProductImageList(List<ProductImageDTO> imageDTOs) {
-    return imageDTOs
-        .stream()
-        .map(this::toProductImage)
-        .toList();
+    if (imageDTOs == null || imageDTOs.isEmpty()) {
+      return List.of();
+    }
+    return imageDTOs.stream()
+                    .map(this::toProductImage)
+                    .toList();
   }
 
   ProductImageDTO toProductImageDTO(ProductImage productImage);
@@ -47,9 +51,11 @@ public interface ProductMapper {
 
   @Named("productsDTOList")
   default List<ProductDTO> toProductDtoList(List<Product> sourceList) {
-    return sourceList
-        .stream()
-        .map(this::toProductDTO)
-        .toList();
+    if (sourceList == null) {
+      return List.of();
+    }
+    return sourceList.stream()
+                     .map(this::toProductDTO)
+                     .toList();
   }
 }

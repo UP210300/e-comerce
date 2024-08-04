@@ -22,9 +22,6 @@ public class UserService {
     );
 
     public User registerUser(User user) {
-        if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("customer");
-        }
         return userRepository.save(user);
     }
 
@@ -51,15 +48,7 @@ public class UserService {
         return userRepository.findByRole(role);
     }
 
-    public List<User> getAllUsersOrderedByLastName() {
-        return userRepository.findAllOrderedByLastName();
-    }
-
-    public List<User> getUsersByFirstName(String firstName) {
-        return userRepository.findByFirstName(firstName);
-    }
-
-    public User updateUser(Long id, User userDetails) {
+    public User updateUser(Long id, User userDetails) throws UserNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id " + id));
         
@@ -68,12 +57,12 @@ public class UserService {
         if (userDetails.getFirstName() != null) user.setFirstName(userDetails.getFirstName());
         if (userDetails.getLastName() != null) user.setLastName(userDetails.getLastName());
         if (userDetails.getRole() != null) user.setRole(userDetails.getRole());
-        if (userDetails.getPassword() != null) user.setPassword(userDetails.getPassword()); // Asegúrate de manejar la actualización de la contraseña de manera segura
+        if (userDetails.getPassword() != null) user.setPassword(userDetails.getPassword());
 
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id) throws UserNotFoundException {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
         } else {

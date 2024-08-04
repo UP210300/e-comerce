@@ -16,7 +16,7 @@ export default function Offers() {
     const [hoveredOfferId, setHoveredOfferId] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/products')
+        fetch('http://localhost:8080/api/products/least-selling')
             .then(response => response.json())
             .then(data => {
                 setOffers(data); 

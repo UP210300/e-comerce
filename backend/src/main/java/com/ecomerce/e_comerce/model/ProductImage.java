@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -20,7 +19,6 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idImage;
 
-    @NotEmpty
     @Column(name = "image_url", nullable = false, length = 255)
     private String imageUrl;
 

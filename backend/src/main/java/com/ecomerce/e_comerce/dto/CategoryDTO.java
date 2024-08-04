@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoryDTO {
 
-    @JsonIgnore
     @JsonProperty("id")
     private Integer idCategory;
 

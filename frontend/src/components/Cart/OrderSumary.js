@@ -16,8 +16,8 @@ export default function OrderSummary() {
   const totalPrice = filteredCart.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
 
   return (
-    <div className="p-10">
-      <div className="border-b border-black">
+    <div className="md:p-10">
+      <div className="border-b border-gray-400">
         <p className="font-bold text-xl">Resumen del pedido</p>
         {selectedItems.length > 0 ? (
           <>
@@ -28,10 +28,12 @@ export default function OrderSummary() {
           <p className="text-gray-500">No hay productos seleccionados.</p>
         )}
       </div>
-      {!isCheckoutPage && 
-      <Link to="/pagar">
-        <Button label="Comprar y pagar" className="bg-primary-500 h-12 w-full mt-4" />
-      </Link>}
+      {!isCheckoutPage && (
+        <Link to="/pagar">
+          <Button label="Comprar y pagar" className="bg-primary-500 h-12 w-full mt-4" />
+        </Link>
+      )}
     </div>
   );
 }
+
