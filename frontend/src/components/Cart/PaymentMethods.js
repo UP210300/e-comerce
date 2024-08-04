@@ -23,7 +23,7 @@ export default function BasicDemo() {
     };
 
     return (
-        <div className="p-10">
+        <div className="md:p-10">
             <Toast ref={toast} />
             <div>
                 <p className="font-bold text-xl mb-1">Seleccione método de pago</p>

@@ -22,9 +22,6 @@ public class UserService {
     );
 
     public User registerUser(User user) {
-        if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("customer");
-        }
         return userRepository.save(user);
     }
 

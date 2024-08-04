@@ -39,9 +39,9 @@ function Cart() {
           </button>
         </Link>}
       </div>
-      <div className="grid md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <CartProduct/>
-      <div>
+      <div className="space-y-5">
         <OrderSumary/>
         {isCheckoutPage && <PaymentMethod/>}
       </div>
