@@ -1,7 +1,5 @@
 package com.ecomerce.e_comerce.dto;
 
-import com.ecomerce.e_comerce.model.Customer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,11 +14,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class OrderDTO {
 
-    @JsonIgnore
+    @JsonProperty("idOrder")
     private Integer idOrder;
 
-    @JsonProperty("customer")
-    private Customer customer;
+    @JsonProperty("idCustomer")
+    private Integer idCustomer;
 
     @JsonProperty("amount")
     private Double amount;
