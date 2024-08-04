@@ -25,25 +25,39 @@ const Register = () => {
       username,
       email,
       password,
-      first_name: firstName,
-      last_name: lastName,
+      firstName,
+      lastName,
       role: 'customer',
     });
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/register', {
+      const userResponse = await axios.post('http://localhost:8080/api/auth/register', {
         username,
         email,
         password,
-        firstName: firstName,
-        lastName: lastName,
+        firstName,
+        lastName,
         role: 'customer',
       });
 
-      console.log("Registration successful:", response.data);
+      const userId = userResponse.data.id; // Asegúrate de que este es el campo correcto del id del usuario creado
 
-      setSuccess('Usuario registrado exitosamente');
+      console.log("User registration successful:", userResponse.data);
+
+      // Crear el customer asociado
+      const customerResponse = await axios.post('http://localhost:8080/api/customers/addCustomer', {
+        user: userId,
+        address: '320000 Calle Fuente de los Cibeles',
+        country: 'Méxicoooo',
+        city: 'Aguascalientessss',
+        phone: '4493667185',
+      });
+
+      console.log("Customer creation successful:", customerResponse.data);
+
+      setSuccess('Usuario y cliente registrados exitosamente');
       setError('');
+
       // Limpiar campos del formulario
       setUsername('');
       setEmail('');
