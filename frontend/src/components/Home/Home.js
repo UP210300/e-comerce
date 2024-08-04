@@ -18,28 +18,23 @@ function Home() {
     const [user, setUser] = useState({ firstName: '', lastName: '' });
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/api/products');
-                const data = await response.json();
+
         const fetchProducts = async () => {
             try {
                 const response = await fetch('http://localhost:8080/api/products');
                 const data = await response.json();
                 setProducts(data);
-                setLoadingProducts(false);
             } catch (error) {
                 
                 setTimeout(() => {
-                    setLoading(false);
+                    setLoadingProducts(false);
                 }, 2500); 
-            } catch (error) {
                 console.error('Error fetching products:', error);
                 setErrorProducts(error);
                 setLoadingProducts(false);
-            }
+            } 
         };
-
+    
         fetchProducts();
     }, []);
 
@@ -83,22 +78,13 @@ function Home() {
         fetchUserData();
     }, []);
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center h-screen">
-                <ProgressSpinner style={{ width: '100px', height: '100px' }} />
-            </div>
-        );
-    }
-
-    if (error) {
-        return <p>Error loading products: {error.message}</p>;
-    }
 
     return (
         <div className="space-y-5">
             {loadingUser ? (
-                <p>Loading user...</p>
+                <div className="flex justify-center items-center h-screen">
+                    <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+                </div>
             ) : errorUser ? (
                 <h1 className="font-semibold text-primary-500 text-5xl space-x-2">
                     Bienvenido de nuevo !
@@ -113,7 +99,9 @@ function Home() {
             <Divider />
             
             {loadingCategories ? (
-                <p>Loading categories...</p>
+                <div className="flex justify-center items-center h-screen">
+                    <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+                </div>
             ) : errorCategories ? (
                 <p>Error loading categories: {errorCategories.message}</p>
             ) : (
@@ -128,7 +116,9 @@ function Home() {
             </div>
             
             {loadingProducts ? (
-                <p>Loading products...</p>
+                <div className="flex justify-center items-center h-screen">
+                    <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+                </div>
             ) : errorProducts ? (
                 <p>Error loading products: {errorProducts.message}</p>
             ) : (
