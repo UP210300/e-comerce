@@ -37,5 +37,5 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    private String role = "customer";
+    private String role;
 }

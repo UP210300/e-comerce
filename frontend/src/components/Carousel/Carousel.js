@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Carousel } from 'primereact/carousel';
+import { Dialog } from 'primereact/dialog';
 
 const IMAGES = [
   'assets/carousel/discount_1.jpg',
@@ -11,6 +12,9 @@ const IMAGES = [
 ];
 
 export default function BasicDemo() {
+  const [visible, setVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const responsiveOptions = [
     { breakpoint: '1400px', numVisible: 2, numScroll: 1 },
     { breakpoint: '1199px', numVisible: 3, numScroll: 1 },
@@ -20,12 +24,22 @@ export default function BasicDemo() {
 
   const imageTemplate = (image, index) => {
     return (
-      <div key={index} className="border border-gray-200 rounded m-2 p-3 text-center relative">
-        <div className="relative w-full h-96 overflow-hidden">
-          <img src={image} alt={`Carousel ${index + 1}`} className="w-full h-full object-cover" />
-        </div>
+      <div
+        key={index}
+        className="rounded m-2text-center relative cursor-pointer"
+        onClick={() => handleImageClick(image)}>
+        <div className="surface-border border-round m-2 text-center">
+                <div className="mb-3">
+                    <img src={image} alt={`Carousel ${index + 1}`} className="w-full h-full"></img>
+                </div>
+            </div>
       </div>
     );
+  };
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setVisible(true);
   };
 
   return (
@@ -37,6 +51,19 @@ export default function BasicDemo() {
         responsiveOptions={responsiveOptions}
         itemTemplate={imageTemplate}
       />
+      <Dialog
+        modal
+        visible={visible}
+        style={{ width: '40vw' }}
+        onHide={() => setVisible(false)}
+        className="custom-dialog"
+      >
+        {selectedImage && (
+          <div className="flex justify-center">
+            <img src={selectedImage} alt="Selected" className="w-full h-auto" />
+          </div>
+        )}
+      </Dialog>
     </div>
   );
 }
