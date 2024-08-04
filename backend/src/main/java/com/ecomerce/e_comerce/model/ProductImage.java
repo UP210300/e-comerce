@@ -19,11 +19,11 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idImage;
 
-    @Column(name = "image_url", nullable = true, length = 255)
+    @Column(name = "image_url", nullable = false, length = 255)
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "id_product", nullable = true)
+    @JoinColumn(name = "id_product", nullable = false)
     private Product product;
 }
 

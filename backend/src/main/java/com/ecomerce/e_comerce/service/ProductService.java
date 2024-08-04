@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Collection;
+import org.springframework.data.domain.Pageable;
+
 
 @Service
 public class ProductService {
@@ -81,5 +83,25 @@ public class ProductService {
         return products.stream()
                        .map(productMapper::toProductDTO)
                        .collect(Collectors.toList());
+    }
+
+  
+    public List<ProductDTO> getTopSellingProducts() {
+        return productRepository.findTopSellingProducts().stream()
+                .map(productMapper::toProductDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDTO> getLeastSellingProducts() {
+        return productRepository.findLeastSellingProducts().stream()
+                .map(productMapper::toProductDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDTO> getProductsByCategory(Integer categoryId) {
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+        return products.stream()
+                .map(productMapper::toProductDTO)
+                .collect(Collectors.toList());
     }
 }

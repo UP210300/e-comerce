@@ -4,8 +4,10 @@ import com.ecomerce.e_comerce.dto.ProductDTO;
 import com.ecomerce.e_comerce.exception.ProductNotFoundException;
 import com.ecomerce.e_comerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RestController
@@ -21,12 +23,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id)  throws ProductNotFoundException {
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id) throws ProductNotFoundException {
         try {
             ProductDTO productDTO = productService.findById(id);
             return ResponseEntity.ok(productDTO);
-           } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException("Producto no encontrado con id " + id );
+        } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException("Producto no encontrado con id " + id);
         }
     }
 
@@ -37,22 +39,37 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) throws ProductNotFoundException{
+    public ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) throws ProductNotFoundException {
         try {
             ProductDTO updatedProduct = productService.update(id, productDTO);
             return updatedProduct;
         } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException("Producto no actualizado con id " + id );
+            throw new ProductNotFoundException("Producto no actualizado con id " + id);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) throws ProductNotFoundException{
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) throws ProductNotFoundException {
         try {
             productService.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException("Producto no encontrado con id " + id );
+            throw new ProductNotFoundException("Producto no encontrado con id " + id);
         }
+    }
+
+    @GetMapping("/top-selling")
+    public List<ProductDTO> getTopSellingProducts() {
+        return productService.getTopSellingProducts();
+    }
+
+    @GetMapping("/least-selling")
+    public List<ProductDTO> getLeastSellingProducts() {
+        return productService.getLeastSellingProducts();
+    }
+
+    @GetMapping("/by-category")
+    public List<ProductDTO> getProductsByCategory(@RequestParam Integer categoryId) {
+        return productService.getProductsByCategory(categoryId);
     }
 }

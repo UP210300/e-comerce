@@ -38,7 +38,7 @@ function NavBar() {
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.value);
-    navigate(`/categories/${e.value}`);
+    navigate(`/categoria/${e.value}`);
   };
 
   return (
