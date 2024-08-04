@@ -2,7 +2,6 @@ package com.ecomerce.e_comerce.service;
 
 import com.ecomerce.e_comerce.dto.OrderDTO;
 import com.ecomerce.e_comerce.exception.OrderNotFoundException;
-import com.ecomerce.e_comerce.exception.ProductNotFoundException;
 import com.ecomerce.e_comerce.model.Order;
 import com.ecomerce.e_comerce.repository.OrderRepository;
 import com.ecomerce.e_comerce.mappers.OrderMapper;
