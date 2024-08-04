@@ -99,7 +99,9 @@ function ProductDetail() {
             <p>${product.price.toFixed(2)}</p>
           </div>
           <div className="text-xl space-y-5">
-            <InputNumber value={quantity} onValueChange={(e) => setQuantity(e.value)} showButtons />
+            <InputNumber value={quantity} onValueChange={(e) => setQuantity(e.value)} showButtons 
+            decrementButtonClassName="bg-primary-500 text-white" 
+            incrementButtonClassName="bg-primary-500 text-white" />
           </div>
           <div className="flex flex-col space-y-5">
             <Button label="Agregar al carrito" className="bg-primary-500 h-12" onClick={handleAddToCart} />
