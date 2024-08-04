@@ -39,19 +39,10 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) throws ProductNotFoundException{
         try {
-            System.out.println("Received request to update product with ID: " + id);
             ProductDTO updatedProduct = productService.update(id, productDTO);
-            System.out.println("Product updated successfully: " + updatedProduct);
             return updatedProduct;
         } catch (ProductNotFoundException e) {
-            // Manejo de excepción específica
-            System.err.println("Product not found: " + e.getMessage());
-            throw e;  // o devuelve una respuesta adecuada
-        } catch (Exception e) {
-            // Manejo de cualquier otra excepción
-            System.err.println("Unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Ocurrió un error inesperado...", e);
+            throw new ProductNotFoundException("Producto no actualizado con id " + id );
         }
     }
 

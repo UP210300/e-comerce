@@ -40,4 +40,13 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images;
+    
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
+        if (images != null) {
+            for (ProductImage image : images) {
+                image.setProduct(this);
+            }
+        }
+    }
 }

@@ -6,7 +6,7 @@ export default function CategoryList({ categories = [] }) {
         <div className="grid md:grid-cols-3 gap-10">
             {categories.length > 0 ? (
                 categories.map(category => (
-                    <Category key={category.id} category={category} />
+                    <Category key={category.idCategory} category={category} />
                 ))
             ) : (
                 <div>No hay categorias disponibles.</div>

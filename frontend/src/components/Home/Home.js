@@ -3,7 +3,6 @@ import Carousel from '../Carousel/Carousel';
 import ProductList from '../Product/ProductList'; 
 import CategoryList from '../Categories/CategoryList';
 import { Divider } from 'primereact/divider';
-        
 
 function Home() {
     const [products, setProducts] = useState([]);

@@ -3,14 +3,15 @@ package com.ecomerce.e_comerce.service;
 import com.ecomerce.e_comerce.dto.ProductDTO;
 import com.ecomerce.e_comerce.exception.ProductNotFoundException;
 import com.ecomerce.e_comerce.model.Product;
+import com.ecomerce.e_comerce.model.ProductImage;
 import com.ecomerce.e_comerce.repository.ProductRepository;
 import com.ecomerce.e_comerce.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Collection;
 
 @Service
 public class ProductService {
@@ -33,39 +34,40 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
         return productMapper.toProductDTO(product);
     }
-    
 
     public ProductDTO save(ProductDTO productDTO) {
         Product product = productMapper.toProduct(productDTO);
+        if (product.getImages() != null) {
+            for (ProductImage image : product.getImages()) {
+                image.setProduct(product);
+            }
+        }
         Product savedProduct = productRepository.save(product);
         return productMapper.toProductDTO(savedProduct);
     }
 
     public ProductDTO update(Integer id, ProductDTO productDTO) throws ProductNotFoundException {
-        try {
-            System.out.println("Updating product with ID: " + id);
-            Product existingProduct = productRepository.findById(id)
-                    .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
 
-            existingProduct.setName(productDTO.getName());
-            existingProduct.setDescription(productDTO.getDescription());
-            existingProduct.setPrice(productDTO.getPrice());
-            existingProduct.setStock(productDTO.getStock());
-            existingProduct.setImages(productMapper.productImageDTOListToProductImageList(productDTO.getImages()));
+        existingProduct.setName(productDTO.getName());
+        existingProduct.setDescription(productDTO.getDescription());
+        existingProduct.setPrice(productDTO.getPrice());
+        existingProduct.setStock(productDTO.getStock());
 
-            Product updatedProduct = productRepository.save(existingProduct);
-            System.out.println("Product updated successfully: " + updatedProduct);
-            return productMapper.toProductDTO(updatedProduct);
-        } catch (ProductNotFoundException e) {
-            System.err.println("Product not found: " + e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            System.err.println("Unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Ocurrió un error inesperado...", e);
+        List<ProductImage> productImages = productMapper.productImageDTOListToProductImageList(productDTO.getImages());
+        if (productImages != null && !productImages.isEmpty()) {
+            for (ProductImage image : productImages) {
+                image.setProduct(existingProduct);
+            }
+            existingProduct.setImages(productImages);
+        } else {
+            existingProduct.setImages(null);
         }
+
+        Product updatedProduct = productRepository.save(existingProduct);
+        return productMapper.toProductDTO(updatedProduct);
     }
-    
 
     public void deleteById(Integer id) throws ProductNotFoundException {
         if (!productRepository.existsById(id)) {
