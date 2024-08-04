@@ -47,7 +47,7 @@ export default function BasicDemo() {
       <Carousel
         value={IMAGES}
         numVisible={3}
-        numScroll={3}
+        numScroll={1}
         responsiveOptions={responsiveOptions}
         itemTemplate={imageTemplate}
       />
