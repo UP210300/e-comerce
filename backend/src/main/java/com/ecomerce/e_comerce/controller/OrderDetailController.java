@@ -14,8 +14,13 @@ public class OrderDetailController {
     @Autowired
     private OrderDetailService orderDetailService;
 
-    @PostMapping("/add")
-    public OrderDetailDTO createOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
+    @PostMapping("/{idOrder}/{idProduct}")
+    public OrderDetailDTO createOrderDetail(@PathVariable Integer idOrder, 
+                                             @PathVariable Integer idProduct, 
+                                             @RequestBody OrderDetailDTO orderDetailDTO) {
+
+        orderDetailDTO.setIdOrder(idOrder);
+        orderDetailDTO.setIdProduct(idProduct);
         return orderDetailService.save(orderDetailDTO);
     }
 
@@ -23,6 +28,9 @@ public class OrderDetailController {
     public OrderDetailDTO updateOrderDetail(@PathVariable Integer idOrder, 
                                              @PathVariable Integer idProduct, 
                                              @RequestBody OrderDetailDTO orderDetailDTO) {
+
+        orderDetailDTO.setIdOrder(idOrder);
+        orderDetailDTO.setIdProduct(idProduct);
         return orderDetailService.update(idOrder, idProduct, orderDetailDTO);
     }
 

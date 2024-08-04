@@ -1,3 +1,4 @@
+// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
@@ -20,6 +21,7 @@ import { CartProvider } from './context/CartContext';
 import { SearchProvider } from './context/SearchContext';
 import { PurchaseHistory } from './components/Orders';
 import { Offers } from './components/Offers';
+import { UserProvider } from './context/UserContext'; 
 
 const router = createBrowserRouter([
   {
@@ -49,21 +51,19 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <PrimeReactProvider value={{ unstyled: false, pt: Tailwind }}>
     <React.StrictMode>
       <SearchProvider>
         <CartProvider>
-          <RouterProvider router={router} />
+          <UserProvider>
+            <RouterProvider router={router} />
+          </UserProvider>
         </CartProvider>
       </SearchProvider>
     </React.StrictMode>
   </PrimeReactProvider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
