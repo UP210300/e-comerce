@@ -5,6 +5,7 @@ import { OrderList } from 'primereact/orderlist';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
 import 'primereact/resources/primereact.min.css';
 import { useUser } from '../../context/UserContext'; 
+import ReturnToHome from '../Home/ReturnToHome';
 
 const PurchaseHistory = () => {
     const [orders, setOrders] = useState([]);
@@ -85,7 +86,7 @@ const PurchaseHistory = () => {
 
     const itemTemplate = (item) => {
         const totalPrice = item.price * item.quantity;
-        console.log('Item in itemTemplate:', item); // Verifica la estructura de cada producto
+        console.log('Item in itemTemplate:', item); 
         return (
             <div className="flex flex-wrap p-4 items-center gap-4 border-b border-gray-300 rounded-lg">
                 <img className="w-16 h-16 object-cover rounded-md shadow-md" src={item.images[0]?.imageUrl || 'default-image.jpg'} alt={item.name} />
@@ -106,20 +107,20 @@ const PurchaseHistory = () => {
 
     return (
         <div className="min-h-screen bg-white">
-            <Link to="/">
+             {orders.length > 0 && <Link to="/">
                 <button className="flex flex-row items-center space-x-2 text-blue-500 p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
                         <path fillRule="evenodd" d="M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10Z" clipRule="evenodd" />
                     </svg>
                     <p>Regresar al inicio</p>
                 </button>
-            </Link>
+            </Link>}
             <div className="max-w-5xl mx-auto p-6">
-                <h2 className="text-2xl font-bold text-center mb-6 text-white bg-[#1f389b] p-4 rounded-lg">
-                    Historial de Compras
-                </h2>
                 {orders.length > 0 ? (
                     <div className="space-y-6">
+                        <h1 className="font-semibold text-primary-500 text-5xl text-center">
+                            Historial de compras
+                        </h1>
                         {orders.map(order => (
                             <div key={order.idOrder} className="p-6 mb-6 bg-white rounded-lg shadow-md border border-gray-200 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
                                 <h3 className="text-xl font-semibold mb-4 text-[#1f389b]">Orden realizada el {new Date(order.orderDate).toLocaleDateString()}</h3>
@@ -137,9 +138,7 @@ const PurchaseHistory = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center text-gray-600 text-xl font-bold">
-                        No hay órdenes para mostrar.
-                    </div>
+                    <ReturnToHome message='Aun no hay ordenes por mostrar.'/> 
                 )}
             </div>
         </div>
