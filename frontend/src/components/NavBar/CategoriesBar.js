@@ -26,6 +26,7 @@ function NavBar() {
         name: category.name,
         id: category.id
       })));
+      console.log(categories)
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
@@ -38,6 +39,7 @@ function NavBar() {
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.value);
+    console.log(e.value)
     navigate(`/categoria/${e.value}`);
   };
 
