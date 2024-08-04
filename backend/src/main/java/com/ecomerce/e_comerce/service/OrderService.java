@@ -2,6 +2,7 @@ package com.ecomerce.e_comerce.service;
 
 import com.ecomerce.e_comerce.dto.OrderDTO;
 import com.ecomerce.e_comerce.exception.OrderNotFoundException;
+import com.ecomerce.e_comerce.exception.ProductNotFoundException;
 import com.ecomerce.e_comerce.model.Order;
 import com.ecomerce.e_comerce.repository.OrderRepository;
 import com.ecomerce.e_comerce.mappers.OrderMapper;
@@ -31,7 +32,7 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO findById(Integer id) {
+    public OrderDTO findById(Integer id)  throws OrderNotFoundException{
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + id + " not found"));
         return orderMapper.toOrderDTO(order);
@@ -43,7 +44,7 @@ public class OrderService {
         return orderMapper.toOrderDTO(savedOrder);
     }
 
-    public OrderDTO update(Integer id, OrderDTO orderDTO) {
+    public OrderDTO update(Integer id, OrderDTO orderDTO) throws OrderNotFoundException{
         Order existingOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + id + " not found"));
 
@@ -58,31 +59,18 @@ public class OrderService {
         return orderMapper.toOrderDTO(updatedOrder);
     }
 
-    public void deleteById(Integer id) {
-        if (!orderRepository.existsById(id)) {
-            throw new OrderNotFoundException("Order with ID " + id + " not found");
-        }
-        orderRepository.deleteById(id);
-    }
-
-    public List<OrderDTO> findAllSortedByDate() {
-        List<Order> orders = orderRepository.findAllOrderedByDate();
-        return orders.stream()
-                .map(orderMapper::toOrderDTO)
-                .collect(Collectors.toList());
-    }
-
-    public List<OrderDTO> findAllSortedByCustomerId() {
-        List<Order> orders = orderRepository.findAllOrderedByCustomerId();
-        return orders.stream()
-                .map(orderMapper::toOrderDTO)
-                .collect(Collectors.toList());
-    }
-
     public List<OrderDTO> findOrdersByCustomerId(Integer idCustomer) {
         List<Order> orders = orderRepository.findByCustomerId(idCustomer);
         return orders.stream()
                 .map(orderMapper::toOrderDTO)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteById(Integer id) throws OrderNotFoundException {
+        if (orderRepository.existsById(id)) {
+            orderRepository.deleteById(id);
+        } else {
+            throw new OrderNotFoundException("Order with ID " + id + " not found");
+        }
     }
 }

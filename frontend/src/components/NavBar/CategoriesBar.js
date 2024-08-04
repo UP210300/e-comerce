@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
+import { useNavigate } from 'react-router-dom';
 
 const menuItems = [
   {
@@ -15,6 +16,7 @@ const menuItems = [
 function NavBar() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
 
   const fetchCategories = async () => {
     try {
@@ -22,7 +24,7 @@ function NavBar() {
       const data = await response.json();
       setCategories(data.map(category => ({
         name: category.name,
-        value: category.id 
+        id: category.id
       })));
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -33,17 +35,24 @@ function NavBar() {
     fetchCategories();
   }, []);
 
+
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.value);
+    navigate(`/categoria/${e.value}`);
+  };
+
   return (
     <div>
       <ul className="flex w-full flex-row items-center justify-around p-1 border border-b">
         <li>
           <Dropdown
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.value)}
+            onChange={handleCategoryChange}
             options={categories}
             optionLabel="name"
-            placeholder="Categorias"
-            className="md:w-14rem w-full"
+            optionValue="id"
+            placeholder="Categorías"
+            className="md:w-60 w-full h-12"
           />
         </li>
         {menuItems.map((item) => (

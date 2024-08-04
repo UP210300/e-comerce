@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import Product from '../Product';
+import Product from './Product'; 
 
-export default function ProductList() {
+export default function ProductListCategory() {
   const [products, setProducts] = useState([]);
-  const { categoryId } = useParams();
+  const { categoryId } = useParams(); 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let url = 'http://localhost:8080/api/products/top-selling';
-        if (categoryId) {
-          url += `?category=${categoryId}`;
-        }
-        const response = await axios.get(url);
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
+ useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/products/by-category?categoryId=${categoryId}`);
+      setProducts(response.data);
 
-    fetchProducts();
-  }, [categoryId]);
+      console.log(response.data); 
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  fetchProducts();
+}, [categoryId]);
 
   const handleProductClick = (productId) => {
     navigate(`/detalle-de-producto/${productId}`);
@@ -40,7 +38,7 @@ export default function ProductList() {
   return (
     <div className="grid md:grid-cols-4 gap-10">
       {products.map(product => (
-        <div key={product.id} onClick={() => handleProductClick(product.id)}>
+        <div key={product.id_product} onClick={() => handleProductClick(product.id_product)}>
           <Product product={product} />
         </div>
       ))}

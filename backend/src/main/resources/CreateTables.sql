@@ -54,16 +54,6 @@ CREATE TABLE orders (
     FOREIGN KEY (id_customer) REFERENCES customers(id_customer) ON DELETE CASCADE
 );
 
-
-CREATE TABLE product_categories (
-    id_product INT,
-    id_category INT,
-    PRIMARY KEY (id_product, id_category),
-    FOREIGN KEY (id_product) REFERENCES products(id_product) ON DELETE CASCADE,
-    FOREIGN KEY (id_category) REFERENCES categories(id_category) ON DELETE CASCADE
-);
-
-
 CREATE TABLE order_details (
     id_order INT,
     id_product INT,

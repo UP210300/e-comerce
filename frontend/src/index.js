@@ -21,7 +21,9 @@ import { CartProvider } from './context/CartContext';
 import { SearchProvider } from './context/SearchContext';
 import { PurchaseHistory } from './components/Orders';
 import { Offers } from './components/Offers';
+import ProductListCategory from './components/Product/ProductListCategory';
 import { UserProvider } from './context/UserContext'; 
+
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,7 @@ const router = createBrowserRouter([
       { path: "/buscar/:query", element: <RouteProductList/>},
       { path: "/compras", element: <PurchaseHistory/>},
       { path: "/ofertas", element: <Offers/>},
+      { path: "/categoria/:categoryId", element: <ProductListCategory />},
       {
         path: "/pagar",
         element: <ProtectedRoute />,

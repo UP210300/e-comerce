@@ -1,8 +1,10 @@
 package com.ecomerce.e_comerce.controller;
 
 import com.ecomerce.e_comerce.dto.CustomerDTO;
+import com.ecomerce.e_comerce.exception.CustomerNotFoundException;
 import com.ecomerce.e_comerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +22,13 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public CustomerDTO getCustomerById(@PathVariable Integer id) {
-        return customerService.findById(id);
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer id) throws CustomerNotFoundException {
+        try {
+            CustomerDTO customerDTO = customerService.findById(id);
+            return ResponseEntity.ok(customerDTO);
+        } catch (CustomerNotFoundException e) {
+            throw new CustomerNotFoundException("Cliente no encontrado con id " + id);
+        }
     }
 
     @PostMapping("/addCustomer")
@@ -30,18 +37,23 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public CustomerDTO updateCustomer(@PathVariable Integer id, @RequestBody CustomerDTO customerDTO) {
-        return customerService.update(id, customerDTO);
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Integer id, @RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
+        try {
+            CustomerDTO updatedCustomer = customerService.update(id, customerDTO);
+            return ResponseEntity.ok(updatedCustomer);
+        } catch (CustomerNotFoundException e) {
+            throw new CustomerNotFoundException("Cliente no encontrado con id " + id);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable Integer id) {
-        customerService.deleteById(id);
-    }
-
-    @GetMapping("/orderedByLastName")
-    public List<CustomerDTO> getAllCustomersOrderedByLastName() {
-        return customerService.findAllOrderedByLastName();
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id) throws CustomerNotFoundException {
+        try {
+            customerService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (CustomerNotFoundException e) {
+            throw new CustomerNotFoundException("Cliente no encontrado con id " + id);
+        }
     }
 
     @GetMapping("/city/{city}")
