@@ -1,5 +1,3 @@
-// UserContext.js
-
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
@@ -11,18 +9,19 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
-      
+    
         if (token && userId) {
-          axios.get(`http://localhost:8080/api/auth/getUser/${userId}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-          .then(response => setUser(response.data))
-          .catch(error => {
-            console.error('Error fetching user:', error.response ? error.response.data : error.message);
-            setUser(null);
-          });
+            axios.get(`http://localhost:8080/api/auth/getUser/${userId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(response => setUser(response.data))
+            .catch(error => {
+                console.error('Error fetching user:', error.response ? error.response.data : error.message);
+                setUser(null);
+            });
         }
-      }, []);
+    }, []);
+    
       
 
     const logout = () => {

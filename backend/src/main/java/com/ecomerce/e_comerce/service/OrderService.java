@@ -5,6 +5,7 @@ import com.ecomerce.e_comerce.exception.OrderNotFoundException;
 import com.ecomerce.e_comerce.model.Order;
 import com.ecomerce.e_comerce.repository.OrderRepository;
 import com.ecomerce.e_comerce.mappers.OrderMapper;
+import com.ecomerce.e_comerce.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public List<OrderDTO> findAll() {
         List<Order> orders = orderRepository.findAll();
@@ -43,7 +47,8 @@ public class OrderService {
         Order existingOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + id + " not found"));
 
-        existingOrder.setCustomer(orderDTO.getCustomer());
+        existingOrder.setCustomer(customerRepository.findById(orderDTO.getIdCustomer())
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found")));
         existingOrder.setAmount(orderDTO.getAmount());
         existingOrder.setShippingAddress(orderDTO.getShippingAddress());
         existingOrder.setOrderDate(orderDTO.getOrderDate());
