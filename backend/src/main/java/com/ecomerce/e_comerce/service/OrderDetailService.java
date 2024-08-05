@@ -1,7 +1,6 @@
 package com.ecomerce.e_comerce.service;
 
 import com.ecomerce.e_comerce.dto.OrderDetailDTO;
-import com.ecomerce.e_comerce.exception.CustomerNotFoundException;
 import com.ecomerce.e_comerce.exception.OrderDetailNotFoundException;
 import com.ecomerce.e_comerce.model.Order;
 import com.ecomerce.e_comerce.model.OrderDetail;

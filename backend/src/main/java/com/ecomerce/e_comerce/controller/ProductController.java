@@ -4,10 +4,8 @@ import com.ecomerce.e_comerce.dto.ProductDTO;
 import com.ecomerce.e_comerce.exception.ProductNotFoundException;
 import com.ecomerce.e_comerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RestController

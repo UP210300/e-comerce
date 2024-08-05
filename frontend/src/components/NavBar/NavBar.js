@@ -9,10 +9,15 @@ import ProductList from '../Product/SearchProductList';
 function NavBar() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { searchValue } = useSearch();
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const toggleSearchVisibility = () => {
+    setIsSearchVisible(!isSearchVisible);
+  };
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row justify-between bg-primary-500 p-4 text-white px-10">
+      <div className="flex flex-row justify-between bg-primary-500 p-4 text-white md:px-10">
         <div className="w-[120px] ml-[60px]">
           <button className="flex-shrink-0">
             <Link to="/">
@@ -20,7 +25,7 @@ function NavBar() {
             </Link>
           </button>
         </div>
-        <div className="relative text-slate-800 w-1/2 lg:w-1/3 ml-[160px]">
+        <div className="hidden lg:block relative text-slate-800 w-1/2 lg:w-1/3 ml-[160px]">
           <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} />
           {searchValue && (
             <div className="absolute z-20 bg-white">
@@ -29,6 +34,13 @@ function NavBar() {
           )}
         </div>
         <div className="flex flex-row space-x-5 items-center justify-end mr-[40px]">
+        <div>
+            <button onClick={toggleSearchVisibility} className="lg:hidden hover:bg-primary-400 rounded-full p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            </button>
+          </div>
           <div>
             <button className="hover:bg-primary-400 rounded-full p-2">
               <Link to="/perfil">
@@ -49,6 +61,16 @@ function NavBar() {
           </div>
         </div>
       </div>
+      {isSearchVisible && (
+        <div className="relative lg:hidden text-slate-800 w-full lg:w-1/3 mx-auto p-2">
+          <SearchBar className="w-full" onProductsFiltered={setFilteredProducts} />
+          {searchValue && (
+            <div className="absolute z-20 bg-white w-full">
+              <ProductList className="absolute" products={filteredProducts} />
+            </div>
+          )}
+        </div>
+      )}
       <div>
         <CategoriesBar />
       </div>
