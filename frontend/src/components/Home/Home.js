@@ -21,7 +21,7 @@ function Home() {
 
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/products');
+                const response = await fetch('http://146.190.12.213:8080/api/products');
                 const data = await response.json();
                 setProducts(data);
             } catch (error) {
@@ -41,7 +41,7 @@ function Home() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/categories');
+                const response = await fetch('http://146.190.12.213:8080/api/categories');
                 const data = await response.json();
                 setCategories(data);
                 setLoadingCategories(false);
@@ -60,7 +60,7 @@ function Home() {
             try {
                 const token = localStorage.getItem('token');
                 const userId = localStorage.getItem('userId');
-                const response = await axios.get(`http://localhost:8080/api/auth/getUser/${userId}`, {
+                const response = await axios.get(`http://146.190.12.213:8080/api/auth/getUser/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUser({

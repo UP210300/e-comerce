@@ -23,7 +23,7 @@ const PurchaseHistory = () => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:8080/api/orders/by-customer/${userId}`);
+                const response = await axios.get(`http://146.190.12.213:8080/api/orders/by-customer/${userId}`);
                 const ordersData = response.data;
                 console.log('Orders data:', ordersData);
 
@@ -42,12 +42,12 @@ const PurchaseHistory = () => {
                     }
 
                     try {
-                        const detailsResponse = await axios.get(`http://localhost:8080/api/order-details/order/${order.idOrder}`);
+                        const detailsResponse = await axios.get(`http://146.190.12.213:8080/api/order-details/order/${order.idOrder}`);
                         console.log(`Order details for order ${order.idOrder}:`, detailsResponse.data);
                         const productDetails = await Promise.all(
                             detailsResponse.data.map(async detail => {
                                 try {
-                                    const productResponse = await axios.get(`http://localhost:8080/api/products/${detail.id_product}`);
+                                    const productResponse = await axios.get(`http://146.190.12.213:8080/api/products/${detail.id_product}`);
                                     return {
                                         ...detail,
                                         ...productResponse.data

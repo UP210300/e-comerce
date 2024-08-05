@@ -9,7 +9,7 @@ const ProductListRoute = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/products')
+    axios.get('http://146.190.12.213:8080/api/products')
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data); 
