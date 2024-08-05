@@ -3,6 +3,7 @@ import Carousel from '../Carousel/Carousel';
 import ProductList from '../Product/ProductList';
 import CategoryList from '../Categories/CategoryList';
 import { Divider } from 'primereact/divider';
+import { ProgressSpinner } from 'primereact/progressspinner';
 import axios from 'axios';
 
 function Home() {
@@ -17,19 +18,23 @@ function Home() {
     const [user, setUser] = useState({ firstName: '', lastName: '' });
 
     useEffect(() => {
+
         const fetchProducts = async () => {
             try {
                 const response = await fetch('http://localhost:8080/api/products');
                 const data = await response.json();
                 setProducts(data);
-                setLoadingProducts(false);
             } catch (error) {
+                
+                setTimeout(() => {
+                    setLoadingProducts(false);
+                }, 2500); 
                 console.error('Error fetching products:', error);
                 setErrorProducts(error);
                 setLoadingProducts(false);
-            }
+            } 
         };
-
+    
         fetchProducts();
     }, []);
 
@@ -73,10 +78,13 @@ function Home() {
         fetchUserData();
     }, []);
 
+
     return (
         <div className="space-y-5">
             {loadingUser ? (
-                <p>Loading user...</p>
+                <div className="flex justify-center items-center h-screen">
+                    <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+                </div>
             ) : errorUser ? (
                 <h1 className="font-semibold text-primary-500 text-5xl space-x-2">
                     Bienvenido de nuevo !
@@ -91,7 +99,9 @@ function Home() {
             <Divider />
             
             {loadingCategories ? (
-                <p>Loading categories...</p>
+                <div className="flex justify-center items-center h-screen">
+                    <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+                </div>
             ) : errorCategories ? (
                 <p>Error loading categories: {errorCategories.message}</p>
             ) : (
@@ -106,7 +116,9 @@ function Home() {
             </div>
             
             {loadingProducts ? (
-                <p>Loading products...</p>
+                <div className="flex justify-center items-center h-screen">
+                    <ProgressSpinner style={{ width: '100px', height: '100px' }} />
+                </div>
             ) : errorProducts ? (
                 <p>Error loading products: {errorProducts.message}</p>
             ) : (
