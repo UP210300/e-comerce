@@ -42,7 +42,6 @@ const OffersProductList = () => {
           </button>
         </Link>
       </div>
-      <h1 className="font-semibold text-xl">Resultados de la busqueda {query} ...</h1>
       <ProductList products={filteredProducts} />;
     </div>
   )
