@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', null, {
+      const response = await axios.post('http://146.190.12.213:8080/api/auth/login', null, {
         params: {
           usernameOrEmail,
           password

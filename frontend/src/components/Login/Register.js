@@ -28,7 +28,7 @@ const Register = () => {
     });
 
     try {
-      const userResponse = await axios.post('http://localhost:8080/api/auth/register', {
+      const userResponse = await axios.post('http://146.190.12.213:8080/api/auth/register', {
         username,
         email,
         password,
@@ -42,7 +42,7 @@ const Register = () => {
       console.log("User registration successful:", userResponse.data);
 
       // Crear el customer asociado
-      const customerResponse = await axios.post('http://localhost:8080/api/customers/addCustomer', {
+      const customerResponse = await axios.post('http://146.190.12.213:8080/api/customers/addCustomer', {
         user: userId,
         address: '320000 Calle Fuente de los Cibeles',
         country: 'Méxicoooo',

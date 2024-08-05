@@ -12,7 +12,7 @@ export default function ProductListCategory() {
  useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/products/by-category?categoryId=${categoryId}`);
+      const response = await axios.get(`http://146.190.12.213:8080/api/products/by-category?categoryId=${categoryId}`);
       setProducts(response.data);
 
       console.log(response.data); 

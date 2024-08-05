@@ -20,7 +20,7 @@ function Home() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/products/top-selling');
+                const response = await axios.get('http://146.190.12.213/api/products/top-selling');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -36,7 +36,7 @@ function Home() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/categories');
+                const response = await fetch('http://146.190.12.213:8080/api/categories');
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
@@ -55,7 +55,7 @@ function Home() {
             try {
                 const token = localStorage.getItem('token');
                 const userId = localStorage.getItem('userId');
-                const response = await axios.get(`http://localhost:8080/api/auth/getUser/${userId}`, {
+                const response = await axios.get(`http://146.190.12.213:8080/api/auth/getUser/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUser({

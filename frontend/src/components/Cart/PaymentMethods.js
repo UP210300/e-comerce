@@ -40,11 +40,11 @@ export default function PaymentMethods() {
     
         try {
 
-            const response = await axios.post('http://localhost:8080/api/orders/addOrder', orderData);
+            const response = await axios.post('http://146.190.12.213:8080/api/orders/addOrder', orderData);
             const createdOrder = response.data;
 
             const orderDetailsPromises = orderDetails.map(async (detail) => {
-                await axios.post(`http://localhost:8080/api/order-details/${createdOrder.idOrder}/${detail.idProduct}`, detail);
+                await axios.post(`http://146.190.12.213:8080/api/order-details/${createdOrder.idOrder}/${detail.idProduct}`, detail);
             });
 
             await Promise.all(orderDetailsPromises);
