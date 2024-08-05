@@ -25,7 +25,7 @@ services:
       - db
 
   db:
-    build: db/mysql.init
+    build: db/mysql-init
     ports:
       - 3306:3306
     volumes:
