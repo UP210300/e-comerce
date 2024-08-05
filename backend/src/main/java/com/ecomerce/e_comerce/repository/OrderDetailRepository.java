@@ -17,4 +17,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, OrderD
     @Query(value = "SELECT * FROM order_details WHERE id_product = ?1", nativeQuery = true)
     List<OrderDetail> findByProductId(Integer productId);
 
+    @Query(value = "SELECT * FROM order_details ORDER BY price DESC", nativeQuery = true)
+    List<OrderDetail> findAllOrderedByPriceDesc();
 }

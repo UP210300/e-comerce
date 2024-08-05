@@ -39,7 +39,7 @@ export default function ProductListCategory() {
   return (
     <div className="grid md:grid-cols-4 gap-10">
       {products.map(product => (
-        <div key={product.id_product} onClick={() => handleProductClick(product.id_product)}>
+        <div key={product.id_product} onClick={() => handleProductClick(product.id)}>
           <Product product={product} />
         </div>
       ))}

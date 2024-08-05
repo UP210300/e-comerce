@@ -31,14 +31,14 @@ public class OrderDetailService {
     @Autowired
     private OrderDetailMapper orderDetailMapper;
 
-    public OrderDetailDTO findById(Integer idOrder, Integer idProduct) throws OrderDetailNotFoundException{
+    public OrderDetailDTO findById(Integer idOrder, Integer idProduct) {
         OrderDetailId id = new OrderDetailId(idOrder, idProduct);
         OrderDetail orderDetail = orderDetailRepository.findById(id)
                 .orElseThrow(() -> new OrderDetailNotFoundException("OrderDetail with ID " + idOrder + " and Product ID " + idProduct + " not found"));
         return orderDetailMapper.toOrderDetailDTO(orderDetail);
     }
 
-    public OrderDetailDTO save(OrderDetailDTO orderDetailDTO) throws OrderDetailNotFoundException{
+    public OrderDetailDTO save(OrderDetailDTO orderDetailDTO) {
         Order order = orderRepository.findById(orderDetailDTO.getIdOrder())
                 .orElseThrow(() -> new OrderDetailNotFoundException("Order with ID " + orderDetailDTO.getIdOrder() + " not found"));
         Product product = productRepository.findById(orderDetailDTO.getIdProduct())
@@ -52,7 +52,7 @@ public class OrderDetailService {
         return orderDetailMapper.toOrderDetailDTO(savedOrderDetail);
     }
 
-    public OrderDetailDTO update(Integer idOrder, Integer idProduct, OrderDetailDTO orderDetailDTO) throws OrderDetailNotFoundException{
+    public OrderDetailDTO update(Integer idOrder, Integer idProduct, OrderDetailDTO orderDetailDTO) {
         OrderDetailId id = new OrderDetailId(idOrder, idProduct);
         OrderDetail existingOrderDetail = orderDetailRepository.findById(id)
                 .orElseThrow(() -> new OrderDetailNotFoundException("OrderDetail with ID " + idOrder + " and Product ID " + idProduct + " not found"));
@@ -64,7 +64,7 @@ public class OrderDetailService {
         return orderDetailMapper.toOrderDetailDTO(updatedOrderDetail);
     }
 
-    public void deleteById(Integer idOrder, Integer idProduct) throws OrderDetailNotFoundException{
+    public void deleteById(Integer idOrder, Integer idProduct) {
         OrderDetailId id = new OrderDetailId(idOrder, idProduct);
         if (!orderDetailRepository.existsById(id)) {
             throw new OrderDetailNotFoundException("OrderDetail with ID " + idOrder + " and Product ID " + idProduct + " not found");
@@ -88,6 +88,13 @@ public class OrderDetailService {
 
     public List<OrderDetailDTO> findByProductId(Integer productId) {
         List<OrderDetail> orderDetails = orderDetailRepository.findByProductId(productId);
+        return orderDetails.stream()
+                .map(orderDetailMapper::toOrderDetailDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDetailDTO> findAllOrderedByPriceDesc() {
+        List<OrderDetail> orderDetails = orderDetailRepository.findAllOrderedByPriceDesc();
         return orderDetails.stream()
                 .map(orderDetailMapper::toOrderDetailDTO)
                 .collect(Collectors.toList());
