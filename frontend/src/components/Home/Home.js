@@ -18,23 +18,18 @@ function Home() {
     const [user, setUser] = useState({ firstName: '', lastName: '' });
 
     useEffect(() => {
-
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://146.190.12.213:8080/api/products');
-                const data = await response.json();
-                setProducts(data);
+                const response = await axios.get('http://146.190.12.213/api/products/top-selling');
+                setProducts(response.data);
             } catch (error) {
-                
-                setTimeout(() => {
-                    setLoadingProducts(false);
-                }, 2500); 
                 console.error('Error fetching products:', error);
                 setErrorProducts(error);
+            } finally {
                 setLoadingProducts(false);
-            } 
+            }
         };
-    
+
         fetchProducts();
     }, []);
 
@@ -44,10 +39,10 @@ function Home() {
                 const response = await fetch('http://146.190.12.213:8080/api/categories');
                 const data = await response.json();
                 setCategories(data);
-                setLoadingCategories(false);
             } catch (error) {
                 console.error('Error fetching categories:', error);
                 setErrorCategories(error);
+            } finally {
                 setLoadingCategories(false);
             }
         };
@@ -67,17 +62,16 @@ function Home() {
                     firstName: response.data.firstName || '',
                     lastName: response.data.lastName || '',
                 });
-                setLoadingUser(false);
             } catch (error) {
                 console.error('Error fetching user data', error);
                 setErrorUser(error);
+            } finally {
                 setLoadingUser(false);
             }
         };
 
         fetchUserData();
     }, []);
-
 
     return (
         <div className="space-y-5">
@@ -87,17 +81,17 @@ function Home() {
                 </div>
             ) : errorUser ? (
                 <h1 className="font-semibold text-primary-500 text-5xl space-x-2">
-                    Bienvenido de nuevo !
+                    Bienvenido de nuevo!
                 </h1>
             ) : (
                 <h1 className="font-semibold text-primary-500 text-5xl space-x-2">
-                    Bienvenido de nuevo {user.firstName} !
+                    Bienvenido de nuevo {user.firstName}!
                 </h1>
             )}
-            
+
             <Carousel />
             <Divider />
-            
+
             {loadingCategories ? (
                 <div className="flex justify-center items-center h-screen">
                     <ProgressSpinner style={{ width: '100px', height: '100px' }} />
@@ -107,15 +101,15 @@ function Home() {
             ) : (
                 <CategoryList categories={categories} />
             )}
-            
+
             <Divider />
             <div>
-                 <h1 className="font-semibold text-primary-500 text-5xl text-center space-x-2">
+                <h1 className="font-semibold text-primary-500 text-5xl text-center space-x-2">
                     Nuestros productos más vendidos
                 </h1>
             </div>
-            
-            {!loadingProducts ? (
+
+            {loadingProducts ? (
                 <div className="flex justify-center items-center h-screen">
                     <ProgressSpinner style={{ width: '100px', height: '100px' }} />
                 </div>

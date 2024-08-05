@@ -1,10 +1,8 @@
 package com.ecomerce.e_comerce.controller;
 
 import com.ecomerce.e_comerce.dto.OrderDTO;
-import com.ecomerce.e_comerce.exception.OrderNotFoundException;
 import com.ecomerce.e_comerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,34 +20,33 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Integer id) throws OrderNotFoundException {
-        try {
-            OrderDTO orderDTO = orderService.findById(id);
-            return ResponseEntity.ok(orderDTO);
-        } catch (OrderNotFoundException e) {
-            throw new OrderNotFoundException("Orden no encontrada con id " + id);
-        }
+    public OrderDTO getOrderById(@PathVariable Integer id) {
+        return orderService.findById(id);
     }
 
-    @PostMapping("/addOrder")
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
-        OrderDTO createdOrder = orderService.save(orderDTO);
-        return ResponseEntity.ok(createdOrder);
+    @PostMapping ("/addOrder")
+    public OrderDTO createOrder(@RequestBody OrderDTO orderDTO) {
+        return orderService.save(orderDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Integer id, @RequestBody OrderDTO orderDTO) throws OrderNotFoundException {
-        try {
-            OrderDTO updatedOrder = orderService.update(id, orderDTO);
-            return ResponseEntity.ok(updatedOrder);
-        } catch (OrderNotFoundException e) {
-            throw new OrderNotFoundException("Orden no encontrada con id " + id);
-        }
+    public OrderDTO updateOrder(@PathVariable Integer id, @RequestBody OrderDTO orderDTO) {
+        return orderService.update(id, orderDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOrder(@PathVariable Integer id) throws OrderNotFoundException {
+    public void deleteOrder(@PathVariable Integer id) {
         orderService.deleteById(id);
+    }
+
+    @GetMapping("/sorted-by-date")
+    public List<OrderDTO> getOrdersSortedByDate() {
+        return orderService.findAllSortedByDate();
+    }
+
+    @GetMapping("/sorted-by-customer-id")
+    public List<OrderDTO> getOrdersSortedByCustomerId() {
+        return orderService.findAllSortedByCustomerId();
     }
 
     @GetMapping("/by-customer/{idCustomer}")

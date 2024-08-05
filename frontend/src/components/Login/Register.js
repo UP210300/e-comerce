@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,7 +14,6 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [showPassword, setShowPassword] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,21 +124,14 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="flex flex-col relative">
+            <div className="flex flex-col">
               <label>Contraseña</label>
               <InputText
-                type={showPassword ? 'text' : 'password'}
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-6 right-0 flex items-center h-2/3 pr-3"
-              >
-                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} className="text-gray-500" />
-              </button>
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {success && <p style={{ color: 'green' }}>{success}</p>}

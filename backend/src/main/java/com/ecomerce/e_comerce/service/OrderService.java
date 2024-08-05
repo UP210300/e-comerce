@@ -31,7 +31,7 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO findById(Integer id)  throws OrderNotFoundException{
+    public OrderDTO findById(Integer id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + id + " not found"));
         return orderMapper.toOrderDTO(order);
@@ -43,7 +43,7 @@ public class OrderService {
         return orderMapper.toOrderDTO(savedOrder);
     }
 
-    public OrderDTO update(Integer id, OrderDTO orderDTO) throws OrderNotFoundException{
+    public OrderDTO update(Integer id, OrderDTO orderDTO) {
         Order existingOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + id + " not found"));
 
@@ -58,18 +58,31 @@ public class OrderService {
         return orderMapper.toOrderDTO(updatedOrder);
     }
 
-    public List<OrderDTO> findOrdersByCustomerId(Integer idCustomer) {
-        List<Order> orders = orderRepository.findByCustomerId(idCustomer);
+    public void deleteById(Integer id) {
+        if (!orderRepository.existsById(id)) {
+            throw new OrderNotFoundException("Order with ID " + id + " not found");
+        }
+        orderRepository.deleteById(id);
+    }
+
+    public List<OrderDTO> findAllSortedByDate() {
+        List<Order> orders = orderRepository.findAllOrderedByDate();
         return orders.stream()
                 .map(orderMapper::toOrderDTO)
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Integer id) throws OrderNotFoundException {
-        if (orderRepository.existsById(id)) {
-            orderRepository.deleteById(id);
-        } else {
-            throw new OrderNotFoundException("Order with ID " + id + " not found");
-        }
+    public List<OrderDTO> findAllSortedByCustomerId() {
+        List<Order> orders = orderRepository.findAllOrderedByCustomerId();
+        return orders.stream()
+                .map(orderMapper::toOrderDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDTO> findOrdersByCustomerId(Integer idCustomer) {
+        List<Order> orders = orderRepository.findByCustomerId(idCustomer);
+        return orders.stream()
+                .map(orderMapper::toOrderDTO)
+                .collect(Collectors.toList());
     }
 }
